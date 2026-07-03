@@ -29,7 +29,7 @@ const CONFIG = {
    urgente:true destaca em dourado no topo e vira banner na Home.           */
 const COMUNICADOS = [
   { data:'2026-10-01', hora:'09:00', titulo:'Bem-vindos à PneuStore Racing Experience',
-    texto:'Sua jornada em Las Vegas foi cuidadosamente planejada pela <b>CB00 Marketing — a agência de Cacá Bueno</b>, com operação e logística da VTurismo. Este app é a central oficial da viagem: programação, transfers, avisos e concierge — tudo em um só lugar. Qualquer necessidade, fale com o Concierge.',
+    texto:'Sua jornada em Las Vegas foi cuidadosamente planejada pela <b>CB00 Marketing</b>, com operação e logística da VTurismo. Este app é a central oficial da viagem: programação, transfers, avisos e concierge — tudo em um só lugar. Qualquer necessidade, fale com o Concierge.',
     urgente:false },
   { data:'2026-10-01', hora:'10:00', titulo:'Documentos em mãos',
     texto:'Lembre-se de viajar com <b>passaporte</b> (validade mínima de 6 meses) e <b>visto americano</b> válidos. Recomendamos foto dos documentos no celular e uma cópia na bagagem de mão.',
