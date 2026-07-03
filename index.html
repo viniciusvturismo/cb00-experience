@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>PneuStore Racing Experience · CB00 Marketing</title>
+<meta name="description" content="Central digital da viagem — NASCAR Las Vegas Weekend 2026 · by CB00 Marketing" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="theme-color" content="#0D0F12" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D0F12; --card:#15181D; --card2:#1B2027; --line:#262C35;
+    --txt:#F2F3F5; --mut:#98A1AC; --mut2:#6B7480;
+    --gold:#C9A45C; --gold-d:#8F7440; --gold-bg:#211C12;
+    --green:#4FB93C; --green-d:#2E7A22; --green-bg:#12200F;
+    --teal-l:#9EA6AB; --red:#D95044;
+    --nav-h:66px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.55;}
+  a{color:var(--gold);}
+  img{max-width:100%;}
+
+  /* ===== Topo ===== */
+  .top{position:sticky;top:0;z-index:100;background:rgba(13,15,18,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .top-in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;}
+  .top-logo{height:34px;width:auto;display:block;}
+  .top-tit{flex:1;min-width:0;}
+  .top-tit b{display:block;font-size:12.5px;font-weight:800;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .top-tit span{display:block;font-size:9.5px;color:var(--teal-l);font-weight:600;letter-spacing:1.1px;text-transform:uppercase;}
+  .sos{flex-shrink:0;background:var(--red);color:#fff;border:none;border-radius:22px;font-family:inherit;font-weight:800;font-size:11px;letter-spacing:1px;padding:8px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(217,80,68,.35);}
+
+  main{max-width:760px;margin:0 auto;padding:16px 16px calc(var(--nav-h) + 28px);}
+
+  /* ===== Cards & títulos ===== */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;}
+  .card h3{margin:0 0 8px;font-size:14.5px;font-weight:800;}
+  .sec-tit{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:800;margin:22px 0 12px;}
+  .sec-tit::before{content:"";width:20px;height:3px;border-radius:2px;background:var(--gold);display:inline-block;}
+  .sec-sub{color:var(--mut);font-size:12px;margin:-8px 0 14px;}
+  .mut{color:var(--mut);} .small{font-size:12px;}
+  .chip{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-d);}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:13px;padding:12px 16px;cursor:pointer;text-decoration:none;transition:.15s;}
+  .btn-gold{background:var(--gold);color:#17130a;}
+  .btn-gold:active{filter:brightness(1.1);}
+  .btn-line{background:transparent;color:var(--txt);border:1px solid var(--line);}
+  .btn-green{background:var(--green);color:#0c1a08;}
+  .btn-red{background:var(--red);color:#fff;}
+  .btn-wa{background:#25D366;color:#06301c;}
+  .btn-sm{padding:8px 12px;font-size:11.5px;border-radius:10px;}
+  .btn-block{display:flex;width:100%;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+  /* ===== Home ===== */
+  .hero{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);margin-bottom:14px;}
+  .hero img{width:100%;height:190px;object-fit:cover;display:block;filter:brightness(.55) saturate(.9);}
+  .hero .hero-txt{position:absolute;inset:0;padding:18px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,rgba(13,15,18,.15) 30%,rgba(13,15,18,.88));}
+  .hero h1{margin:0;font-size:21px;font-weight:800;line-height:1.2;}
+  .hero .sig{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal-l);font-weight:700;margin-bottom:6px;}
+  .hero .meta{font-size:12px;color:#d8dce1;margin-top:5px;}
+  .hero .meta b{color:var(--gold);}
+  .count{display:flex;gap:8px;margin:2px 0 12px;}
+  .count div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:center;padding:10px 4px;}
+  .count b{display:block;font-size:20px;font-weight:800;color:var(--gold);}
+  .count span{font-size:9.5px;color:var(--mut);letter-spacing:1px;text-transform:uppercase;}
+  .banner-urg{background:var(--gold-bg);border:1px solid var(--gold-d);border-radius:14px;padding:13px 15px;margin-bottom:12px;}
+  .banner-urg > b{color:var(--gold);display:block;font-size:12.5px;margin-bottom:3px;}
+  .banner-urg p{margin:0;font-size:12.5px;color:#e8e2d2;}
+  .banner-urg p b{color:var(--gold);}
+  .destaque{border-left:3px solid var(--gold);}
+  .next-act{display:flex;align-items:center;gap:12px;}
+  .next-act .na-h{flex-shrink:0;background:var(--gold);color:#17130a;font-weight:800;font-size:13px;border-radius:10px;padding:8px 10px;min-width:58px;text-align:center;}
+
+  /* ===== Agenda ===== */
+  .daytabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none;}
+  .daytabs::-webkit-scrollbar{display:none;}
+  .daytab{flex-shrink:0;background:var(--card);border:1px solid var(--line);color:var(--mut);border-radius:12px;padding:9px 14px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;}
+  .daytab.on{background:var(--gold);border-color:var(--gold);color:#17130a;}
+  .ag-item{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;}
+  .ag-hora{flex-shrink:0;width:66px;text-align:center;}
+  .ag-hora b{display:block;background:var(--card2);border:1px solid var(--line);color:var(--gold);border-radius:10px;padding:7px 4px;font-size:12px;}
+  .ag-body{flex:1;min-width:0;}
+  .ag-body h4{margin:0 0 3px;font-size:13.5px;font-weight:800;}
+  .ag-body .loc{font-size:12px;color:var(--mut);}
+  .ag-body .dress{font-size:11.5px;color:var(--gold);margin-top:5px;}
+  .ag-body .obs{font-size:12px;color:var(--mut);margin-top:5px;}
+  .ag-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+
+  /* ===== Comunicados ===== */
+  .com{border-left:3px solid var(--line);}
+  .com.urg{border-left-color:var(--gold);background:var(--gold-bg);border-color:var(--gold-d);}
+  .com .quando{font-size:10.5px;color:var(--mut2);letter-spacing:.5px;text-transform:uppercase;font-weight:700;}
+  .com.urg .quando{color:var(--gold);}
+  .com h4{margin:4px 0 5px;font-size:13.5px;}
+  .com p{margin:0;font-size:12.5px;color:#cfd4da;}
+
+  /* ===== Formulário ===== */
+  label{display:block;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--mut);margin:12px 0 5px;}
+  select,input,textarea{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--txt);font-family:inherit;font-size:13.5px;padding:11px 12px;}
+  textarea{min-height:84px;resize:vertical;}
+  select:focus,input:focus,textarea:focus{outline:none;border-color:var(--gold-d);}
+
+  /* ===== Listas de info ===== */
+  .kv{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12.5px;}
+  .kv:last-child{border-bottom:none;}
+  .kv b{flex-shrink:0;width:118px;color:var(--mut);font-weight:700;font-size:11px;letter-spacing:.4px;text-transform:uppercase;padding-top:1px;}
+  .kv span{flex:1;}
+  ul.dots{margin:6px 0 0;padding-left:18px;}
+  ul.dots li{margin-bottom:5px;font-size:12.5px;color:#cfd4da;}
+
+  details.acc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:800;font-size:13.5px;display:flex;align-items:center;gap:10px;}
+  details.acc summary::-webkit-details-marker{display:none;}
+  details.acc summary::after{content:"+";margin-left:auto;color:var(--gold);font-size:17px;font-weight:400;}
+  details.acc[open] summary::after{content:"–";}
+  details.acc .acc-body{padding:0 16px 14px;}
+  .g-item{padding:9px 0;border-bottom:1px solid var(--line);}
+  .g-item:last-child{border-bottom:none;}
+  .g-item b{display:block;font-size:12.5px;}
+  .g-item span{font-size:12px;color:var(--mut);}
+
+  /* ===== Race Day (PneuStore) ===== */
+  .ps .sec-tit::before{background:var(--green);}
+  .ps-hero{background:linear-gradient(135deg,#101810,#0c120a);border:1px solid var(--green-d);border-radius:18px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden;}
+  .ps-hero::after{content:"";position:absolute;top:0;right:0;width:88px;height:100%;opacity:.08;
+    background:repeating-conic-gradient(#fff 0% 25%, transparent 0% 50%) 0 0/22px 22px;}
+  .ps-brand{font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--green);margin-bottom:7px;}
+  .ps-hero h2{margin:0 0 3px;font-size:20px;font-weight:800;}
+  .ps-hero .mut{font-size:12px;}
+  .chip-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-d);}
+  .live{border:1px solid var(--green-d);background:var(--green-bg);}
+  .live-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .live-dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(79,185,60,.6);animation:pulse 1.8s infinite;}
+  @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(79,185,60,0);}100%{box-shadow:0 0 0 0 rgba(79,185,60,0);}}
+  .live-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  .live-grid div{background:rgba(13,15,18,.55);border:1px solid var(--green-d);border-radius:10px;padding:9px 10px;}
+  .live-grid b{display:block;font-size:9.5px;color:var(--green);letter-spacing:1px;text-transform:uppercase;font-weight:800;}
+  .live-grid span{font-size:13px;font-weight:700;}
+  .insight{display:flex;gap:12px;align-items:flex-start;}
+  .play{flex-shrink:0;width:40px;height:40px;border-radius:50%;border:none;background:var(--green);color:#0c1a08;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .play[disabled]{background:var(--card2);color:var(--mut2);border:1px solid var(--line);cursor:default;}
+  .rd-prog div{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px;}
+  .rd-prog div:last-child{border-bottom:none;}
+  .rd-prog b{flex-shrink:0;width:86px;color:var(--green);font-size:11.5px;padding-top:1px;}
+
+  /* ===== Meu carro (modal) ===== */
+  .cmodal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.72);display:none;align-items:flex-end;justify-content:center;}
+  .cmodal-bg.open{display:flex;}
+  .cmodal{background:var(--card);border:1px solid var(--line);border-bottom:none;border-radius:20px 20px 0 0;width:100%;max-width:760px;max-height:86vh;overflow:auto;padding:10px 16px calc(20px + env(safe-area-inset-bottom));}
+  .cmodal .grab{width:40px;height:4px;border-radius:3px;background:var(--line);margin:4px auto 12px;}
+  .cmodal h3{margin:0 0 2px;font-size:15px;font-weight:800;}
+  .cmodal .sub{color:var(--mut);font-size:11.5px;margin-bottom:12px;}
+  .carro{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px;background:var(--card2);}
+  .carro .c-img{position:relative;}
+  .carro img{width:100%;height:150px;object-fit:cover;display:block;background:#0a0c0e;}
+  .carro .ilus{position:absolute;right:8px;bottom:8px;background:rgba(13,15,18,.82);color:var(--mut);font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:4px 9px;border-radius:14px;border:1px solid var(--line);}
+  .carro .c-body{padding:13px 14px;}
+  .carro .c-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;}
+  .carro .c-top b{font-size:13px;}
+  .placa{flex-shrink:0;background:#fff;color:#111;font-weight:800;font-size:13px;letter-spacing:2px;padding:5px 12px;border-radius:7px;border:2px solid #2b2b2b;box-shadow:inset 0 0 0 1.5px #999;white-space:nowrap;font-family:'Montserrat',monospace;text-transform:uppercase;}
+  .placa.tbd{background:var(--card);color:var(--mut);border-color:var(--line);box-shadow:none;font-size:10.5px;letter-spacing:.5px;font-weight:700;text-transform:none;}
+
+  /* ===== Docs ===== */
+  .ck{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+  .ck:last-child{border-bottom:none;}
+  .ck input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--gold);flex-shrink:0;}
+  .ck b{display:block;font-size:13px;}
+  .ck span{font-size:12px;color:var(--mut);}
+  .disclaimer{background:var(--card2);border:1px dashed var(--gold-d);border-radius:12px;padding:13px 14px;font-size:11.5px;color:#cbc4b2;font-style:italic;}
+
+  /* ===== Emergência ===== */
+  .em{display:flex;gap:12px;align-items:flex-start;}
+  .em .em-ic{flex-shrink:0;width:42px;height:42px;border-radius:12px;background:var(--card2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:19px;}
+  .em h4{margin:0;font-size:13px;}
+  .em .val{font-size:14px;font-weight:800;color:var(--gold);margin:2px 0;}
+  .em p{margin:0;font-size:11.5px;color:var(--mut);}
+
+  /* ===== Bottom nav ===== */
+  nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:120;background:rgba(13,15,18,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);height:var(--nav-h);padding-bottom:env(safe-area-inset-bottom);}
+  .nav-in{max-width:760px;margin:0 auto;height:100%;display:flex;}
+  .nav-btn{flex:1;background:none;border:none;color:var(--mut2);font-family:inherit;font-size:9.5px;font-weight:700;letter-spacing:.3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;text-decoration:none;}
+  .nav-btn i{font-style:normal;font-size:19px;line-height:1;}
+  .nav-btn.on{color:var(--gold);}
+  .nav-btn.rd.on{color:var(--green);}
+
+  /* ===== Sheet (menu Mais) ===== */
+  .sheet-bg{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);display:none;}
+  .sheet-bg.open{display:block;}
+  .sheet{position:fixed;left:0;right:0;bottom:0;z-index:210;background:var(--card);border-radius:20px 20px 0 0;border:1px solid var(--line);border-bottom:none;max-width:760px;margin:0 auto;padding:10px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(105%);transition:.25s;}
+  .sheet.open{transform:translateY(0);}
+  .sheet .grab{width:40px;height:4px;border-radius:3px;background:var(--line);margin:4px auto 12px;}
+  .sheet a{display:flex;align-items:center;gap:13px;padding:13px 6px;color:var(--txt);text-decoration:none;font-weight:700;font-size:14px;border-bottom:1px solid var(--line);}
+  .sheet a:last-child{border-bottom:none;}
+  .sheet a i{font-style:normal;font-size:18px;width:26px;text-align:center;}
+
+  footer{border-top:1px solid var(--line);margin-top:26px;padding:20px 4px 6px;display:flex;align-items:center;gap:14px;}
+  footer img{height:30px;width:auto;}
+  footer p{margin:0;font-size:10.5px;color:var(--mut2);line-height:1.6;}
+  footer b{color:var(--teal-l);}
+
+  @media(min-width:700px){
+    .hero img{height:250px;}
+    .hero h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-in">
+    <img class="top-logo" src="cb00_branco.png" alt="CB00 Marketing" />
+    <div class="top-tit">
+      <b id="topProjeto"></b>
+      <span>CB00 Marketing · Experiência Oficial</span>
+    </div>
+    <button class="sos" onclick="go('emergencia')">SOS</button>
+  </div>
+</div>
+
+<main id="view"></main>
+
+<nav class="bottom">
+  <div class="nav-in" id="navIn"></div>
+</nav>
+
+<div class="sheet-bg" id="sheetBg" onclick="toggleSheet(false)"></div>
+<div class="sheet" id="sheet">
+  <div class="grab"></div>
+  <div id="sheetLinks"></div>
+</div>
+
+<div class="cmodal-bg" id="carModalBg" onclick="if(event.target===this)fecharCarro()">
+  <div class="cmodal" id="carModal"></div>
+</div>
+
+<audio id="player"></audio>
+
+<script src="data.js"></script>
+<script>
+/* ============================ util ============================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s??'');
+const mapsUrl = q => 'https://maps.google.com/?q=' + encodeURIComponent(q);
+const waUrl = (msg) => 'https://wa.me/' + CONFIG.whatsappConcierge + '?text=' + encodeURIComponent(msg);
+const fmtData = iso => { const [y,m,d]=iso.split('-'); return `${d}/${m}`; };
+
+function gcalHref(dia, it){
+  if(!it.cal) return '';
+  const s = new Date(`${dia.data}T${it.cal}:00-07:00`);
+  const e = new Date(s.getTime() + (it.dur||60)*60000);
+  const f = d => d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent(it.titulo + ' — ' + CONFIG.projeto)
+    + '&dates=' + f(s) + '/' + f(e)
+    + '&details=' + encodeURIComponent((it.obs||'') + ' · ' + CONFIG.assinatura)
+    + '&location=' + encodeURIComponent(it.local + (it.endereco ? ', ' + it.endereco : ''));
+}
+
+/* ============================ HOME ============================ */
+function vHome(){
+  const ini = new Date(CONFIG.inicioViagem), agora = new Date();
+  const diff = ini - agora;
+  let countHtml = '';
+  if(diff > 0){
+    const d = Math.floor(diff/864e5), h = Math.floor(diff%864e5/36e5), m = Math.floor(diff%36e5/6e4);
+    countHtml = `<div class="count">
+      <div><b>${d}</b><span>dias</span></div>
+      <div><b>${h}</b><span>horas</span></div>
+      <div><b>${m}</b><span>min</span></div>
+    </div>`;
+  }
+
+  // comunicado urgente mais recente vira banner
+  const urg = [...COMUNICADOS].filter(c=>c.urgente).sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora))[0];
+
+  // destaque do dia + próxima atividade
+  const hojeIso = agora.toISOString().slice(0,10);
+  const diaHoje = AGENDA.find(d=>d.data===hojeIso) || AGENDA[0];
+  let prox = null, proxDia = null;
+  outer: for(const d of AGENDA){ for(const it of d.itens){
+    if(!it.cal) continue;
+    if(new Date(`${d.data}T${it.cal}:00-07:00`) > agora){ prox = it; proxDia = d; break outer; }
+  }}
+
+  return `
+  <div class="hero">
+    <img src="img/vegas_night.jpg" alt="Las Vegas" onerror="this.style.display='none'">
+    <div class="hero-txt">
+      <div class="sig">${CONFIG.assinatura}</div>
+      <h1>${CONFIG.projeto}</h1>
+      <div class="meta">${CONFIG.subtitulo} · <b>${CONFIG.cidade}</b> · ${CONFIG.periodo}</div>
+    </div>
+  </div>
+  ${countHtml}
+  ${urg ? `<div class="banner-urg" onclick="go('comunicados')"><b>📣 ${esc(urg.titulo)}</b><p>${urg.texto}</p></div>` : ''}
+
+  <div class="card">
+    <h3>Bem-vindo à PneuStore Racing Experience 🏁</h3>
+    <p class="mut small" style="margin:0">Sua jornada em Las Vegas foi cuidadosamente planejada pela <b style="color:var(--teal-l)">CB00 Marketing — a agência de Cacá Bueno</b>, com operação e logística da VTurismo. Este app é a sua central da viagem: programação, avisos, transfers e concierge — sempre à mão.</p>
+  </div>
+
+  ${prox ? `<div class="card destaque">
+    <h3>Próxima atividade</h3>
+    <div class="next-act">
+      <div class="na-h">${esc(prox.hora)}</div>
+      <div>
+        <b style="font-size:13.5px">${esc(prox.titulo)}</b>
+        <div class="mut small">${esc(proxDia.rotulo)} · 📍 ${esc(prox.local)}</div>
+      </div>
+    </div>
+  </div>` : ''}
+
+  <div class="card">
+    <h3>Destaque do dia — ${esc(diaHoje.rotulo)}</h3>
+    <p class="mut small" style="margin:0 0 4px"><b style="color:var(--gold)">${esc(diaHoje.tema)}</b></p>
+    ${diaHoje.itens.map(i=>`<div class="small" style="padding:4px 0;border-bottom:1px solid var(--line)"><b style="color:var(--gold)">${esc(i.hora)}</b> &nbsp;${esc(i.titulo)}</div>`).join('')}
+  </div>
+
+  <div class="grid2" style="margin-top:14px">
+    <a class="btn btn-wa" href="${waUrl('Olá! Sou do grupo ' + CONFIG.projeto + ' e preciso de apoio do concierge.')}" target="_blank" rel="noopener">💬 Falar com o Concierge</a>
+    <button class="btn btn-red" onclick="go('emergencia')">🚨 Emergência</button>
+    <button class="btn btn-gold" onclick="go('agenda')">📅 Programação</button>
+    <button class="btn btn-line" onclick="go('raceday')">🏁 Race Day</button>
+  </div>`;
+}
+
+/* ============================ AGENDA ============================ */
+let diaSel = 0;
+function vAgenda(){
+  const hojeIso = new Date().toISOString().slice(0,10);
+  const idxHoje = AGENDA.findIndex(d=>d.data===hojeIso);
+  if(idxHoje>=0 && !vAgenda._touched) diaSel = idxHoje;
+  const d = AGENDA[diaSel];
+  return `
+  <div class="sec-tit">Minha Programação</div>
+  <p class="sec-sub">Cronograma completo da experiência — toque em um dia para navegar.</p>
+  <div class="daytabs">${AGENDA.map((x,i)=>
+    `<button class="daytab ${i===diaSel?'on':''}" onclick="selDia(${i})">${esc(x.rotulo)}</button>`).join('')}</div>
+  <div class="chip" style="margin-bottom:12px">${esc(d.tema)}</div>
+  ${d.itens.map(it=>`
+    <div class="ag-item">
+      <div class="ag-hora"><b>${esc(it.hora)}</b></div>
+      <div class="ag-body">
+        <h4>${esc(it.titulo)}</h4>
+        <div class="loc">📍 ${esc(it.local)}${it.endereco?`<br><span class="small" style="color:var(--mut2)">${esc(it.endereco)}</span>`:''}</div>
+        ${it.dress && it.dress!=='—' ? `<div class="dress">👔 Dress code: ${esc(it.dress)}</div>`:''}
+        ${it.obs ? `<div class="obs">${it.obs}</div>`:''}
+        <div class="ag-actions">
+          ${it.endereco ? `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${mapsUrl(it.local+', '+it.endereco)}">🗺 Ver no mapa</a>`:''}
+          ${gcalHref(d,it) ? `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${gcalHref(d,it)}">📅 Adicionar ao calendário</a>`:''}
+        </div>
+      </div>
+    </div>`).join('')}`;
+}
+function selDia(i){ diaSel=i; vAgenda._touched=true; render(); }
+
+/* ============================ COMUNICADOS ============================ */
+function vComunicados(){
+  const list = [...COMUNICADOS].sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora));
+  return `
+  <div class="sec-tit">Comunicados</div>
+  <p class="sec-sub">Avisos oficiais da equipe VTurismo — os mais recentes primeiro.</p>
+  ${list.length? list.map(c=>`
+    <div class="card com ${c.urgente?'urg':''}">
+      <div class="quando">${c.urgente?'⚠️ URGENTE · ':''}${fmtData(c.data)} · ${esc(c.hora)}</div>
+      <h4>${esc(c.titulo)}</h4>
+      <p>${c.texto}</p>
+    </div>`).join('') : '<div class="card mut">Nenhum comunicado por enquanto.</div>'}`;
+}
+
+/* ============================ CONCIERGE ============================ */
+function vConcierge(){
+  return `
+  <div class="sec-tit">Concierge</div>
+  <p class="sec-sub">A equipe VTurismo acompanha o grupo durante toda a experiência.</p>
+  <a class="btn btn-wa btn-block" target="_blank" rel="noopener" href="${waUrl('Olá! Sou do grupo ' + CONFIG.projeto + ' e preciso de apoio do concierge.')}">💬 WhatsApp Concierge VTurismo</a>
+  <div style="height:10px"></div>
+  <a class="btn btn-line btn-block" href="tel:${CONFIG.telefoneEmergenciaVT.replace(/[^+\d]/g,'')}">📞 Telefone de emergência VTurismo · ${CONFIG.telefoneEmergenciaVT}</a>
+
+  <div class="card" style="margin-top:14px">
+    <h3>👤 Coordenador do grupo</h3>
+    <p class="small" style="margin:0"><b>${esc(CONFIG.coordenador.nome)}</b> · ${esc(CONFIG.coordenador.fone)}<br><span class="mut">${esc(CONFIG.coordenador.obs)}</span></p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Solicitação rápida</h3>
+    <p class="mut small" style="margin:0">Preencha e envie — a mensagem abre pronta no WhatsApp do concierge.</p>
+    <label>Categoria</label>
+    <select id="fCat">
+      <option>Transporte</option><option>Hotel</option><option>Restaurante</option>
+      <option>Emergência</option><option>Dúvida sobre programação</option><option>Solicitação especial</option>
+    </select>
+    <label>Seu nome</label>
+    <input id="fNome" placeholder="Nome e sobrenome">
+    <label>O que você precisa?</label>
+    <textarea id="fMsg" placeholder="Descreva sua solicitação…"></textarea>
+    <div style="height:12px"></div>
+    <button class="btn btn-gold btn-block" onclick="enviarForm()">Enviar ao Concierge →</button>
+  </div>`;
+}
+function enviarForm(){
+  const cat=$('#fCat').value, nome=$('#fNome').value.trim(), msg=$('#fMsg').value.trim();
+  if(!msg){ $('#fMsg').focus(); return; }
+  const texto = `[${CONFIG.projeto}] Solicitação — ${cat}\nNome: ${nome||'(não informado)'}\n${msg}`;
+  window.open(waUrl(texto), '_blank');
+}
+
+/* ============================ HOSPEDAGEM ============================ */
+function vHospedagem(){
+  const h = HOTEL;
+  return `
+  <div class="sec-tit">Hospedagem</div>
+  <div class="hero" style="margin-bottom:12px">
+    <img src="${h.foto}" alt="${esc(h.nome)}" onerror="this.style.display='none'">
+    <div class="hero-txt"><h1 style="font-size:19px">${esc(h.nome)}</h1><div class="meta">🛏 Base do grupo — 3 noites</div></div>
+  </div>
+  <div class="card">
+    <div class="kv"><b>Endereço</b><span>${esc(h.endereco)}</span></div>
+    <div class="kv"><b>Telefone</b><span><a href="tel:${h.fone.replace(/[^+\d]/g,'')}">${esc(h.fone)}</a></span></div>
+    <div class="kv"><b>Check-in</b><span>${esc(h.checkin)}</span></div>
+    <div class="kv"><b>Check-out</b><span>${esc(h.checkout)}</span></div>
+    <div class="kv"><b>Wi-Fi</b><span>${esc(h.wifi)}</span></div>
+    <div class="kv"><b>Café da manhã</b><span>${esc(h.cafe)}</span></div>
+    <div class="kv"><b>Ponto de encontro</b><span>${esc(h.encontro)}</span></div>
+  </div>
+  <a class="btn btn-line btn-block" target="_blank" rel="noopener" href="${mapsUrl(h.nome+', '+h.endereco)}">🗺 Ver no mapa</a>
+  <div class="card" style="margin-top:12px">
+    <h3>Informações úteis</h3>
+    <ul class="dots">${h.uteis.map(u=>`<li>${u}</li>`).join('')}</ul>
+  </div>`;
+}
+
+/* ============================ TRANSPORTES ============================ */
+function vTransportes(){
+  return `
+  <div class="sec-tit">Transportes</div>
+  <p class="sec-sub">Todos os deslocamentos são em veículos executivos, com acompanhamento VTurismo.</p>
+  ${TRANSPORTES.map((t,i)=>`
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+        <h3 style="margin:0">🚐 ${esc(t.rotulo)}</h3><span class="chip">${esc(t.data)}</span>
+      </div>
+      <div style="height:8px"></div>
+      <div class="kv"><b>Encontro</b><span>${esc(t.encontro)}</span></div>
+      <div class="kv"><b>Saída</b><span>${esc(t.saida)}</span></div>
+      <div class="kv"><b>Veículo</b><span>${esc(t.veiculo)}</span></div>
+      <div class="kv"><b>Responsável</b><span>${esc(t.resp)}</span></div>
+      ${t.obs?`<div class="kv"><b>Observações</b><span>${esc(t.obs)}</span></div>`:''}
+      ${t.carros && t.carros.length?`<div style="margin-top:12px"><button class="btn btn-gold btn-block" onclick="verCarro(${i})">🚘 Ver meu carro</button></div>`:''}
+    </div>`).join('')}`;
+}
+function verCarro(i){
+  const t = TRANSPORTES[i]; if(!t || !t.carros) return;
+  const tbd = v => !v || /a confirmar/i.test(v);
+  document.getElementById('carModal').innerHTML = `
+    <div class="grab"></div>
+    <h3>🚘 Seu carro — ${esc(t.rotulo)}</h3>
+    <div class="sub">${esc(t.data)} · saída: ${esc(t.saida)}</div>
+    ${t.carros.map(c=>`
+      <div class="carro">
+        <div class="c-img">
+          <img src="${c.foto}" alt="${esc(c.modelo)}" onerror="this.parentNode.style.display='none'">
+          ${c.fotoReal?'':'<span class="ilus">foto ilustrativa</span>'}
+        </div>
+        <div class="c-body">
+          <div class="c-top">
+            <b>${c.apelido?esc(c.apelido)+' · ':''}${esc(c.modelo)}</b>
+            <span class="placa ${tbd(c.placa)?'tbd':''}">${tbd(c.placa)?'placa a confirmar':esc(c.placa)}</span>
+          </div>
+          <div class="kv"><b>Onde está</b><span>${esc(c.local)}</span></div>
+          <div class="kv"><b>Motorista</b><span>${esc(c.motorista)}</span></div>
+        </div>
+      </div>`).join('')}
+    <p class="small mut" style="margin:2px 0 12px">Placa, motorista e foto do veículo do dia são confirmados pela equipe VTurismo pouco antes de cada transfer — mesmo assim, haverá sempre alguém da equipe esperando por você.</p>
+    <button class="btn btn-line btn-block" onclick="fecharCarro()">Fechar</button>`;
+  document.getElementById('carModalBg').classList.add('open');
+}
+function fecharCarro(){ document.getElementById('carModalBg').classList.remove('open'); }
+
+/* ============================ GUIA ============================ */
+function vGuia(){
+  return `
+  <div class="sec-tit">Guia de Las Vegas</div>
+  <p class="sec-sub">Sugestões curadas pela VTurismo para os momentos livres.</p>
+  ${GUIA.map((g,i)=>`
+    <details class="acc" ${i===0?'open':''}>
+      <summary><i style="font-style:normal">${g.icone}</i> ${esc(g.titulo)}</summary>
+      <div class="acc-body">
+        ${g.itens.map(([nome,desc])=>`<div class="g-item"><b>${esc(nome)}</b><span>${esc(desc)}</span></div>`).join('')}
+      </div>
+    </details>`).join('')}`;
+}
+
+/* ============================ RACE DAY ============================ */
+function vRaceday(){
+  const r = RACEDAY, L = RACE_LIVE;
+  return `<div class="ps">
+  <div class="ps-hero">
+    <div class="ps-brand">Race Day &nbsp;|&nbsp; Presented by <span style="color:#fff">Pneu</span>Store</div>
+    <h2>${esc(r.corrida)} 🏁</h2>
+    <div class="mut">${esc(r.serie)}</div>
+    <div class="mut" style="margin-top:8px">📅 ${esc(r.data)}<br>📍 ${esc(r.local)}<br>🕑 ${esc(r.horario)}</div>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn btn-green btn-sm" target="_blank" rel="noopener" href="${mapsUrl(r.local+', '+r.endereco)}">🗺 Como chegar</a>
+      <button class="btn btn-line btn-sm" onclick="go('transportes')">🚐 Race Day Transfers</button>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--green-d)">
+    <h3 style="color:var(--green)">📣 Mensagem PneuStore</h3>
+    <p class="small" style="margin:0;color:#d5dbd2">${esc(r.comunicadoPneuStore)}</p>
+  </div>
+
+  <div class="card">
+    <h3>O Speedway</h3>
+    <p class="mut small" style="margin:0">${esc(r.infoSpeedway)}</p>
+  </div>
+
+  <div class="sec-tit">Programação Race Day</div>
+  <div class="card rd-prog">
+    ${r.programacao.map(([h,t])=>`<div><b>${esc(h)}</b><span>${esc(t)}</span></div>`).join('')}
+  </div>
+
+  ${L.ativo?`
+  <div class="sec-tit">Race Day Live</div>
+  <div class="card live">
+    <div class="live-head"><span class="live-dot"></span><b style="font-size:13px">${esc(L.status)}</b></div>
+    <div class="live-grid">
+      <div><b>Volta</b><span>${esc(L.volta)}</span></div>
+      <div><b>Líder</b><span>${esc(L.lider)}</span></div>
+      <div><b>Bandeira</b><span>${esc(L.flag)}</span></div>
+      <div><b>Atualização</b><span class="small">${esc(L.atualizadoEm)}</span></div>
+    </div>
+    ${L.top5.length?`<div style="margin-top:10px"><b class="small" style="color:var(--green)">TOP 5</b><ol style="margin:6px 0 0;padding-left:20px;font-size:12.5px">${L.top5.map(p=>`<li>${esc(p)}</li>`).join('')}</ol></div>`:''}
+    ${L.mudancas.length?`<div style="margin-top:10px">${L.mudancas.map(m=>`<div class="small" style="padding:5px 0;border-top:1px solid var(--green-d)"><b style="color:var(--green)">${esc(m.hora)}</b> ${esc(m.texto)}</div>`).join('')}</div>`:''}
+    <p class="small" style="margin:10px 0 0;color:var(--mut2)">Painel atualizado pela equipe VTurismo durante a corrida${'' /* futuro: feed oficial NASCAR */}.</p>
+  </div>`:''}
+
+  <div class="sec-tit">Race Insights</div>
+  <p class="sec-sub">Conteúdos exclusivos para entender a corrida como um insider.</p>
+  ${INSIGHTS.map((x,i)=>`
+    <div class="card insight">
+      <button class="play" ${x.src?'':'disabled'} onclick="playInsight(${i},this)">${x.tipo==='video'?'🎬':'▶'}</button>
+      <div>
+        <b style="font-size:13px">${esc(x.titulo)}</b>
+        <div class="mut small">${x.desc}</div>
+        <div class="small" style="color:var(--green);margin-top:3px">${x.src?'· publicado às '+esc(x.hora):'⏳ '+esc(x.hora)}</div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+function playInsight(i, btn){
+  const x = INSIGHTS[i]; if(!x.src) return;
+  const p = $('#player');
+  if(!p.paused && p.dataset.i==i){ p.pause(); btn.textContent='▶'; return; }
+  p.src = x.src; p.dataset.i = i; p.play();
+  document.querySelectorAll('.play').forEach(b=>{ if(!b.disabled) b.textContent='▶'; });
+  btn.textContent = '⏸';
+  p.onended = ()=> btn.textContent = '▶';
+}
+
+/* ============================ DOCS ============================ */
+function vDocs(){
+  const done = JSON.parse(localStorage.getItem('ck_docs')||'{}');
+  return `
+  <div class="sec-tit">Documentos & Checklist</div>
+  <p class="sec-sub">Marque o que já está pronto — o app lembra suas marcações neste aparelho.</p>
+  <div class="card">
+    ${DOCS.checklist.map(([t,d],i)=>`
+      <label class="ck" style="margin:0">
+        <input type="checkbox" ${done[i]?'checked':''} onchange="ckDoc(${i},this.checked)">
+        <span><b>${esc(t)}</b><span>${esc(d)}</span></span>
+      </label>`).join('')}
+  </div>
+  <div class="disclaimer">${esc(DOCS.disclaimer)}</div>`;
+}
+function ckDoc(i,v){
+  const done = JSON.parse(localStorage.getItem('ck_docs')||'{}');
+  done[i]=v; localStorage.setItem('ck_docs', JSON.stringify(done));
+}
+
+/* ============================ EMERGÊNCIA ============================ */
+function vEmergencia(){
+  return `
+  <div class="sec-tit" style="--gold:var(--red)">Emergência</div>
+  <p class="sec-sub">Contatos essenciais — disponíveis 24h durante a experiência.</p>
+  ${EMERGENCIA.map(e=>`
+    <div class="card em">
+      <div class="em-ic">${e.icone}</div>
+      <div style="flex:1">
+        <h4>${esc(e.titulo)}</h4>
+        <div class="val">${esc(e.valor)}</div>
+        <p>${esc(e.obs)}</p>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          ${e.tel?`<a class="btn btn-red btn-sm" href="tel:${e.tel}">📞 Ligar</a>`:''}
+          ${e.wa?`<a class="btn btn-wa btn-sm" target="_blank" rel="noopener" href="${waUrl('🚨 EMERGÊNCIA — grupo '+CONFIG.projeto+': ')}">💬 WhatsApp</a>`:''}
+          ${e.mapa?`<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${mapsUrl(e.mapa)}">🗺 Mapa</a>`:''}
+        </div>
+      </div>
+    </div>`).join('')}
+  <button class="btn btn-line btn-block" onclick="minhaLoc(this)">📍 Compartilhar minha localização atual</button>
+  <p class="small mut" style="text-align:center;margin-top:8px">Abre sua posição no mapa para enviar à equipe.</p>`;
+}
+function minhaLoc(btn){
+  if(!navigator.geolocation){ btn.textContent='Localização indisponível neste aparelho'; return; }
+  btn.textContent = '📡 Obtendo localização…';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const {latitude:la, longitude:lo} = pos.coords;
+    const link = `https://maps.google.com/?q=${la.toFixed(6)},${lo.toFixed(6)}`;
+    window.open(waUrl(`🚨 Minha localização atual (grupo ${CONFIG.projeto}): ${link}`), '_blank');
+    btn.textContent = '📍 Compartilhar minha localização atual';
+  }, ()=>{ btn.textContent = '⚠️ Não foi possível obter a localização — verifique a permissão'; });
+}
+
+/* ============================ router & nav ============================ */
+const ROTAS = {
+  home:      { f:vHome },
+  agenda:    { f:vAgenda,       mod:'agenda' },
+  comunicados:{ f:vComunicados, mod:'comunicados' },
+  concierge: { f:vConcierge,    mod:'concierge' },
+  hospedagem:{ f:vHospedagem,   mod:'hospedagem' },
+  transportes:{ f:vTransportes, mod:'transportes' },
+  guia:      { f:vGuia,         mod:'guia' },
+  raceday:   { f:vRaceday,      mod:'raceday' },
+  docs:      { f:vDocs,         mod:'docs' },
+  emergencia:{ f:vEmergencia,   mod:'emergencia' },
+};
+function rotaAtual(){
+  const h = (location.hash||'#home').slice(1);
+  const r = ROTAS[h] ? h : 'home';
+  return (ROTAS[r].mod && CONFIG.modulos[ROTAS[r].mod]===false) ? 'home' : r;
+}
+function go(r){ if(location.hash === '#'+r) render(); else location.hash = r; toggleSheet(false); }
+function render(){
+  const r = rotaAtual();
+  $('#view').innerHTML = ROTAS[r].f() + footerHtml();
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('on', b.dataset.r===r || (b.dataset.r==='mais' && !['home','agenda','raceday','concierge'].includes(r))));
+  window.scrollTo({top:0});
+}
+function footerHtml(){
+  return `<footer>
+    <img src="cb00_branco.png" alt="CB00 Marketing">
+    <p><b>CB00 MARKETING</b> · ${CONFIG.assinatura}<br>
+    Operação e logística: VTurismo — agência parceira · 📞 WhatsApp (21) 4145-2310</p>
+  </footer>`;
+}
+function toggleSheet(open){
+  $('#sheet').classList.toggle('open', open);
+  $('#sheetBg').classList.toggle('open', open);
+}
+
+/* montar nav + sheet conforme módulos */
+(function init(){
+  document.title = CONFIG.projeto + ' · CB00 Marketing';
+  $('#topProjeto').textContent = CONFIG.projeto;
+  const M = CONFIG.modulos;
+  $('#navIn').innerHTML = `
+    <button class="nav-btn" data-r="home" onclick="go('home')"><i>🏠</i>Início</button>
+    ${M.agenda?`<button class="nav-btn" data-r="agenda" onclick="go('agenda')"><i>📅</i>Agenda</button>`:''}
+    ${M.raceday?`<button class="nav-btn rd" data-r="raceday" onclick="go('raceday')"><i>🏁</i>Race Day</button>`:''}
+    ${M.concierge?`<button class="nav-btn" data-r="concierge" onclick="go('concierge')"><i>💬</i>Concierge</button>`:''}
+    <button class="nav-btn" data-r="mais" onclick="toggleSheet(true)"><i>☰</i>Mais</button>`;
+  const links = [
+    ['comunicados','📣','Comunicados'], ['hospedagem','🏨','Hospedagem'], ['transportes','🚐','Transportes'],
+    ['guia','🗺','Guia de Las Vegas'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
+  ].filter(([r])=>M[r]!==false);
+  $('#sheetLinks').innerHTML = links.map(([r,ic,tx])=>`<a href="#${r}" onclick="toggleSheet(false)"><i>${ic}</i>${tx}</a>`).join('');
+  window.addEventListener('hashchange', render);
+  render();
+  setInterval(()=>{ if(rotaAtual()==='home') render(); }, 60000); // contador regressivo
+})();
+</script>
+</body>
+</html>
