@@ -1,5 +1,5 @@
 /* ============================================================================
-   CB00 MARKETING · PneuStore Racing Experience (operação: VTurismo)
+   CB00 MARKETING · SpeedMax Racing Experience (operação: VTurismo)
    ---------------------------------------------------------------------------
    ESTE É O ARQUIVO DE CONTEÚDO. A equipe VTurismo atualiza o app editando
    apenas este arquivo (e fazendo git push). Nada aqui exige mexer no index.html.
@@ -10,7 +10,7 @@
    ========================================================================== */
 
 const CONFIG = {
-  projeto: 'PneuStore Racing Experience',
+  projeto: 'SpeedMax Racing Experience',
   subtitulo: 'NASCAR Las Vegas Weekend 2026',
   assinatura: 'Experiência oficial CB00 Marketing',
   cidade: 'Las Vegas',
@@ -19,7 +19,7 @@ const CONFIG = {
   whatsappConcierge: '552141452310',            // WhatsApp VTurismo (só números, com DDI)
   telefoneEmergenciaVT: '+55 21 4145-2310',
   coordenador: { nome: 'Coordenação VTurismo', fone: '+55 21 4145-2310', obs: 'Coordenador do grupo — nome e celular local serão confirmados antes do embarque.' },
-  responsavelPneuStore: { nome: 'Responsável PneuStore', fone: 'a confirmar', obs: 'Contato institucional PneuStore durante a viagem.' },
+  responsavelSpeedMax: { nome: 'Responsável SpeedMax', fone: 'a confirmar', obs: 'Contato institucional SpeedMax durante a viagem.' },
   // mostrar/esconder módulos do app:
   modulos: { agenda:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true },
 };
@@ -28,7 +28,7 @@ const CONFIG = {
    Mais recente primeiro é indiferente — o app ordena por data/hora (desc).
    urgente:true destaca em dourado no topo e vira banner na Home.           */
 const COMUNICADOS = [
-  { data:'2026-10-01', hora:'09:00', titulo:'Bem-vindos à PneuStore Racing Experience',
+  { data:'2026-10-01', hora:'09:00', titulo:'Bem-vindos à SpeedMax Racing Experience',
     texto:'Sua jornada em Las Vegas foi cuidadosamente planejada pela <b>CB00 Marketing</b>, com operação e logística da VTurismo. Este app é a central oficial da viagem: programação, transfers, avisos e concierge — tudo em um só lugar. Qualquer necessidade, fale com o Concierge.',
     urgente:false },
   { data:'2026-10-01', hora:'10:00', titulo:'Documentos em mãos',
@@ -67,9 +67,9 @@ const AGENDA = [
     { hora:'10:00', titulo:'Saída para o Speedway 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:00' },
     { hora:'11:00', titulo:'NASCAR Race Day — South Point 400 🏁', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Playoffs da NASCAR Cup Series · camarote PneuStore · horário oficial da largada a confirmar pela NASCAR. Veja a área Race Day do app.', dur:420, cal:'11:00' },
+      dress:'Casual', obs:'Playoffs da NASCAR Cup Series · camarote SpeedMax · horário oficial da largada a confirmar pela NASCAR. Veja a área Race Day do app.', dur:420, cal:'11:00' },
     { hora:'12:00', titulo:'Almoço Race Day — incluído 🍽', local:'Las Vegas Motor Speedway (hospitality)', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Almoço incluído no Speedway antes da largada — formato alinhado à estrutura do camarote PneuStore.', dur:90, cal:'12:00' },
+      dress:'Casual', obs:'Almoço incluído no Speedway antes da largada — formato alinhado à estrutura do camarote SpeedMax.', dur:90, cal:'12:00' },
     { hora:'20:30', titulo:'Beyond the Finish Line 🍷', local:'Barry’s Downtown Prime — Circa Resort', endereco:'8 Fremont St, Las Vegas, NV 89101',
       dress:'Esporte fino', obs:'Jantar de encerramento do Race Day, celebrando o dia no Speedway.', dur:120, cal:'20:30' },
     { hora:'22:30', titulo:'Hidden Vegas Experience 🍸', local:'The Laundry Room (speakeasy) — Commonwealth', endereco:'525 E Fremont St, Las Vegas, NV 89101',
@@ -83,7 +83,7 @@ const AGENDA = [
     { hora:'conforme voos', titulo:'Transfer Out 🚐 ✈️', local:'Hotel → Harry Reid International Airport (LAS)', endereco:'5757 Wayne Newton Blvd, Las Vegas, NV 89119',
       dress:'—', obs:'Transfer executivo com apoio da equipe até o check-in. Horário definido conforme os voos do grupo.', dur:60, cal:'13:00' },
     { hora:'—', titulo:'Retorno ao Brasil 🇧🇷', local:'—', endereco:'',
-      dress:'—', obs:'Fim da PneuStore Racing Experience. Até a próxima! 🏁', dur:0, cal:'' },
+      dress:'—', obs:'Fim da SpeedMax Racing Experience. Até a próxima! 🏁', dur:0, cal:'' },
   ]},
 ];
 
@@ -191,7 +191,7 @@ const GUIA = [
     ['Cuidados básicos','Hidrate-se (clima desértico) · cassinos e bares: apenas 21+, com documento · guarde o passaporte no cofre e circule com uma foto dele.'] ]},
 ];
 
-/* ==================== RACE DAY | Presented by PneuStore ================== */
+/* ==================== RACE DAY | Presented by SpeedMax ================== */
 const RACEDAY = {
   corrida:'South Point 400',
   serie:'NASCAR Cup Series · Playoffs — Round of 12',
@@ -202,13 +202,13 @@ const RACEDAY = {
   infoSpeedway:'Tri-oval de 1,5 milha (2,4 km) ao norte da Strip — 267 voltas · 400,5 milhas. Um dos palcos dos Playoffs da Cup Series.',
   programacao:[
     ['10h00','Saída do hotel — Race Day Transfer (lobby 09h45, saída pontual)'],
-    ['11h00','Chegada ao Speedway · acesso ao camarote PneuStore'],
+    ['11h00','Chegada ao Speedway · acesso ao camarote SpeedMax'],
     ['—','Camarote: hospitalidade, orientações da equipe e telões — documentos/credenciais sempre com você'],
     ['pós-corrida','Ponto de encontro: portão do camarote — a equipe VTurismo conduz o grupo às vans'],
     ['20h30','Beyond the Finish Line — jantar no Barry’s Downtown Prime (Circa)'],
     ['22h30','Hidden Vegas Experience — The Laundry Room (speakeasy)'],
   ],
-  comunicadoPneuStore:'Bem-vindos ao Race Day. A PneuStore preparou este dia para que vocês vivam de perto a energia da NASCAR em Las Vegas. Boa corrida! 🏁',
+  comunicadoSpeedMax:'Bem-vindos ao Race Day. A SpeedMax preparou este dia para que vocês vivam de perto a energia da NASCAR em Las Vegas. Boa corrida! 🏁',
 };
 
 /* RACE DAY LIVE — atualização MANUAL pela equipe (até integração com API NASCAR).
@@ -256,5 +256,5 @@ const EMERGENCIA = [
   { icone:'🏨', titulo:'Hotel — Fontainebleau Las Vegas', valor:'+1 (702) 678-5000', tel:'+17026785000', obs:'Recepção 24h · 2777 Las Vegas Blvd S.' },
   { icone:'🛡', titulo:'Seguro viagem', valor:'apólice a confirmar', tel:'', obs:'Número da apólice e central 24h serão enviados no checklist documental.' },
   { icone:'🏥', titulo:'Hospital de referência', valor:'Sunrise Hospital & Medical Center', tel:'+17027318000', obs:'3186 S Maryland Pkwy — emergência 24h (~10 min do hotel).', mapa:'Sunrise Hospital & Medical Center, 3186 S Maryland Pkwy, Las Vegas' },
-  { icone:'🟩', titulo:'Responsável PneuStore', valor:'a confirmar', tel:'', obs:'Contato institucional PneuStore durante a viagem.' },
+  { icone:'🟩', titulo:'Responsável SpeedMax', valor:'a confirmar', tel:'', obs:'Contato institucional SpeedMax durante a viagem.' },
 ];

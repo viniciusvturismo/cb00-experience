@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>PneuStore Racing Experience · CB00 Marketing</title>
+<title>SpeedMax Racing Experience · CB00 Marketing</title>
 <meta name="description" content="Central digital da viagem — NASCAR Las Vegas Weekend 2026 · by CB00 Marketing" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <meta name="theme-color" content="#0D0F12" />
@@ -13,9 +13,9 @@
   :root{
     --bg:#0D0F12; --card:#15181D; --card2:#1B2027; --line:#262C35;
     --txt:#F2F3F5; --mut:#98A1AC; --mut2:#6B7480;
-    --gold:#C9A45C; --gold-d:#8F7440; --gold-bg:#211C12;
-    --green:#4FB93C; --green-d:#2E7A22; --green-bg:#12200F;
-    --teal-l:#9EA6AB; --red:#D95044;
+    --gold:#B07BEE; --gold-d:#4E008E; --gold-bg:#190F2B;
+    --green:#FF6633; --green-d:#B8451E; --green-bg:#241207;
+    --teal-l:#ADA2C4; --red:#E5533F;
     --nav-h:66px;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
@@ -45,10 +45,10 @@
   .chip{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-d);}
 
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:13px;padding:12px 16px;cursor:pointer;text-decoration:none;transition:.15s;}
-  .btn-gold{background:var(--gold);color:#17130a;}
-  .btn-gold:active{filter:brightness(1.1);}
+  .btn-gold{background:var(--gold-d);color:#fff;}
+  .btn-gold:active{filter:brightness(1.15);}
   .btn-line{background:transparent;color:var(--txt);border:1px solid var(--line);}
-  .btn-green{background:var(--green);color:#0c1a08;}
+  .btn-green{background:var(--green);color:#2a1206;}
   .btn-red{background:var(--red);color:#fff;}
   .btn-wa{background:#25D366;color:#06301c;}
   .btn-sm{padding:8px 12px;font-size:11.5px;border-radius:10px;}
@@ -57,8 +57,8 @@
 
   /* ===== Home ===== */
   .hero{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);margin-bottom:14px;}
-  .hero img{width:100%;height:190px;object-fit:cover;display:block;filter:brightness(.55) saturate(.9);}
-  .hero .hero-txt{position:absolute;inset:0;padding:18px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,rgba(13,15,18,.15) 30%,rgba(13,15,18,.88));}
+  .hero img{width:100%;height:190px;object-fit:cover;display:block;filter:brightness(.42) saturate(.9);}
+  .hero .hero-txt{position:absolute;inset:0;padding:18px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,rgba(45,8,92,.82) 0%,rgba(30,10,60,.5) 45%,rgba(13,12,20,.94) 100%);}
   .hero h1{margin:0;font-size:21px;font-weight:800;line-height:1.2;}
   .hero .sig{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal-l);font-weight:700;margin-bottom:6px;}
   .hero .meta{font-size:12px;color:#d8dce1;margin-top:5px;}
@@ -123,9 +123,9 @@
   .g-item b{display:block;font-size:12.5px;}
   .g-item span{font-size:12px;color:var(--mut);}
 
-  /* ===== Race Day (PneuStore) ===== */
+  /* ===== Race Day (SpeedMax) ===== */
   .ps .sec-tit::before{background:var(--green);}
-  .ps-hero{background:linear-gradient(135deg,#101810,#0c120a);border:1px solid var(--green-d);border-radius:18px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden;}
+  .ps-hero{background:linear-gradient(135deg,#1C0F30,#0C0A12);border:1px solid var(--green-d);border-radius:18px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden;}
   .ps-hero::after{content:"";position:absolute;top:0;right:0;width:88px;height:100%;opacity:.08;
     background:repeating-conic-gradient(#fff 0% 25%, transparent 0% 50%) 0 0/22px 22px;}
   .ps-brand{font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--green);margin-bottom:7px;}
@@ -134,14 +134,14 @@
   .chip-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-d);}
   .live{border:1px solid var(--green-d);background:var(--green-bg);}
   .live-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-  .live-dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(79,185,60,.6);animation:pulse 1.8s infinite;}
-  @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(79,185,60,0);}100%{box-shadow:0 0 0 0 rgba(79,185,60,0);}}
+  .live-dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(255,102,51,.6);animation:pulse 1.8s infinite;}
+  @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(255,102,51,0);}100%{box-shadow:0 0 0 0 rgba(255,102,51,0);}}
   .live-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
   .live-grid div{background:rgba(13,15,18,.55);border:1px solid var(--green-d);border-radius:10px;padding:9px 10px;}
   .live-grid b{display:block;font-size:9.5px;color:var(--green);letter-spacing:1px;text-transform:uppercase;font-weight:800;}
   .live-grid span{font-size:13px;font-weight:700;}
   .insight{display:flex;gap:12px;align-items:flex-start;}
-  .play{flex-shrink:0;width:40px;height:40px;border-radius:50%;border:none;background:var(--green);color:#0c1a08;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .play{flex-shrink:0;width:40px;height:40px;border-radius:50%;border:none;background:var(--green);color:#2a1206;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .play[disabled]{background:var(--card2);color:var(--mut2);border:1px solid var(--line);cursor:default;}
   .rd-prog div{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px;}
   .rd-prog div:last-child{border-bottom:none;}
@@ -290,7 +290,7 @@ function vHome(){
   <div class="hero">
     <img src="img/vegas_night.jpg" alt="Las Vegas" onerror="this.style.display='none'">
     <div class="hero-txt">
-      <div style="background:#fff;border-radius:8px;padding:5px 12px;display:inline-block;width:fit-content;margin-bottom:8px"><img src="pneustore_logo.png" alt="PneuStore" style="height:16px;display:block"></div>
+      <img src="speedmax_branco.png" alt="SpeedMax Pneus" style="height:34px;width:auto;display:block;margin-bottom:11px">
       <div class="sig">${CONFIG.assinatura}</div>
       <h1>${CONFIG.projeto}</h1>
       <div class="meta">${CONFIG.subtitulo} · <b>${CONFIG.cidade}</b> · ${CONFIG.periodo}</div>
@@ -300,7 +300,7 @@ function vHome(){
   ${urg ? `<div class="banner-urg" onclick="go('comunicados')"><b>📣 ${esc(urg.titulo)}</b><p>${urg.texto}</p></div>` : ''}
 
   <div class="card">
-    <h3>Bem-vindo à PneuStore Racing Experience 🏁</h3>
+    <h3>Bem-vindo à SpeedMax Racing Experience 🏁</h3>
     <p class="mut small" style="margin:0">Sua jornada em Las Vegas foi cuidadosamente planejada pela <b style="color:var(--teal-l)">CB00 Marketing</b>, com operação e logística da VTurismo. Este app é a sua central da viagem: programação, avisos, transfers e concierge — sempre à mão.</p>
   </div>
 
@@ -501,7 +501,8 @@ function vRaceday(){
   const r = RACEDAY, L = RACE_LIVE;
   return `<div class="ps">
   <div class="ps-hero">
-    <div class="ps-brand">Race Day &nbsp;|&nbsp; Presented by <span style="color:#fff">Pneu</span>Store</div>
+    <img src="speedmax_branco.png" alt="SpeedMax Pneus" style="height:26px;width:auto;display:block;margin-bottom:9px">
+    <div class="ps-brand">Race Day &nbsp;|&nbsp; presented by SpeedMax</div>
     <h2>${esc(r.corrida)} 🏁</h2>
     <div class="mut">${esc(r.serie)}</div>
     <div class="mut" style="margin-top:8px">📅 ${esc(r.data)}<br>📍 ${esc(r.local)}<br>🕑 ${esc(r.horario)}</div>
@@ -512,8 +513,8 @@ function vRaceday(){
   </div>
 
   <div class="card" style="border-color:var(--green-d)">
-    <h3 style="color:var(--green)">📣 Mensagem PneuStore</h3>
-    <p class="small" style="margin:0;color:#d5dbd2">${esc(r.comunicadoPneuStore)}</p>
+    <h3 style="color:var(--green)">📣 Mensagem SpeedMax</h3>
+    <p class="small" style="margin:0;color:#d5dbd2">${esc(r.comunicadoSpeedMax)}</p>
   </div>
 
   <div class="card">
