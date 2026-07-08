@@ -14,7 +14,7 @@ const CONFIG = {
   subtitulo: 'NASCAR Las Vegas Weekend 2026',
   assinatura: 'Experiência oficial CB00 Marketing',
   cidade: 'Las Vegas',
-  periodo: '02 a 05 de outubro de 2026',
+  periodo: '02 a 06 de outubro de 2026',
   inicioViagem: '2026-10-02T12:00:00-07:00',   // usado no contador regressivo
   whatsappConcierge: '552141452310',            // WhatsApp VTurismo (só números, com DDI)
   telefoneEmergenciaVT: '+55 21 4145-2310',
@@ -75,7 +75,15 @@ const AGENDA = [
     { hora:'22:30', titulo:'Hidden Vegas Experience 🍸', local:'The Laundry Room (speakeasy) — Commonwealth', endereco:'525 E Fremont St, Las Vegas, NV 89101',
       dress:'Esporte fino', obs:'Speakeasy exclusivo, a poucos passos do jantar — coquetelaria autoral para fechar a noite.', dur:90, cal:'22:30' },
   ]},
-  { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Partida', itens:[
+  { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Dia livre em Las Vegas', itens:[
+    { hora:'09:30', titulo:'City tour por Las Vegas 🚌', local:'Saída do lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
+      dress:'Casual · tênis, óculos de sol e protetor solar', obs:'Passeio pela manhã pelos ícones da cidade: Strip, Welcome to Las Vegas Sign e mirantes. Retorno ao hotel.', dur:180, cal:'09:30' },
+    { hora:'tarde', titulo:'Tarde livre — compras 🛍', local:'Forum Shops · Fashion Show · Premium Outlets', endereco:'Las Vegas, NV',
+      dress:'Casual', obs:'Tarde livre para compras. O concierge VTurismo indica lojas, outlets e organiza transfers a pedido.', dur:0, cal:'' },
+    { hora:'noite', titulo:'Noite livre — cassinos 🎰', local:'Cassinos da Strip', endereco:'Las Vegas Blvd S, Las Vegas, NV',
+      dress:'Esporte fino (21+ · leve documento com foto)', obs:'Noite livre para explorar os cassinos mais icônicos do mundo: Bellagio, Caesars, Wynn e The Venetian. Reservas e sugestões com o concierge.', dur:0, cal:'' },
+  ]},
+  { data:'2026-10-06', rotulo:'Ter · 06 out', tema:'Partida', itens:[
     { hora:'11:00', titulo:'Check-out 🧳', local:'Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'—', obs:'Check-out assistido · guarda de bagagens conforme horário dos voos.', dur:60, cal:'11:00' },
     { hora:'12:00', titulo:'Almoço de despedida — incluído 🍽', local:'Restaurante no Fontainebleau', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
@@ -92,7 +100,7 @@ const HOTEL = {
   nome:'Fontainebleau Las Vegas', foto:'img/fontainebleau.jpg',
   endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109, EUA',
   fone:'+1 (702) 678-5000',
-  checkin:'16h00 (02/10)', checkout:'11h00 (05/10)',
+  checkin:'16h00 (02/10)', checkout:'11h00 (06/10)',
   wifi:'Cortesia nos quartos e áreas sociais — rede e senha informadas no check-in.',
   cafe:'Não incluso no plano padrão — o hotel reúne mais de 30 restaurantes e cafés (orientações com o concierge).',
   encontro:'Lobby principal, junto à recepção — ponto de encontro oficial do grupo para todas as saídas.',
@@ -150,7 +158,13 @@ const TRANSPORTES = [
       { apelido:'Van 2', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Estacionamento reservado do Speedway — a equipe informa o setor/vaga no dia', motorista:'a confirmar' },
     ]},
-  { rotulo:'Transfer Out', data:'Seg · 05 out', encontro:'Lobby do Fontainebleau (horário conforme voos)', saida:'a confirmar',
+  { rotulo:'City Tour — Dia livre', data:'Seg · 05 out', encontro:'Lobby do Fontainebleau · 09h15', saida:'09h30',
+    veiculo:'Vans executivas', resp:'Coordenador VTurismo', obs:'Passeio da manhã pelos ícones da cidade. Tarde e noite livres — transfers pontuais a pedido, pelo concierge.',
+    carros:[
+      { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
+        local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
+    ]},
+  { rotulo:'Transfer Out', data:'Ter · 06 out', encontro:'Lobby do Fontainebleau (horário conforme voos)', saida:'a confirmar',
     veiculo:'Vans executivas / SUV', resp:'Equipe VTurismo', obs:'Apoio até o check-in da companhia aérea.',
     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
