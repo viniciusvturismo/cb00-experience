@@ -76,6 +76,9 @@
   .banner-urg > b{color:var(--gold);display:block;font-size:12.5px;margin-bottom:3px;}
   .banner-urg p{margin:0;font-size:12.5px;color:#e8e2d2;}
   .banner-urg p b{color:var(--gold);}
+  .banner-curio{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:12px;}
+  .banner-curio > b{color:var(--teal-l);display:block;font-size:12.5px;margin-bottom:3px;}
+  .banner-curio p{margin:0;font-size:12.5px;color:#e8e2d2;}
   .destaque{border-left:3px solid var(--gold);}
   .next-act{display:flex;align-items:center;gap:12px;}
   .next-act .na-h{flex-shrink:0;background:var(--gold);color:#17130a;font-weight:800;font-size:13px;border-radius:10px;padding:8px 10px;min-width:58px;text-align:center;}
@@ -280,8 +283,14 @@ function vHome(){
     </div>`;
   }
 
-  // comunicado urgente mais recente vira banner
-  const urg = [...COMUNICADOS].filter(c=>c.urgente).sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora))[0];
+  // antes da viagem: curiosidade em rodízio diário. Durante/depois: comunicado urgente mais recente.
+  const emContagem = diff > 0;
+  const curio = emContagem && CURIOSIDADES.length
+    ? CURIOSIDADES[Math.floor(agora.getTime()/864e5) % CURIOSIDADES.length]
+    : null;
+  const urg = !emContagem
+    ? [...COMUNICADOS].filter(c=>c.urgente).sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora))[0]
+    : null;
 
   // destaque do dia + próxima atividade
   const hojeIso = agora.toISOString().slice(0,10);
@@ -296,6 +305,7 @@ function vHome(){
   <div class="hero-banner"><img src="hero_speedmax.jpg" alt="SpeedMax Pneus — Evento Las Vegas · NASCAR Weekend 2026"></div>
   <div class="hero-meta">${CONFIG.subtitulo} · <b>${CONFIG.cidade}</b> · ${CONFIG.periodo}</div>
   ${countHtml}
+  ${curio ? `<div class="banner-curio"><b>🎰 Curiosidade de Las Vegas · ${esc(curio.titulo)}</b><p>${curio.texto}</p></div>` : ''}
   ${urg ? `<div class="banner-urg" onclick="go('comunicados')"><b>📣 ${esc(urg.titulo)}</b><p>${urg.texto}</p></div>` : ''}
 
   <div class="card">
@@ -519,6 +529,25 @@ function vRaceday(){
   <div class="card">
     <h3>O Speedway</h3>
     <p class="mut small" style="margin:0">${esc(r.infoSpeedway)}</p>
+  </div>
+
+  <div class="sec-tit">Fim de semana da corrida</div>
+  <div class="card rd-prog">
+    ${r.finaisSemana.map(([d,t])=>`<div><b>${esc(d)}</b><span>${esc(t)}</span></div>`).join('')}
+  </div>
+
+  <div class="sec-tit">Classificação do campeonato</div>
+  <p class="sec-sub">${esc(r.classificacaoNota)}</p>
+  <div class="card">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+      ${r.classificacao.map(([pos,nome,carro,pts])=>`
+        <tr style="border-bottom:1px solid var(--line)">
+          <td style="padding:7px 4px;color:var(--gold);font-weight:800;width:26px">${esc(pos)}</td>
+          <td style="padding:7px 4px"><b>${esc(nome)}</b><div class="mut" style="font-size:10.5px">${esc(carro)}</div></td>
+          <td style="padding:7px 4px;text-align:right;color:var(--mut)">${esc(pts)}</td>
+        </tr>`).join('')}
+    </table>
+    <p class="small" style="margin:10px 0 0;color:var(--mut2)">${esc(r.classificacaoAtualizadaEm)}</p>
   </div>
 
   <div class="sec-tit">Programação Race Day</div>
