@@ -83,8 +83,8 @@ const AGENDA = [
       dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados.', dur:300, cal:'09:00' },
     { hora:'14:00', titulo:'Almoço — incluído 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
       dress:'Casual', obs:'Almoço incluído após o Off-Road — restaurante selecionado pelo concierge.', dur:90, cal:'14:00' },
-    { hora:'18:30', titulo:'Las Vegas Night Flight 🚁', local:'Heliporto — Maverick Helicopters', endereco:'6075 Las Vegas Blvd S, Las Vegas, NV 89119',
-      dress:'Casual elegante', obs:'Sobrevoo panorâmico da Strip iluminada ao anoitecer (~12–15 min de voo).', dur:90, cal:'18:30' },
+    { hora:'20:00', titulo:'Jantar 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
+      dress:'Esporte fino', obs:'Jantar do grupo, restaurante selecionado pelo concierge.', dur:120, cal:'20:00' },
   ]},
   { data:'2026-10-04', rotulo:'Dom · 04 out', tema:'🏁 NASCAR Race Day', itens:[
     { hora:'10:00', titulo:'Saída para o Speedway 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
@@ -159,8 +159,8 @@ const TRANSPORTES = [
       { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
     ]},
-  { rotulo:'Night Flight + Espetáculo', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau · 17h45', saida:'18h00',
-    veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Sequência heliporto → jantar leve → Bellagio (“O”). Retorno após o show.',
+  { rotulo:'Jantar — sábado', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau · 19h50', saida:'20h00',
+    veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Retorno ao hotel após o jantar.',
     carros:[
       { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
