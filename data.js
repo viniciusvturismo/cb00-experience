@@ -62,9 +62,9 @@ const COMUNICADOS = [
 const AGENDA = [
   { data:'2026-10-01', rotulo:'Qui · 01 out', tema:'Embarque', itens:[
     { hora:'19:15', titulo:'Check-in no aeroporto (GRU) ✈️', local:'Aeroporto Internacional de São Paulo/Guarulhos (GRU)', endereco:'Guarulhos, SP',
-      dress:'Casual confortável', obs:'Recomendado chegar com 4h de antecedência ao voo AA 906 (23:15). Equipe VTurismo aguarda o grupo no balcão de check-in da American Airlines para auxiliar no processo.', dur:0, cal:'' },
+      dress:'Casual confortável', obs:'Recomendado chegar com 4h de antecedência ao voo AA 906 (23:15). Equipe VTurismo aguarda o grupo no balcão de check-in da American Airlines para auxiliar no processo.', dur:0, cal:'15:15' },
     { hora:'23:15', titulo:'Voo AA 906 — GRU → MIA ✈️', local:'Aeroporto de Guarulhos (GRU)', endereco:'Guarulhos, SP',
-      dress:'—', obs:'American Airlines · saída 23:15 (01/10) · chegada em Miami 06:45 (02/10, horário local).', dur:0, cal:'' },
+      dress:'—', obs:'American Airlines · saída 23:15 (01/10) · chegada em Miami 06:45 (02/10, horário local).', dur:0, cal:'19:15' },
   ]},
   { data:'2026-10-02', rotulo:'Sex · 02 out', tema:'Chegada & Welcome', itens:[
     { hora:'09:55', titulo:'Voo AA 1173 — MIA → LAS ✈️', local:'Aeroporto de Miami (MIA)', endereco:'Miami, FL',
@@ -112,7 +112,7 @@ const AGENDA = [
     { hora:'12:41', titulo:'Voo AA 1482 — LAS → DFW ✈️', local:'Harry Reid International Airport (LAS)', endereco:'5757 Wayne Newton Blvd, Las Vegas, NV 89119',
       dress:'—', obs:'American Airlines · saída 12:41 · chegada em Dallas-Fort Worth 17:36 (horário local).', dur:0, cal:'12:41' },
     { hora:'20:50', titulo:'Voo AA 963 — DFW → GRU ✈️', local:'Aeroporto de Dallas-Fort Worth (DFW)', endereco:'Dallas, TX',
-      dress:'—', obs:'American Airlines · saída 20:50 (06/10) · chegada em Guarulhos 09:00 (07/10, horário de Brasília).', dur:0, cal:'20:50' },
+      dress:'—', obs:'American Airlines · saída 20:50 (06/10) · chegada em Guarulhos 09:00 (07/10, horário de Brasília).', dur:0, cal:'18:50' },
     { hora:'—', titulo:'Retorno ao Brasil 🇧🇷', local:'—', endereco:'',
       dress:'—', obs:'Fim da SpeedMax Racing Experience. Até a próxima! 🏁', dur:0, cal:'' },
   ]},
