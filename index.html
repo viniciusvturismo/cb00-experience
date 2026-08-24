@@ -646,6 +646,36 @@ function minhaLoc(btn){
   }, ()=>{ btn.textContent = '⚠️ Não foi possível obter a localização — verifique a permissão'; });
 }
 
+/* ============================ MINHA ÁREA ============================ */
+function vMinhaArea(){
+  return `
+  <div class="sec-tit">Minha Área</div>
+  <p class="sec-sub">Escolha seu nome para acessar sua passagem, seguro viagem e hospedagem.</p>
+  <div class="card">
+    ${PASSAGEIROS.map(p=>`<a href="#pax-${p.slug}" class="g-item" style="display:block;padding:10px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--txt)"><b>${esc(p.nome)}</b></a>`).join('')}
+  </div>
+  <p class="small mut" style="margin-top:10px">⚠️ O acesso é por link direto, sem senha — não compartilhe seu link com outras pessoas.</p>`;
+}
+function vPaxArea(slug){
+  const p = PASSAGEIROS.find(x=>x.slug===slug);
+  if(!p) return `<div class="card"><h3>Passageiro não encontrado</h3><p class="mut small">Verifique o link ou volte para <a href="#minhaarea">Minha Área</a>.</p></div>`;
+  const secoes = [
+    { ic:'✈️', tit:'Passagem aérea' },
+    { ic:'🛡', tit:'Seguro viagem' },
+    { ic:'🏨', tit:'Hospedagem' },
+  ];
+  return `
+  <div class="sec-tit">${esc(p.nome)}</div>
+  <p class="sec-sub">Seus documentos da SpeedMax Racing Experience.</p>
+  ${secoes.map(s=>`
+    <div class="card">
+      <h3>${s.ic} ${s.tit}</h3>
+      <p class="mut small" style="margin:0 0 10px">Nenhum arquivo enviado ainda.</p>
+      <button class="btn btn-line btn-sm" disabled style="opacity:.5;cursor:not-allowed">📤 Enviar arquivo — em breve</button>
+    </div>`).join('')}
+  <a href="#minhaarea" class="btn btn-line btn-block" style="margin-top:6px">← Voltar</a>`;
+}
+
 /* ============================ router & nav ============================ */
 const ROTAS = {
   home:      { f:vHome },
@@ -658,16 +688,19 @@ const ROTAS = {
   raceday:   { f:vRaceday,      mod:'raceday' },
   docs:      { f:vDocs,         mod:'docs' },
   emergencia:{ f:vEmergencia,   mod:'emergencia' },
+  minhaarea: { f:vMinhaArea,    mod:'minhaarea' },
 };
 function rotaAtual(){
   const h = (location.hash||'#home').slice(1);
+  if(h.indexOf('pax-')===0) return h;
   const r = ROTAS[h] ? h : 'home';
   return (ROTAS[r].mod && CONFIG.modulos[ROTAS[r].mod]===false) ? 'home' : r;
 }
 function go(r){ if(location.hash === '#'+r) render(); else location.hash = r; toggleSheet(false); }
 function render(){
   const r = rotaAtual();
-  $('#view').innerHTML = ROTAS[r].f() + footerHtml();
+  const html = r.indexOf('pax-')===0 ? vPaxArea(r.slice(4)) : ROTAS[r].f();
+  $('#view').innerHTML = html + footerHtml();
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('on', b.dataset.r===r || (b.dataset.r==='mais' && !['home','agenda','raceday','concierge'].includes(r))));
   window.scrollTo({top:0});
 }
@@ -696,7 +729,7 @@ function toggleSheet(open){
     <button class="nav-btn" data-r="mais" onclick="toggleSheet(true)"><i>☰</i>Mais</button>`;
   const links = [
     ['comunicados','📣','Comunicados'], ['hospedagem','🏨','Hospedagem'], ['transportes','🚐','Transportes'],
-    ['guia','🗺','Guia de Las Vegas'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
+    ['guia','🗺','Guia de Las Vegas'], ['minhaarea','🗂','Minha Área'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
   ].filter(([r])=>M[r]!==false);
   $('#sheetLinks').innerHTML = links.map(([r,ic,tx])=>`<a href="#${r}" onclick="toggleSheet(false)"><i>${ic}</i>${tx}</a>`).join('');
   window.addEventListener('hashchange', render);
