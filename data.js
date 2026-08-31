@@ -91,8 +91,8 @@ const COMUNICADOS = [
    Google Maps), dur (minutos, p/ "adicionar ao calendário").               */
 const AGENDA = [
   { data:'2026-10-01', rotulo:'Qui · 01 out', tema:'Embarque', itens:[
-    { hora:'19:15', titulo:'Check-in no aeroporto (GRU) ✈️', local:'Aeroporto Internacional de São Paulo/Guarulhos (GRU)', endereco:'Guarulhos, SP',
-      dress:'Casual confortável', obs:'Recomendado chegar com 4h de antecedência ao voo AA 906 (23:15). Equipe VTurismo aguarda o grupo no balcão de check-in da American Airlines para auxiliar no processo.', dur:0, cal:'15:15' },
+    { hora:'19:00', titulo:'Check-in no aeroporto (GRU) ✈️', local:'Aeroporto Internacional de São Paulo/Guarulhos (GRU)', endereco:'Guarulhos, SP',
+      dress:'Casual confortável', obs:'Recomendado chegar com 4h de antecedência ao voo AA 906 (23:15). O Cauã, da equipe VTurismo, aguarda o grupo no balcão de check-in da American Airlines para auxiliar no processo.', dur:0, cal:'15:00' },
     { hora:'23:15', titulo:'Voo AA 906 — GRU → MIA ✈️', local:'Aeroporto de Guarulhos (GRU)', endereco:'Guarulhos, SP',
       dress:'—', obs:'American Airlines · saída 23:15 (01/10) · chegada em Miami 06:45 (02/10, horário local).', dur:0, cal:'19:15' },
   ]},
@@ -100,7 +100,7 @@ const AGENDA = [
     { hora:'09:55', titulo:'Voo AA 1173 — MIA → LAS ✈️', local:'Aeroporto de Miami (MIA)', endereco:'Miami, FL',
       dress:'—', obs:'American Airlines · conexão em Miami · saída 09:55 · chegada em Las Vegas 12:08 (horário local).', dur:0, cal:'12:08' },
     { hora:'12:08', titulo:'Chegada a Las Vegas ✈️', local:'Harry Reid International Airport (LAS)', endereco:'5757 Wayne Newton Blvd, Las Vegas, NV 89119',
-      dress:'—', obs:'Recepção especial no desembarque, com o próprio Cacá Bueno e a equipe VTurismo aguardando o grupo (Airport Meet & Greet), apoio de bagagens incluído.', dur:60, cal:'12:08' },
+      dress:'—', obs:'Recepção especial no desembarque, com o Vinicius (VTurismo) aguardando o grupo (Airport Meet & Greet), apoio de bagagens incluído.', dur:60, cal:'12:08' },
     { hora:'após a chegada', titulo:'Transfer In 🚐', local:'Aeroporto → Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'—', obs:'Vans executivas com motorista · briefing de boas-vindas no trajeto (~15 min).', dur:30, cal:'13:00' },
     { hora:'16:00', titulo:'Check-in — Fontainebleau Las Vegas 🏨', local:'Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
@@ -109,12 +109,12 @@ const AGENDA = [
       dress:'Esporte fino', obs:'Jantar de boas-vindas e integração do grupo. Encontro no lobby às 19h30.', dur:150, cal:'20:00' },
   ]},
   { data:'2026-10-03', rotulo:'Sáb · 03 out', tema:'Experiências Signature', itens:[
-    { hora:'09:00', titulo:'Desert Off-Road Experience 🏜', local:'Deserto de Nevada (UTVs)', endereco:'Las Vegas, NV',
-      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados.', dur:300, cal:'09:00' },
-    { hora:'14:00', titulo:'Almoço — incluído 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
-      dress:'Casual', obs:'Almoço incluído após o Off-Road — restaurante selecionado pelo concierge.', dur:90, cal:'14:00' },
-    { hora:'20:00', titulo:'Jantar 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
-      dress:'Esporte fino', obs:'Jantar do grupo, restaurante selecionado pelo concierge.', dur:120, cal:'20:00' },
+    { hora:'horário a confirmar', titulo:'Desert Off-Road Experience 🏜', local:'Deserto de Nevada (UTVs)', endereco:'Las Vegas, NV',
+      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados. Horário de saída avisado pelo Vinicius no dia anterior.', dur:300, cal:'' },
+    { hora:'após a atividade', titulo:'Almoço — incluído 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
+      dress:'Casual', obs:'Almoço estilo American Barbecue, incluído após o Off-Road.', dur:90, cal:'' },
+    { hora:'final de tarde/noite', titulo:'Tarde e noite livres 🌆', local:'Las Vegas, NV', endereco:'',
+      dress:'Casual', obs:'Sem programação fixa — aproveite a Strip, cassinos ou reserve algo com o concierge.', dur:0, cal:'' },
   ]},
   { data:'2026-10-04', rotulo:'Dom · 04 out', tema:'🏁 NASCAR Race Day', itens:[
     { hora:'10:00', titulo:'Saída para o Speedway 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
@@ -123,10 +123,8 @@ const AGENDA = [
       dress:'Casual', obs:'Playoffs da NASCAR Cup Series · arquibancada Seção 2Q, em frente à linha de chegada, com Pre-Race Track Pass incluído · horário oficial da largada a confirmar pela NASCAR. Veja a área Race Day do app.', dur:420, cal:'11:00' },
     { hora:'12:00', titulo:'Almoço Race Day 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
       dress:'Casual', obs:'Refeição no Speedway — formato a confirmar.', dur:90, cal:'12:00' },
-    { hora:'20:30', titulo:'Jantar de encerramento do Race Day 🍷', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
-      dress:'Esporte fino', obs:'Jantar celebrando o dia no Speedway.', dur:120, cal:'20:30' },
-    { hora:'22:30', titulo:'Hidden Vegas Experience 🍸', local:'Bar selecionado pelo concierge', endereco:'Las Vegas, NV',
-      dress:'Esporte fino', obs:'Coquetelaria autoral para fechar a noite — local a confirmar com o concierge.', dur:90, cal:'22:30' },
+    { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
+      dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'' },
   ]},
   { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Outlet (opcional) & Espetáculo "O"', itens:[
     { hora:'10:00', titulo:'Passeio opcional — Outlet 🛍', local:'Premium Outlets Las Vegas', endereco:'Las Vegas, NV',
@@ -183,14 +181,8 @@ const TRANSPORTES = [
       { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
     ]},
-  { rotulo:'Desert Off-Road', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau · 08h45', saida:'09h00',
+  { rotulo:'Desert Off-Road', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau — horário avisado por Vinicius no dia anterior', saida:'a confirmar',
     veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Levar óculos de sol, tênis fechado e protetor solar.',
-    carros:[
-      { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
-        local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
-    ]},
-  { rotulo:'Jantar — sábado', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau · 19h50', saida:'20h00',
-    veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Retorno ao hotel após o jantar.',
     carros:[
       { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
@@ -305,8 +297,7 @@ const RACEDAY = {
     ['11h00','Chegada ao Speedway · acesso à arquibancada — Seção 2Q, em frente à linha de chegada'],
     ['—','Pre-Race Track Pass incluído — ingressos confirmados'],
     ['pós-corrida','Ponto de encontro: local a confirmar — a equipe VTurismo conduz o grupo às vans'],
-    ['20h30','Jantar de encerramento do Race Day — restaurante selecionado'],
-    ['22h30','Hidden Vegas Experience — bar selecionado pelo concierge'],
+    ['noite','Noite livre — sem programação fixa após a corrida'],
   ],
   comunicadoSpeedMax:'Bem-vindos ao Race Day. A SpeedMax preparou este dia para que vocês vivam de perto a energia da NASCAR em Las Vegas. Boa corrida! 🏁',
 };
