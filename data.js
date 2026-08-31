@@ -138,11 +138,11 @@ const AGENDA = [
     { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
       dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'' },
   ]},
-  { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Outlet (opcional) & Espetáculo "O"', itens:[
+  { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Outlet (opcional) & Michael Jackson ONE', itens:[
     { hora:'10:00', titulo:'Passeio opcional — Outlet 🛍', local:'Premium Outlets Las Vegas', endereco:'Las Vegas, NV',
       dress:'Casual', obs:'Passeio opcional, sob consulta — confirme interesse com o concierge. Horário aproximado das 10h às 15h.', dur:300, cal:'10:00' },
-    { hora:'21:30', titulo:'Espetáculo Premium — “O” · Cirque du Soleil 🎭', local:'O Theatre — Bellagio', endereco:'3600 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Esporte fino', obs:'O espetáculo mais icônico de Las Vegas, no teatro aquático do Bellagio. Jantar leve incluído antes do espetáculo, próximo ao teatro (orientação do concierge).', dur:100, cal:'21:30' },
+    { hora:'21:30', titulo:'Michael Jackson ONE · Cirque du Soleil 🎭', local:'Michael Jackson ONE Theatre — Mandalay Bay', endereco:'3950 Las Vegas Blvd S, Las Vegas, NV 89119',
+      dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay.', dur:100, cal:'21:30' },
   ]},
   { data:'2026-10-06', rotulo:'Ter · 06 out', tema:'Partida', itens:[
     { hora:'09:00', titulo:'Check-out 🧳', local:'Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
