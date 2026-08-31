@@ -21,7 +21,19 @@ const CONFIG = {
   coordenador: { nome: 'Coordenação VTurismo', fone: '+55 21 4145-2310', obs: 'Coordenador do grupo — nome e celular local serão confirmados antes do embarque.' },
   responsavelSpeedMax: { nome: 'Responsável SpeedMax', fone: 'a confirmar', obs: 'Contato institucional SpeedMax durante a viagem.' },
   // mostrar/esconder módulos do app:
-  modulos: { agenda:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true, minhaarea:true },
+  modulos: { agenda:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true, minhaarea:true, diario:true },
+};
+
+/* ==================== FIREBASE — Diário da Viagem (posts ao vivo) ========
+   Config pública (não é segredo) — a proteção real está nas regras do
+   Firestore no console. A senha da equipe fica só lá, nunca aqui.        */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAzNDtynNifnjltqvvBrbwmMuOi3Ws09Tc",
+  authDomain: "speedmax-nascar-app.firebaseapp.com",
+  projectId: "speedmax-nascar-app",
+  storageBucket: "speedmax-nascar-app.firebasestorage.app",
+  messagingSenderId: "824476697911",
+  appId: "1:824476697911:web:09006c1cb7a36d2e9ac6b2",
 };
 
 /* ==================== MINHA ÁREA — documentos por passageiro ============
