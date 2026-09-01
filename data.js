@@ -142,7 +142,7 @@ const AGENDA = [
     { hora:'10:00', titulo:'Passeio opcional — Outlet 🛍', local:'Premium Outlets Las Vegas', endereco:'Las Vegas, NV',
       dress:'Casual', obs:'Passeio opcional, sob consulta — confirme interesse com o concierge. Horário aproximado das 10h às 15h.', dur:300, cal:'10:00' },
     { hora:'21:30', titulo:'Michael Jackson ONE · Cirque du Soleil 🎭', local:'Michael Jackson ONE Theatre — Mandalay Bay', endereco:'3950 Las Vegas Blvd S, Las Vegas, NV 89119',
-      dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay.', dur:100, cal:'21:30' },
+      dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay. <a href="https://youtu.be/6kLqvDj8wx4" target="_blank" rel="noopener" style="color:var(--gold)">▶ Assistir ao trailer oficial</a>', dur:100, cal:'21:30' },
   ]},
   { data:'2026-10-06', rotulo:'Ter · 06 out', tema:'Partida', itens:[
     { hora:'09:00', titulo:'Check-out 🧳', local:'Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
