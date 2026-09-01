@@ -260,6 +260,10 @@
 
 <audio id="player"></audio>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="data.js"></script>
 <script>
 /* ============================ util ============================ */
@@ -625,22 +629,25 @@ function vRaceday(){
 
   <div class="sec-tit">Race Insights</div>
   <p class="sec-sub">Conteúdos exclusivos para entender a corrida como um insider.</p>
-  ${INSIGHTS.map((x,i)=>`
-    <div class="card insight">
-      <button class="play" ${x.src?'':'disabled'} onclick="playInsight(${i},this)">${x.tipo==='video'?'🎬':'▶'}</button>
+  ${INSIGHTS.map((x,i)=>{
+    const src = (x.key && RACE_INSIGHTS_LIVE[x.key]?.url) || x.src;
+    return `<div class="card insight">
+      <button class="play" ${src?'':'disabled'} onclick="playInsight(${i},this)">${x.tipo==='video'?'🎬':'▶'}</button>
       <div>
         <b style="font-size:13px">${esc(x.titulo)}</b>
         <div class="mut small">${x.desc}</div>
-        <div class="small" style="color:var(--green);margin-top:3px">${x.src?'· publicado às '+esc(x.hora):'⏳ '+esc(x.hora)}</div>
+        <div class="small" style="color:var(--green);margin-top:3px">${src?'· disponível agora':'⏳ '+esc(x.hora)}</div>
       </div>
-    </div>`).join('')}
+    </div>`;}).join('')}
   </div>`;
 }
 function playInsight(i, btn){
-  const x = INSIGHTS[i]; if(!x.src) return;
+  const x = INSIGHTS[i];
+  const src = (x.key && RACE_INSIGHTS_LIVE[x.key]?.url) || x.src;
+  if(!src) return;
   const p = $('#player');
   if(!p.paused && p.dataset.i==i){ p.pause(); btn.textContent='▶'; return; }
-  p.src = x.src; p.dataset.i = i; p.play();
+  p.src = src; p.dataset.i = i; p.play();
   document.querySelectorAll('.play').forEach(b=>{ if(!b.disabled) b.textContent='▶'; });
   btn.textContent = '⏸';
   p.onended = ()=> btn.textContent = '▶';
@@ -699,6 +706,198 @@ function minhaLoc(btn){
   }, ()=>{ btn.textContent = '⚠️ Não foi possível obter a localização — verifique a permissão'; });
 }
 
+/* ============================ FIREBASE (área restrita) ============================ */
+let FB_AUTH=null, FB_DB=null, FB_STORAGE=null, FB_INICIADO=false, ADMIN_USER=null;
+let MINHA_AREA_PUBLICA = false;
+function fbIniciar(){
+  if(FB_INICIADO) return;
+  FB_INICIADO = true;
+  try{
+    firebase.initializeApp(FIREBASE_CONFIG);
+    FB_AUTH = firebase.auth();
+    FB_DB = firebase.firestore();
+    FB_STORAGE = firebase.storage();
+    FB_AUTH.onAuthStateChanged(u=>{ ADMIN_USER = u; if(rotaAtual()==='admin') render(); });
+    FB_DB.collection('config').doc('app').onSnapshot(doc=>{
+      MINHA_AREA_PUBLICA = !!(doc.exists && doc.data().minhaAreaPublica);
+      montarSheetLinks();
+      if(rotaAtual()==='minhaarea'||rotaAtual()==='admin') render();
+    }, ()=>{});
+    FB_DB.collection('race_insights').onSnapshot(snap=>{
+      snap.docChanges().forEach(c=>{ RACE_INSIGHTS_LIVE[c.doc.id] = c.doc.data(); });
+      if(rotaAtual()==='raceday'||rotaAtual()==='admin') render();
+    }, ()=>{});
+  }catch(e){ console.error('Firebase — falha ao iniciar', e); }
+}
+function toggleMinhaAreaPublica(){
+  if(!FB_DB) return;
+  FB_DB.collection('config').doc('app').set({ minhaAreaPublica: !MINHA_AREA_PUBLICA }, { merge:true });
+}
+function adminLogin(){
+  fbIniciar();
+  const usuario = $('#adminUsuario').value.trim();
+  const senha = $('#adminSenha').value;
+  if(!usuario || !senha){ return; }
+  const email = usuario.includes('@') ? usuario : `${usuario}@${ACESSO_RESTRITO.audioOnlyDominio}`;
+  const btn = $('#adminLoginBtn');
+  btn.disabled = true; btn.textContent = 'Entrando…';
+  FB_AUTH.signInWithEmailAndPassword(email, senha)
+    .catch(()=>alert('Usuário ou senha inválidos.'))
+    .finally(()=>{ if(btn){ btn.disabled=false; btn.textContent='Entrar'; } });
+}
+function adminLogout(){ if(FB_AUTH) FB_AUTH.signOut(); }
+
+/* ---- documentos por passageiro ---- */
+function adminUploadDoc(){
+  const slug = $('#docPaxSlug').value;
+  const arquivo = $('#docArquivo').files[0];
+  if(!slug || !arquivo){ alert('Escolha o passageiro e o arquivo.'); return; }
+  const btn = $('#docUploadBtn');
+  btn.disabled = true; btn.textContent = 'Enviando…';
+  const path = `passageiros/${slug}/${Date.now()}_${arquivo.name}`;
+  FB_STORAGE.ref(path).put(arquivo)
+    .then(snap=>snap.ref.getDownloadURL())
+    .then(url=>FB_DB.collection('docs_pax').doc(slug).set({
+      arquivos: firebase.firestore.FieldValue.arrayUnion({ nome:arquivo.name, url, enviadoEm:Date.now() })
+    }, { merge:true }))
+    .then(()=>{ $('#docArquivo').value=''; alert('Documento enviado!'); })
+    .catch(err=>alert('Erro ao enviar: '+err.message))
+    .finally(()=>{ if(btn){ btn.disabled=false; btn.textContent='Enviar documento'; } });
+}
+
+/* ---- áudios do Race Day: gravação e upload ---- */
+let MEDIA_RECORDER=null, MEDIA_CHUNKS=[], GRAVANDO_KEY=null;
+const RACE_INSIGHTS_LIVE = {};
+function gravarIniciar(key){
+  navigator.mediaDevices.getUserMedia({ audio:true }).then(stream=>{
+    GRAVANDO_KEY = key; MEDIA_CHUNKS = [];
+    MEDIA_RECORDER = new MediaRecorder(stream);
+    MEDIA_RECORDER.ondataavailable = e=>MEDIA_CHUNKS.push(e.data);
+    MEDIA_RECORDER.onstop = ()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      const blob = new Blob(MEDIA_CHUNKS, { type:'audio/webm' });
+      adminUploadAudio(key, blob, 'webm');
+      GRAVANDO_KEY = null;
+    };
+    MEDIA_RECORDER.start();
+    render();
+  }).catch(()=>alert('Não foi possível acessar o microfone.'));
+}
+function gravarParar(){ if(MEDIA_RECORDER && MEDIA_RECORDER.state==='recording') MEDIA_RECORDER.stop(); }
+function adminUploadArquivoAudio(key, input){
+  const arquivo = input.files[0];
+  if(!arquivo) return;
+  const ext = (arquivo.name.split('.').pop()||'mp3').toLowerCase();
+  adminUploadAudio(key, arquivo, ext);
+}
+function adminUploadAudio(key, blobOuArquivo, ext){
+  const path = `raceday/${key}.${ext}`;
+  FB_STORAGE.ref(path).put(blobOuArquivo)
+    .then(snap=>snap.ref.getDownloadURL())
+    .then(url=>{
+      RACE_INSIGHTS_LIVE[key] = { url };
+      return FB_DB.collection('race_insights').doc(key).set({ url, atualizadoEm:Date.now() });
+    })
+    .catch(err=>alert('Erro ao enviar áudio: '+err.message))
+    .finally(()=>render());
+}
+
+function vAdmin(){
+  fbIniciar();
+  if(!ADMIN_USER){
+    return `
+    <div class="sec-tit">🔒 Acesso restrito</div>
+    <p class="sec-sub">Área da equipe — documentos e áudios do Race Day.</p>
+    <div class="card">
+      <label>Usuário ou e-mail</label>
+      <input id="adminUsuario" placeholder="ex.: vinicius@vturismo.com.br">
+      <label>Senha</label>
+      <input id="adminSenha" type="password" placeholder="Sua senha">
+      <div style="height:12px"></div>
+      <button id="adminLoginBtn" class="btn btn-gold btn-block" onclick="adminLogin()">Entrar</button>
+    </div>`;
+  }
+  const isFull = ADMIN_USER.email === ACESSO_RESTRITO.adminEmail;
+  const linkBase = location.origin + location.pathname;
+  const audioItens = INSIGHTS.filter(i=>i.tipo==='audio');
+  return `
+  <div class="sec-tit">🔒 Área restrita</div>
+  <p class="sec-sub">Logado como ${esc(ADMIN_USER.email)}</p>
+  <button class="btn btn-line btn-block" style="margin-bottom:14px" onclick="adminLogout()">Sair</button>
+
+  ${isFull ? `
+  <div class="chip" style="margin-bottom:12px">📄 Documentos por passageiro</div>
+  <div class="card">
+    <label>Passageiro</label>
+    <select id="docPaxSlug">${PASSAGEIROS.map(p=>`<option value="${esc(p.slug)}">${esc(p.nome)}</option>`).join('')}</select>
+    <label>Arquivo</label>
+    <input type="file" id="docArquivo">
+    <div style="height:10px"></div>
+    <button id="docUploadBtn" class="btn btn-gold btn-block" onclick="adminUploadDoc()">Enviar documento</button>
+    <p class="small mut" style="margin-top:10px">Link individual e privado de cada passageiro (mande por WhatsApp direto pra pessoa): <code>${esc(linkBase)}#pax-{slug}</code></p>
+  </div>` : ''}
+
+  ${isFull ? `
+  <div class="chip" style="margin:18px 0 12px">👥 Minha Área (pública)</div>
+  <div class="card">
+    <p class="mut small" style="margin:0 0 10px">Quando ativada, qualquer pessoa com o link do app vê a lista de passageiros e acessa a própria área de documentos.</p>
+    <button class="btn ${MINHA_AREA_PUBLICA?'btn-red':'btn-gold'} btn-block" onclick="toggleMinhaAreaPublica()">${MINHA_AREA_PUBLICA?'🔓 Desativar Minha Área pública':'🔒 Ativar Minha Área pública'}</button>
+  </div>` : ''}
+
+  <div class="chip" style="margin:18px 0 12px">🎧 Áudios do Race Day</div>
+  ${audioItens.map(it=>{
+    const url = RACE_INSIGHTS_LIVE[it.key]?.url || it.src;
+    const gravando = GRAVANDO_KEY===it.key;
+    return `<div class="card">
+      <h4 style="margin:0 0 4px">${esc(it.titulo)}</h4>
+      <p class="mut small" style="margin:0 0 8px">${url ? '✅ Áudio publicado' : '⏳ Aguardando envio'}</p>
+      ${url ? `<audio controls src="${esc(url)}" style="width:100%;margin-bottom:8px"></audio>`:''}
+      ${gravando
+        ? `<button class="btn btn-red btn-block" onclick="gravarParar()">⏹ Parar e enviar gravação</button>`
+        : `<div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-gold btn-sm" onclick="gravarIniciar('${it.key}')">🎙 Gravar agora</button>
+            <label class="btn btn-line btn-sm" style="cursor:pointer">📁 Enviar arquivo salvo<input type="file" accept="audio/*" style="display:none" onchange="adminUploadArquivoAudio('${it.key}', this)"></label>
+          </div>`}
+    </div>`;
+  }).join('')}`;
+}
+
+/* ============================ MINHA ÁREA (liberada pela equipe em #admin) ============================ */
+function vMinhaArea(){
+  return `
+  <div class="sec-tit">Minha Área</div>
+  <p class="sec-sub">Escolha seu nome para acessar sua passagem, seguro viagem e hospedagem.</p>
+  <div class="card">
+    ${PASSAGEIROS.map(p=>`<a href="#pax-${esc(p.slug)}" class="g-item" style="display:block;padding:10px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--txt)"><b>${esc(p.nome)}</b></a>`).join('')}
+  </div>`;
+}
+
+/* ============================ DOCUMENTOS DO PASSAGEIRO (link privado) ============================ */
+const PAX_DOCS = {}, PAX_DOCS_CARREGADO = {};
+function paxDocsIniciar(slug){
+  fbIniciar();
+  if(PAX_DOCS_CARREGADO[slug]) return;
+  PAX_DOCS_CARREGADO[slug] = true;
+  FB_DB.collection('docs_pax').doc(slug).onSnapshot(doc=>{
+    PAX_DOCS[slug] = doc.exists ? (doc.data().arquivos||[]) : [];
+    if(rotaAtual()===`pax-${slug}`) render();
+  }, ()=>{});
+}
+function vPaxArea(slug){
+  const p = PASSAGEIROS.find(x=>x.slug===slug);
+  if(!p) return `<div class="card"><h3>Link inválido</h3><p class="mut small" style="margin:0">Confira o link recebido.</p></div>`;
+  paxDocsIniciar(slug);
+  const docs = PAX_DOCS[slug] || [];
+  return `
+  <div class="sec-tit">${esc(p.nome)}</div>
+  <p class="sec-sub">Seus documentos da SpeedMax Racing Experience.</p>
+  ${docs.length===0 ? `<div class="card"><p class="mut small" style="margin:0">Nenhum arquivo enviado ainda.</p></div>` :
+    docs.map(d=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <span style="font-size:13px">📎 ${esc(d.nome)}</span>
+      <a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${esc(d.url)}">Abrir</a>
+    </div>`).join('')}`;
+}
+
 /* ============================ router & nav ============================ */
 const ROTAS = {
   home:      { f:vHome },
@@ -712,10 +911,14 @@ const ROTAS = {
   raceday:   { f:vRaceday,      mod:'raceday' },
   docs:      { f:vDocs,         mod:'docs' },
   emergencia:{ f:vEmergencia,   mod:'emergencia' },
+  admin:     { f:vAdmin },
+  minhaarea: { f:vMinhaArea },
 };
 function rotaAtual(){
   const h = (location.hash||'#home').slice(1);
+  if(h.indexOf('pax-')===0) return h;
   const r = ROTAS[h] ? h : 'home';
+  if(r==='minhaarea' && !MINHA_AREA_PUBLICA) return 'home';
   return (ROTAS[r].mod && CONFIG.modulos[ROTAS[r].mod]===false) ? 'home' : r;
 }
 function go(r){ if(location.hash === '#'+r) render(); else location.hash = r; toggleSheet(false); }
@@ -744,7 +947,7 @@ function iniciarCurioRotativo(){
 }
 function render(){
   const r = rotaAtual();
-  const html = ROTAS[r].f();
+  const html = r.indexOf('pax-')===0 ? vPaxArea(r.slice(4)) : ROTAS[r].f();
   $('#view').innerHTML = html + footerHtml();
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('on', b.dataset.r===r || (b.dataset.r==='mais' && !['home','agenda','raceday','concierge'].includes(r))));
   $('#backBtn').style.display = r==='home' ? 'none' : 'flex';
@@ -764,6 +967,17 @@ function toggleSheet(open){
 }
 
 /* montar nav + sheet conforme módulos */
+function montarSheetLinks(){
+  const M = CONFIG.modulos;
+  const links = [
+    ['resumo','📋','Resumo da Viagem'], ['comunicados','📣','Comunicados'], ['hospedagem','🏨','Hospedagem'], ['transportes','🚐','Transportes'],
+    ['guia','🗺','Guia de Las Vegas'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
+  ].filter(([r])=>M[r]!==false);
+  if(MINHA_AREA_PUBLICA) links.push(['minhaarea','👥','Minha Área']);
+  let html = links.map(([r,ic,tx])=>`<a href="#${r}" onclick="toggleSheet(false)"><i>${ic}</i>${tx}</a>`).join('');
+  html += `<a href="#admin" onclick="toggleSheet(false)" style="opacity:.55;font-size:12px;font-weight:600"><i style="font-size:14px">🔒</i>Acesso restrito</a>`;
+  $('#sheetLinks').innerHTML = html;
+}
 (function init(){
   document.title = CONFIG.projeto + ' · CB00 Marketing';
   $('#topProjeto').textContent = CONFIG.projeto;
@@ -774,11 +988,8 @@ function toggleSheet(open){
     ${M.raceday?`<button class="nav-btn rd" data-r="raceday" onclick="go('raceday')"><i>🏁</i>Race Day</button>`:''}
     ${M.concierge?`<button class="nav-btn" data-r="concierge" onclick="go('concierge')"><i>💬</i>Concierge</button>`:''}
     <button class="nav-btn" data-r="mais" onclick="toggleSheet(true)"><i>☰</i>Mais</button>`;
-  const links = [
-    ['resumo','📋','Resumo da Viagem'], ['comunicados','📣','Comunicados'], ['hospedagem','🏨','Hospedagem'], ['transportes','🚐','Transportes'],
-    ['guia','🗺','Guia de Las Vegas'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
-  ].filter(([r])=>M[r]!==false);
-  $('#sheetLinks').innerHTML = links.map(([r,ic,tx])=>`<a href="#${r}" onclick="toggleSheet(false)"><i>${ic}</i>${tx}</a>`).join('');
+  montarSheetLinks();
+  fbIniciar();
   window.addEventListener('hashchange', render);
   render();
   setInterval(()=>{ if(rotaAtual()==='home') render(); }, 60000); // contador regressivo

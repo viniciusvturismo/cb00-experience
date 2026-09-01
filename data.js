@@ -371,6 +371,45 @@ const ACESSO_RESTRITO = {
   audioOnlyDominio: 'speedmax.app',     // domínio interno fictício, só para o login funcionar no Firebase
 };
 
+/* Config pública do Firebase (não é segredo) — a proteção real está no login
+   (Authentication) e nas regras do Storage/Firestore no console.           */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAzNDtynNifnjltqvvBrbwmMuOi3Ws09Tc",
+  authDomain: "speedmax-nascar-app.firebaseapp.com",
+  projectId: "speedmax-nascar-app",
+  storageBucket: "speedmax-nascar-app.firebasestorage.app",
+  messagingSenderId: "824476697911",
+  appId: "1:824476697911:web:09006c1cb7a36d2e9ac6b2",
+};
+
+/* ==================== DOCUMENTOS POR PASSAGEIRO (área restrita) =========
+   Link individual e privado — não existe lista pública no app. Cada
+   passageiro recebe o link #pax-{slug} diretamente (WhatsApp) pelo
+   Vinicius. Os arquivos de cada um ficam no Firestore/Storage, enviados
+   pela área restrita.                                                     */
+const PASSAGEIROS = [
+  { slug:'george-hartmann', nome:'George Prado Hartmann' },
+  { slug:'geisel-vieira', nome:'Geisel Botelho Vieira' },
+  { slug:'roberto-rubio', nome:'Roberto Alexandre Vieira Rubio' },
+  { slug:'francisco-geremias', nome:'Francisco de Assis Geremias Junior' },
+  { slug:'caio-castrale', nome:'Caio Henrique Esteve Castrale' },
+  { slug:'arthur-soares', nome:'Arthur José Soares Neto' },
+  { slug:'marcelo-cardoso', nome:'Marcelo Cardoso da Silva' },
+  { slug:'carline-mello', nome:'Carline Pereira de Mello' },
+  { slug:'felipe-koroth', nome:'Felipe Pereira Koroth' },
+  { slug:'sidney-seemann', nome:'Sidney Seemann' },
+  { slug:'stelamaris-ost', nome:'Stelamaris Ost' },
+  { slug:'edgar-alonso', nome:'Edgar Alonso' },
+  { slug:'vinicius-shimao', nome:'Vinicius Augusto Shimao' },
+  { slug:'juliano-silva', nome:'Juliano Silva' },
+  { slug:'manuela-nascimento', nome:'Manuela Nascimento' },
+  { slug:'nicolle-vidal', nome:'Nicolle Vidal' },
+  { slug:'priscila-alonso', nome:'Priscila Aparecida Bodevan da Silva Alonso' },
+  { slug:'juliana-mello', nome:'Juliana Meirelles de Mello' },
+  { slug:'luis-lermen', nome:'Luis Eduardo Fernandes Lermen' },
+  { slug:'gino', nome:'Gino' },
+];
+
 /* ======================= DOCUMENTOS & CHECKLIST ========================== */
 const DOCS = {
   checklist:[
