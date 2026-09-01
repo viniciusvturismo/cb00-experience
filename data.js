@@ -342,6 +342,7 @@ const RACEDAY = {
     ['pós-corrida','Ponto de encontro: local a confirmar — a equipe VTurismo conduz o grupo às vans'],
     ['noite','Noite livre — sem programação fixa após a corrida'],
   ],
+  preRacePass:'Com o Pre-Race Track Pass vocês acompanham de perto todas as atividades que acontecem no palco antes da largada da South Point 400. Dá pra ficar na própria pista de corrida e assistir ao show pré-corrida, à apresentação dos pilotos e às homenagens e VIPs do dia. O passe também dá acesso ao Tapete Vermelho dos Pilotos, com chance de pegar autógrafos enquanto eles caminham pelo miolo da pista até o palco.',
   comunicadoSpeedMax:'Bem-vindos ao Race Day. A SpeedMax preparou este dia para que vocês vivam de perto a energia da NASCAR em Las Vegas. Boa corrida! 🏁',
 };
 

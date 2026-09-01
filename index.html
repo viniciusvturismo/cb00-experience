@@ -626,6 +626,11 @@ function vRaceday(){
     ${r.programacao.map(([h,t])=>`<div><b>${esc(h)}</b><span>${esc(t)}</span></div>`).join('')}
   </div>
 
+  ${r.preRacePass ? `<div class="card" style="border-color:var(--green-d)">
+    <h3 style="color:var(--green)">🎟 O que é o Pre-Race Track Pass</h3>
+    <p class="small" style="margin:0;color:#d5dbd2">${esc(r.preRacePass)}</p>
+  </div>`:''}
+
   ${L.ativo?`
   <div class="sec-tit">Race Day Live</div>
   <div class="card live">
