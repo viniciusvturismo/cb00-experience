@@ -92,6 +92,7 @@ const AGENDA = [
   { data:'2026-10-03', rotulo:'Sáb · 03 out', tema:'Experiências Signature', itens:[
     { hora:'horário a confirmar', titulo:'Desert Off-Road Experience 🏜', local:'Deserto de Nevada (UTVs)', endereco:'Las Vegas, NV',
       dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados. Horário de saída avisado pelo Vinicius no dia anterior.', dur:300, cal:'', ordemHora:'09:00',
+      sugestao:'No mesmo local (Adrenaline Mountain) dá pra turbinar o dia com opcionais pagos à parte: atirar com armas de fogo que não circulam no Brasil, operar máquinas pesadas de verdade (tipo escavadeira) e até usar um lança-chamas. Não está incluído no pacote, mas o concierge reserva pra você com antecedência.',
       midia:[
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczPQGlahd0BdoqDj6kw5vxsTE-oqo2TQ7GWck1oRHDR4fPMm--uuaioIe2rKZ7hOjn36htebWUuEL-QoSuq_QfRXlvNgj-a2wUtg4F3yA62RWtrz1hg=w1200', legenda:'Desert Off-Road Experience' },
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczNADTXtgRpbOAr8xxGI9ahDlGagah7BMTkErsPh3KQIIQbdZ34Y15a4yluyrfG5mF9Y9QsQraIbCsM41Hw_odYO-mmIg2_4sC3IZKq-hcRuzxTIkBI=w1200', legenda:'Desert Off-Road Experience' },
