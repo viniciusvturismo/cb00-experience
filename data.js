@@ -17,7 +17,7 @@ const CONFIG = {
   periodo: '01 a 06 de outubro de 2026',
   inicioViagem: '2026-10-01T21:00:00-03:00',   // usado no contador regressivo — embarque (noite de qui 01/10, horário de Brasília)
   whatsappConcierge: '5521981155451',            // WhatsApp VTurismo (só números, com DDI)
-  grupoWhatsapp: '',                             // link de convite do grupo do WhatsApp da viagem (https://chat.whatsapp.com/...) — deixe vazio para esconder o botão
+  grupoWhatsapp: 'https://chat.whatsapp.com/JGUK0ZzDoWo0hG2weiqZqg', // link de convite do grupo do WhatsApp da viagem — deixe vazio para esconder o botão
   telefoneEmergenciaVT: '+55 21 98115-5451',
   coordenador: { nome: 'Vinicius Lyrio — VTurismo', fone: '+55 21 98115-5451', obs: 'Coordenador do grupo, à disposição durante toda a experiência.' },
   responsavelSpeedMax: { nome: 'Responsável SpeedMax', fone: 'a confirmar', obs: 'Contato institucional SpeedMax durante a viagem.' },
