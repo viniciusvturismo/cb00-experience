@@ -79,8 +79,12 @@
   .banner-urg p{margin:0;font-size:12.5px;color:#e8e2d2;}
   .banner-urg p b{color:var(--gold);}
   .banner-curio{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:12px;transition:opacity .35s ease;}
-  .banner-curio > b{color:var(--teal-l);display:block;font-size:12.5px;margin-bottom:3px;}
-  .banner-curio p{margin:0;font-size:12.5px;color:#e8e2d2;}
+  .banner-curio > b{color:var(--teal-l);display:block;font-size:12.5px;margin-bottom:3px;padding-right:60px;}
+  .banner-curio p{margin:0;font-size:12.5px;color:#e8e2d2;padding-right:60px;}
+  .curio-nav{position:absolute;top:10px;right:12px;display:flex;gap:6px;}
+  .banner-curio{position:relative;}
+  .curio-nav button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--teal-l);font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .curio-nav button:active{background:var(--gold-d);color:#fff;}
   .destaque{border-left:3px solid var(--gold);}
   .next-act{display:flex;align-items:center;gap:12px;}
   .next-act .na-h{flex-shrink:0;background:var(--gold);color:#17130a;font-weight:800;font-size:13px;border-radius:10px;padding:8px 10px;min-width:58px;text-align:center;}
@@ -300,11 +304,10 @@ function vHome(){
     </div>`;
   }
 
-  // antes da viagem: curiosidade aleatória, trocando sozinha a cada alguns segundos. Durante/depois: comunicado urgente mais recente.
+  // antes da viagem: curiosidade aleatória, trocando sozinha a cada alguns segundos (ou por seta, manualmente). Durante/depois: comunicado urgente mais recente.
   const emContagem = diff > 0;
-  const curio = emContagem && CURIOSIDADES.length
-    ? CURIOSIDADES[Math.floor(Math.random()*CURIOSIDADES.length)]
-    : null;
+  if(emContagem && CURIOSIDADES.length) curioUltimo = Math.floor(Math.random()*CURIOSIDADES.length);
+  const curio = emContagem && CURIOSIDADES.length ? CURIOSIDADES[curioUltimo] : null;
   const urg = !emContagem
     ? [...COMUNICADOS].filter(c=>c.urgente).sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora))[0]
     : null;
@@ -325,7 +328,14 @@ function vHome(){
   <div class="hero-banner"><img src="hero_speedmax.jpg" alt="SpeedMax Pneus — Evento Las Vegas · NASCAR Weekend 2026"></div>
   <div class="hero-meta">${CONFIG.subtitulo} · <b>${CONFIG.cidade}</b> · ${CONFIG.periodo}</div>
   ${countHtml}
-  ${curio ? `<div class="banner-curio" id="curioBox"><b>🎰 Curiosidade de Las Vegas · ${esc(curio.titulo)}</b><p>${curio.texto}</p></div>` : ''}
+  ${curio ? `<div class="banner-curio" id="curioBox">
+    <b>🎰 Curiosidade de Las Vegas · ${esc(curio.titulo)}</b>
+    <p>${curio.texto}</p>
+    ${CURIOSIDADES.length>1 ? `<div class="curio-nav">
+      <button onclick="curioAvancar(-1)" aria-label="Curiosidade anterior">‹</button>
+      <button onclick="curioAvancar(1)" aria-label="Próxima curiosidade">›</button>
+    </div>`:''}
+  </div>` : ''}
   ${urg ? `<div class="banner-urg" onclick="go('comunicados')"><b>📣 ${esc(urg.titulo)}</b><p>${urg.texto}</p></div>` : ''}
 
   <div class="card">
@@ -927,22 +937,32 @@ function voltarTela(){
 }
 let curioTimer = null, curioUltimo = -1;
 function pararCurioRotativo(){ if(curioTimer){ clearInterval(curioTimer); curioTimer=null; } }
+function curioMostrar(i){
+  const box = $('#curioBox');
+  if(!box) return;
+  curioUltimo = i;
+  const c = CURIOSIDADES[i];
+  box.style.opacity = 0;
+  setTimeout(()=>{
+    box.querySelector('b').innerHTML = `🎰 Curiosidade de Las Vegas · ${esc(c.titulo)}`;
+    box.querySelector('p').textContent = c.texto;
+    box.style.opacity = 1;
+  }, 350);
+}
+function curioAvancar(dir){
+  if(!CURIOSIDADES.length) return;
+  const i = (curioUltimo + dir + CURIOSIDADES.length) % CURIOSIDADES.length;
+  curioMostrar(i);
+  iniciarCurioRotativo(); // reinicia a contagem pra não trocar de novo logo em seguida
+}
 function iniciarCurioRotativo(){
   pararCurioRotativo();
   if(!CURIOSIDADES.length) return;
   curioTimer = setInterval(()=>{
-    const box = $('#curioBox');
-    if(!box){ pararCurioRotativo(); return; }
+    if(!$('#curioBox')){ pararCurioRotativo(); return; }
     let i = Math.floor(Math.random()*CURIOSIDADES.length);
     if(CURIOSIDADES.length>1 && i===curioUltimo) i = (i+1)%CURIOSIDADES.length;
-    curioUltimo = i;
-    const c = CURIOSIDADES[i];
-    box.style.opacity = 0;
-    setTimeout(()=>{
-      box.querySelector('b').innerHTML = `🎰 Curiosidade de Las Vegas · ${esc(c.titulo)}`;
-      box.querySelector('p').textContent = c.texto;
-      box.style.opacity = 1;
-    }, 350);
+    curioMostrar(i);
   }, 12000);
 }
 function render(){
