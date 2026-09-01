@@ -143,6 +143,7 @@ const AGENDA = [
     { hora:'21:30', titulo:'Michael Jackson ONE · Cirque du Soleil 🎭', local:'Michael Jackson ONE Theatre — Mandalay Bay', endereco:'3950 Las Vegas Blvd S, Las Vegas, NV 89119',
       dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay.', dur:100, cal:'21:30',
       midia:[
+        { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczN8ImwEaCYVqhILm-NIEZUs-zvYgkwaIoiYTYTqrPSNJhYKtxcy0Mu8uidKMtqysPlHXHFkLUTAfx-R_9smXmEYoJeo-oQ16R-reYPLeMZX7l-08wM=w1200', legenda:'Michael Jackson ONE — Cirque du Soleil' },
         { tipo:'video', id:'6kLqvDj8wx4', legenda:'Michael Jackson ONE — trailer oficial' },
       ] },
   ]},
