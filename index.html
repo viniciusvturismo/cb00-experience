@@ -272,7 +272,7 @@ const fmtData = iso => { const [y,m,d]=iso.split('-'); return `${d}/${m}`; };
 
 function gcalHref(dia, it){
   if(!it.cal) return '';
-  const s = new Date(`${dia.data}T${it.cal}:00-07:00`);
+  const s = new Date(`${dia.data}T${it.cal}:00${it.tz||'-07:00'}`);
   const e = new Date(s.getTime() + (it.dur||60)*60000);
   const f = d => d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
@@ -307,11 +307,14 @@ function vHome(){
 
   // destaque do dia + próxima atividade
   const hojeIso = agora.toISOString().slice(0,10);
-  const diaHoje = AGENDA.find(d=>d.data===hojeIso) || AGENDA[0];
+  const diaHoje = AGENDA.find(d=>d.data===hojeIso);
+  const tripEnded = !diaHoje && hojeIso > AGENDA[AGENDA.length-1].data;
+  const diaExibir = diaHoje || (tripEnded ? null : AGENDA[0]);
   let prox = null, proxDia = null;
   outer: for(const d of AGENDA){ for(const it of d.itens){
-    if(!it.cal) continue;
-    if(new Date(`${d.data}T${it.cal}:00-07:00`) > agora){ prox = it; proxDia = d; break outer; }
+    const h = it.cal || it.ordemHora;
+    if(!h) continue;
+    if(new Date(`${d.data}T${h}:00${it.tz||'-07:00'}`) > agora){ prox = it; proxDia = d; break outer; }
   }}
 
   return `
@@ -339,11 +342,14 @@ function vHome(){
     </div>
   </div>` : ''}
 
-  <div class="card">
-    <h3>Destaque do dia — ${esc(diaHoje.rotulo)}</h3>
-    <p class="mut small" style="margin:0 0 4px"><b style="color:var(--gold)">${esc(diaHoje.tema)}</b></p>
-    ${diaHoje.itens.map(i=>`<div class="small" style="padding:4px 0;border-bottom:1px solid var(--line)"><b style="color:var(--gold)">${esc(i.hora)}</b> &nbsp;${esc(i.titulo)}</div>`).join('')}
-  </div>
+  ${tripEnded ? `<div class="card">
+    <h3>Viagem encerrada 🏁</h3>
+    <p class="mut small" style="margin:0">A SpeedMax Racing Experience terminou em ${fmtData(AGENDA[AGENDA.length-1].data)}. Obrigado por viajar com a gente — até a próxima! 🏆</p>
+  </div>` : diaExibir ? `<div class="card">
+    <h3>Destaque do dia — ${esc(diaExibir.rotulo)}</h3>
+    <p class="mut small" style="margin:0 0 4px"><b style="color:var(--gold)">${esc(diaExibir.tema)}</b></p>
+    ${diaExibir.itens.map(i=>`<div class="small" style="padding:4px 0;border-bottom:1px solid var(--line)"><b style="color:var(--gold)">${esc(i.hora)}</b> &nbsp;${esc(i.titulo)}</div>`).join('')}
+  </div>` : ''}
 
   <div class="grid2" style="margin-top:14px">
     <a class="btn btn-wa" href="${waUrl('Olá! Sou do grupo ' + CONFIG.projeto + ' e preciso de apoio do concierge.')}" target="_blank" rel="noopener">💬 Falar com o Concierge</a>

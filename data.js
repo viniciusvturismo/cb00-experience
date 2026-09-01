@@ -89,13 +89,23 @@ const COMUNICADOS = [
 
 /* ============================ PROGRAMAÇÃO =================================
    dias[].itens[]: hora, titulo, local, endereco, dress, obs, mapa (busca no
-   Google Maps), dur (minutos, p/ "adicionar ao calendário").               */
+   Google Maps), dur (minutos, p/ "adicionar ao calendário").
+   cal: horário real do evento (mesmo valor de "hora", em HH:MM) — só itens
+   com horário certo devem ter esse campo, senão o botão "Adicionar ao
+   calendário" aparece com hora errada. tz: fuso do LOCAL do evento (não do
+   fuso de quem está lendo) — default '-07:00' (Las Vegas). Só declare tz
+   quando o evento acontece fora de Las Vegas (ex.: embarque em São Paulo
+   '-03:00', escala em Dallas '-05:00').
+   ordemHora: só para itens sem horário certo (ex. "horário a confirmar",
+   "noite livre") — um horário aproximado (HH:MM) usado apenas para esse
+   item aparecer como "próxima atividade" na Home. Não vira botão de
+   calendário (isso continua sendo só o campo cal).                        */
 const AGENDA = [
   { data:'2026-10-01', rotulo:'Qui · 01 out', tema:'Embarque', itens:[
     { hora:'19:00', titulo:'Check-in no aeroporto (GRU) ✈️', local:'Aeroporto Internacional de São Paulo/Guarulhos (GRU)', endereco:'Guarulhos, SP',
-      dress:'Casual confortável', obs:'Recomendado chegar com 4h de antecedência ao voo AA 906 (23:15). O Cauã, da equipe VTurismo, aguarda o grupo no balcão de check-in da American Airlines para auxiliar no processo.', dur:0, cal:'15:00' },
+      dress:'Casual confortável', obs:'Recomendado chegar com 4h de antecedência ao voo AA 906 (23:15). O Cauã, da equipe VTurismo, aguarda o grupo no balcão de check-in da American Airlines para auxiliar no processo.', dur:0, cal:'19:00', tz:'-03:00' },
     { hora:'23:15', titulo:'Voo AA 906 — GRU → MIA ✈️', local:'Aeroporto de Guarulhos (GRU)', endereco:'Guarulhos, SP',
-      dress:'—', obs:'American Airlines · saída 23:15 (01/10) · chegada em Miami 06:45 (02/10, horário local).', dur:0, cal:'19:15' },
+      dress:'—', obs:'American Airlines · saída 23:15 (01/10) · chegada em Miami 06:45 (02/10, horário local).', dur:0, cal:'23:15', tz:'-03:00' },
   ]},
   { data:'2026-10-02', rotulo:'Sex · 02 out', tema:'Chegada & Welcome', itens:[
     { hora:'09:55', titulo:'Voo AA 1173 — MIA → LAS ✈️', local:'Aeroporto de Miami (MIA)', endereco:'Miami, FL',
@@ -111,7 +121,7 @@ const AGENDA = [
   ]},
   { data:'2026-10-03', rotulo:'Sáb · 03 out', tema:'Experiências Signature', itens:[
     { hora:'horário a confirmar', titulo:'Desert Off-Road Experience 🏜', local:'Deserto de Nevada (UTVs)', endereco:'Las Vegas, NV',
-      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados. Horário de saída avisado pelo Vinicius no dia anterior.', dur:300, cal:'',
+      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados. Horário de saída avisado pelo Vinicius no dia anterior.', dur:300, cal:'', ordemHora:'09:00',
       midia:[
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczPQGlahd0BdoqDj6kw5vxsTE-oqo2TQ7GWck1oRHDR4fPMm--uuaioIe2rKZ7hOjn36htebWUuEL-QoSuq_QfRXlvNgj-a2wUtg4F3yA62RWtrz1hg=w1200', legenda:'Desert Off-Road Experience' },
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczNADTXtgRpbOAr8xxGI9ahDlGagah7BMTkErsPh3KQIIQbdZ34Y15a4yluyrfG5mF9Y9QsQraIbCsM41Hw_odYO-mmIg2_4sC3IZKq-hcRuzxTIkBI=w1200', legenda:'Desert Off-Road Experience' },
@@ -120,9 +130,9 @@ const AGENDA = [
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczNkCK6P8c1i1Hqctoy-mbnCg6ILuH2JmQhdcfQ5uWENteEQcH8z_A3yMa9fd2Y5JHm7eE_vfw00mDunIUyeagmXrSW67y683M5PJVJoujJ6SeYgeB8=w1200', legenda:'Desert Off-Road Experience' },
       ] },
     { hora:'após a atividade', titulo:'Almoço — incluído 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
-      dress:'Casual', obs:'Almoço estilo American Barbecue, incluído após o Off-Road.', dur:90, cal:'' },
+      dress:'Casual', obs:'Almoço estilo American Barbecue, incluído após o Off-Road.', dur:90, cal:'', ordemHora:'13:00' },
     { hora:'final de tarde/noite', titulo:'Tarde e noite livres 🌆', local:'Las Vegas, NV', endereco:'',
-      dress:'Casual', obs:'Sem programação fixa — aproveite a Strip, cassinos ou reserve algo com o concierge.', dur:0, cal:'',
+      dress:'Casual', obs:'Sem programação fixa — aproveite a Strip, cassinos ou reserve algo com o concierge.', dur:0, cal:'', ordemHora:'18:00',
       sugestao:'Aproveite para conhecer os cassinos icônicos da Strip e ver de perto o espetáculo das Fountains of Bellagio, a poucos minutos do hotel. Se quiser elevar a noite — um jantar especial, acesso vip a algum cassino ou balada — é só chamar o concierge.' },
   ]},
   { data:'2026-10-04', rotulo:'Dom · 04 out', tema:'🏁 NASCAR Race Day', itens:[
@@ -137,7 +147,7 @@ const AGENDA = [
     { hora:'12:00', titulo:'Almoço — por conta do participante 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
       dress:'Casual', obs:'Refeição não incluída — opções de praça de alimentação disponíveis dentro do Speedway.', dur:90, cal:'12:00' },
     { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
-      dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'',
+      dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'', ordemHora:'19:00',
       sugestao:'Depois de um dia de corrida, vale relaxar: Fremont Street Experience, com o telão de LED gigante da Vegas antiga, ou uma volta no High Roller, a roda-gigante de 167 m com vista da Strip. O concierge organiza o transfer e reserva o horário pra você.' },
   ]},
   { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Outlet (opcional) & Michael Jackson ONE', itens:[
@@ -158,7 +168,7 @@ const AGENDA = [
     { hora:'12:41', titulo:'Voo AA 1482 — LAS → DFW ✈️', local:'Harry Reid International Airport (LAS)', endereco:'5757 Wayne Newton Blvd, Las Vegas, NV 89119',
       dress:'—', obs:'American Airlines · saída 12:41 · chegada em Dallas-Fort Worth 17:36 (horário local).', dur:0, cal:'12:41' },
     { hora:'20:50', titulo:'Voo AA 963 — DFW → GRU ✈️', local:'Aeroporto de Dallas-Fort Worth (DFW)', endereco:'Dallas, TX',
-      dress:'—', obs:'American Airlines · saída 20:50 (06/10) · chegada em Guarulhos 09:00 (07/10, horário de Brasília).', dur:0, cal:'18:50' },
+      dress:'—', obs:'American Airlines · saída 20:50 (06/10) · chegada em Guarulhos 09:00 (07/10, horário de Brasília).', dur:0, cal:'20:50', tz:'-05:00' },
     { hora:'—', titulo:'Retorno ao Brasil 🇧🇷', local:'—', endereco:'',
       dress:'—', obs:'Fim da SpeedMax Racing Experience. Até a próxima! 🏁', dur:0, cal:'' },
   ]},
