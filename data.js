@@ -22,38 +22,8 @@ const CONFIG = {
   coordenador: { nome: 'Vinicius Lyrio — VTurismo', fone: '+55 21 98115-5451', obs: 'Coordenador do grupo, à disposição durante toda a experiência.' },
   responsavelSpeedMax: { nome: 'Responsável SpeedMax', fone: 'a confirmar', obs: 'Contato institucional SpeedMax durante a viagem.' },
   // mostrar/esconder módulos do app:
-  modulos: { agenda:true, resumo:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true, minhaarea:true },
+  modulos: { agenda:true, resumo:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true },
 };
-
-/* ==================== MINHA ÁREA — documentos por passageiro ============
-   Cada passageiro tem sua própria área (passagem, seguro, hospedagem).
-   Acesso por link único (sem senha) — não é uma área realmente privada,
-   qualquer pessoa com o link do slug consegue ver. Upload ainda é
-   placeholder ("em breve") até definirmos onde os arquivos ficam
-   armazenados de fato.                                                    */
-const PASSAGEIROS = [
-  { slug:'george-hartmann', nome:'George Hartmann' },
-  { slug:'geisel-vieira', nome:'Geisel Botelho Vieira' },
-  { slug:'roberto-rubio', nome:'Roberto Alexandre Vieira Rubio' },
-  { slug:'francisco-geremias', nome:'Francisco de Assis Geremias Junior' },
-  { slug:'caio-castrale', nome:'Caio Henrique Esteve Castrale' },
-  { slug:'arthur-soares', nome:'Arthur José Soares Neto' },
-  { slug:'marcelo-cardoso', nome:'Marcelo Cardoso da Silva' },
-  { slug:'carline-mello', nome:'Carline Pereira de Mello' },
-  { slug:'felipe-koroth', nome:'Felipe Pereira Koroth' },
-  { slug:'sidney-seemann', nome:'Sidney Seemann' },
-  { slug:'stelamaris-ost', nome:'Stelamaris Ost' },
-  { slug:'edgar-alonso', nome:'Edgar Alonso' },
-  { slug:'vinicius-shimao', nome:'Vinicius Augusto Shimao' },
-  { slug:'juliano-silva', nome:'Juliano Silva' },
-  { slug:'manuela-nascimento', nome:'Manuela Nascimento' },
-  { slug:'nicolle-vidal', nome:'Nicolle Vidal' },
-  { slug:'priscila-alonso', nome:'Priscila Aparecida Bodevan da Silva Alonso' },
-  { slug:'juliana-mello', nome:'Juliana Meirelles de Mello' },
-  { slug:'luis-lermen', nome:'Luis Eduardo Fernandes Lermen' },
-  { slug:'esposa-roberto', nome:'Esposa do Roberto (nome pendente)' },
-  { slug:'gino', nome:'Gino (nome completo pendente)' },
-];
 
 /* ============ CURIOSIDADES (contagem regressiva antes da viagem) =========
    Exibidas em rodízio diário na Home, enquanto a viagem não começa —
@@ -144,8 +114,8 @@ const AGENDA = [
         { tipo:'foto', url:'https://www.lvms.com/images/dsc05613_1200x1000.jpg', legenda:'Pre-Race Track Pass — Las Vegas Motor Speedway' },
         { tipo:'video', id:'DQZ0IKKE2Y8', legenda:'South Point 400 — NASCAR em Las Vegas' },
       ] },
-    { hora:'12:00', titulo:'Almoço — por conta do participante 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Refeição não incluída — opções de praça de alimentação disponíveis dentro do Speedway.', dur:90, cal:'12:00' },
+    { hora:'12:00', titulo:'Pausa para o almoço 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
+      dress:'Casual', obs:'Aproveite a praça de alimentação dentro do Speedway — várias opções à sua escolha, por conta de cada um.', dur:90, cal:'12:00' },
     { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
       dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'', ordemHora:'19:00',
       sugestao:'Depois de um dia de corrida, vale relaxar: Fremont Street Experience, com o telão de LED gigante da Vegas antiga, ou uma volta no High Roller, a roda-gigante de 167 m com vista da Strip. O concierge organiza o transfer e reserva o horário pra você.' },
