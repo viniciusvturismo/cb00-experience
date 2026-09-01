@@ -104,6 +104,8 @@
   .ag-midia img{display:block;width:150px;height:100px;object-fit:cover;}
   .ag-midia iframe{display:block;width:220px;height:124px;border:0;}
   .ag-spoiler{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);margin:10px 0 4px;font-weight:700;}
+  .sugestao{font-size:12px;color:var(--txt);background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:8px 10px;margin-top:8px;}
+  .sugestao b{color:var(--gold);}
 
   /* ===== Comunicados ===== */
   .com{border-left:3px solid var(--line);}
@@ -367,6 +369,7 @@ function vAgenda(){
         <div class="loc">📍 ${esc(it.local)}${it.endereco?`<br><span class="small" style="color:var(--mut2)">${esc(it.endereco)}</span>`:''}</div>
         ${it.dress && it.dress!=='—' ? `<div class="dress">👔 Dress code: ${esc(it.dress)}</div>`:''}
         ${it.obs ? `<div class="obs">${it.obs}</div>`:''}
+        ${it.sugestao ? `<div class="sugestao">💡 <b>Sugestão VTurismo:</b> ${esc(it.sugestao)}</div>`:''}
         ${it.midia && it.midia.length ? `
         <div class="ag-spoiler">🎬 Spoiler</div>
         <div class="ag-midia">${it.midia.map(m=>

@@ -121,7 +121,8 @@ const AGENDA = [
     { hora:'após a atividade', titulo:'Almoço — incluído 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
       dress:'Casual', obs:'Almoço estilo American Barbecue, incluído após o Off-Road.', dur:90, cal:'' },
     { hora:'final de tarde/noite', titulo:'Tarde e noite livres 🌆', local:'Las Vegas, NV', endereco:'',
-      dress:'Casual', obs:'Sem programação fixa — aproveite a Strip, cassinos ou reserve algo com o concierge.', dur:0, cal:'' },
+      dress:'Casual', obs:'Sem programação fixa — aproveite a Strip, cassinos ou reserve algo com o concierge.', dur:0, cal:'',
+      sugestao:'Que tal conhecer os cassinos icônicos da Strip e assistir ao espetáculo gratuito das Fountains of Bellagio (a cada 15–30 min, à noite)? Fica a poucos minutos do hotel.' },
   ]},
   { data:'2026-10-04', rotulo:'Dom · 04 out', tema:'🏁 NASCAR Race Day', itens:[
     { hora:'10:00', titulo:'Saída para o Speedway 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
@@ -135,7 +136,8 @@ const AGENDA = [
     { hora:'12:00', titulo:'Almoço — por conta do participante 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
       dress:'Casual', obs:'Refeição não incluída — opções de praça de alimentação disponíveis dentro do Speedway.', dur:90, cal:'12:00' },
     { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
-      dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'' },
+      dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'',
+      sugestao:'Depois de um dia de corrida, vale relaxar: Fremont Street Experience (o telão de LED gigante da Vegas antiga) ou dar uma volta no High Roller, a roda-gigante de 167 m com vista da Strip.' },
   ]},
   { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Outlet (opcional) & Michael Jackson ONE', itens:[
     { hora:'10:00', titulo:'Passeio opcional — Outlet 🛍', local:'Premium Outlets Las Vegas', endereco:'Las Vegas, NV',
