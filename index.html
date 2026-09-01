@@ -394,7 +394,11 @@ function vAgenda(){
         <div class="loc">📍 ${esc(it.local)}${it.endereco?`<br><span class="small" style="color:var(--mut2)">${esc(it.endereco)}</span>`:''}</div>
         ${it.dress && it.dress!=='—' ? `<div class="dress">👔 Dress code: ${esc(it.dress)}</div>`:''}
         ${it.obs ? `<div class="obs">${it.obs}</div>`:''}
-        ${it.sugestao ? `<div class="sugestao">💡 <b>Sugestão VTurismo:</b> ${esc(it.sugestao)}<br><a class="sugestao-link" target="_blank" rel="noopener" href="${waUrl('Olá! Sou do grupo '+CONFIG.projeto+' e vi a sugestão de \"'+it.titulo.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'').trim()+'\" na agenda — pode me ajudar a organizar?')}">Reservar com o concierge →</a></div>`:''}
+        ${it.sugestao ? `<div class="sugestao">💡 <b>Sugestão VTurismo:</b> ${esc(it.sugestao)}<br><a class="sugestao-link" target="_blank" rel="noopener" href="${waUrl('Olá! Sou do grupo '+CONFIG.projeto+' e vi a sugestão de \"'+it.titulo.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'').trim()+'\" na agenda — pode me ajudar a organizar?')}">Reservar com o concierge →</a>
+          ${it.sugestaoMidia && it.sugestaoMidia.length ? `<div class="ag-midia" style="margin-top:10px">${it.sugestaoMidia.map(m=>
+            `<a class="mi" href="${esc(m.url)}" target="_blank" rel="noopener"><img src="${esc(m.url)}" alt="${esc(m.legenda||'')}" loading="lazy" onerror="this.parentElement.style.display='none'"></a>`
+          ).join('')}</div>`:''}
+        </div>`:''}
         ${it.midia && it.midia.length ? `
         <div class="ag-spoiler">🎬 Spoiler</div>
         <div class="ag-midia">${it.midia.map(m=>
