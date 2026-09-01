@@ -365,6 +365,15 @@ function vHome(){
     ${diaExibir.itens.map(i=>`<div class="small" style="padding:4px 0;border-bottom:1px solid var(--line)"><b style="color:var(--gold)">${esc(i.hora)}</b> &nbsp;${esc(i.titulo)}</div>`).join('')}
   </div>` : ''}
 
+  ${CONFIG.modulos.guia!==false ? `<div class="card" style="display:flex;align-items:center;gap:12px;cursor:pointer" onclick="go('guia')">
+    <div style="font-size:26px;line-height:1">🗺</div>
+    <div style="flex:1">
+      <h3 style="margin:0 0 2px">Guia de Las Vegas</h3>
+      <p class="mut small" style="margin:0">Restaurantes, compras, cassinos e dicas — curadoria VTurismo para os momentos livres.</p>
+    </div>
+    <div style="color:var(--mut);font-size:18px">›</div>
+  </div>` : ''}
+
   <div class="grid2" style="margin-top:14px">
     <a class="btn btn-wa" href="${waUrl('Olá! Sou do grupo ' + CONFIG.projeto + ' e preciso de apoio do concierge.')}" target="_blank" rel="noopener">💬 Falar com o Concierge</a>
     <button class="btn btn-red" onclick="go('emergencia')">🚨 Emergência</button>
