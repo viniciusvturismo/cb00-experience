@@ -115,7 +115,7 @@ const AGENDA = [
         { tipo:'video', id:'DQZ0IKKE2Y8', legenda:'South Point 400 — NASCAR em Las Vegas' },
       ] },
     { hora:'12:00', titulo:'Pausa para o almoço 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Aproveite a praça de alimentação dentro do Speedway — várias opções à sua escolha, por conta de cada um.', dur:90, cal:'12:00' },
+      dress:'Casual', obs:'Aproveite a praça de alimentação dentro do Speedway — várias opções à sua escolha (almoço não incluído).', dur:90, cal:'12:00' },
     { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
       dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'', ordemHora:'19:00',
       sugestao:'Depois de um dia de corrida, vale relaxar: Fremont Street Experience, com o telão de LED gigante da Vegas antiga, ou uma volta no High Roller, a roda-gigante de 167 m com vista da Strip. O concierge organiza o transfer e reserva o horário pra você.' },
