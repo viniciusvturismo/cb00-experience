@@ -78,7 +78,7 @@
   .banner-urg > b{color:var(--gold);display:block;font-size:12.5px;margin-bottom:3px;}
   .banner-urg p{margin:0;font-size:12.5px;color:#e8e2d2;}
   .banner-urg p b{color:var(--gold);}
-  .banner-curio{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:12px;}
+  .banner-curio{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:12px;transition:opacity .35s ease;}
   .banner-curio > b{color:var(--teal-l);display:block;font-size:12.5px;margin-bottom:3px;}
   .banner-curio p{margin:0;font-size:12.5px;color:#e8e2d2;}
   .destaque{border-left:3px solid var(--gold);}
@@ -295,10 +295,10 @@ function vHome(){
     </div>`;
   }
 
-  // antes da viagem: curiosidade em rodízio diário. Durante/depois: comunicado urgente mais recente.
+  // antes da viagem: curiosidade aleatória, trocando sozinha a cada alguns segundos. Durante/depois: comunicado urgente mais recente.
   const emContagem = diff > 0;
   const curio = emContagem && CURIOSIDADES.length
-    ? CURIOSIDADES[Math.floor(agora.getTime()/864e5) % CURIOSIDADES.length]
+    ? CURIOSIDADES[Math.floor(Math.random()*CURIOSIDADES.length)]
     : null;
   const urg = !emContagem
     ? [...COMUNICADOS].filter(c=>c.urgente).sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora))[0]
@@ -317,7 +317,7 @@ function vHome(){
   <div class="hero-banner"><img src="hero_speedmax.jpg" alt="SpeedMax Pneus — Evento Las Vegas · NASCAR Weekend 2026"></div>
   <div class="hero-meta">${CONFIG.subtitulo} · <b>${CONFIG.cidade}</b> · ${CONFIG.periodo}</div>
   ${countHtml}
-  ${curio ? `<div class="banner-curio"><b>🎰 Curiosidade de Las Vegas · ${esc(curio.titulo)}</b><p>${curio.texto}</p></div>` : ''}
+  ${curio ? `<div class="banner-curio" id="curioBox"><b>🎰 Curiosidade de Las Vegas · ${esc(curio.titulo)}</b><p>${curio.texto}</p></div>` : ''}
   ${urg ? `<div class="banner-urg" onclick="go('comunicados')"><b>📣 ${esc(urg.titulo)}</b><p>${urg.texto}</p></div>` : ''}
 
   <div class="card">
@@ -388,6 +388,24 @@ function vAgenda(){
 }
 function selDia(i){ diaSel=i; vAgenda._touched=true; render(); }
 
+/* ============================ RESUMO DA VIAGEM ============================ */
+function vResumo(){
+  return `
+  <div class="sec-tit">Resumo da Viagem</div>
+  <p class="sec-sub">${esc(RESUMO.intro)}</p>
+  <div class="chip" style="margin-bottom:12px">✅ Incluído na experiência</div>
+  ${RESUMO.incluido.map(i=>`
+    <div class="card" style="display:flex;gap:12px;align-items:flex-start;padding:12px 14px">
+      <div style="font-size:22px;line-height:1">${i.icone}</div>
+      <div><h4 style="margin:0 0 3px;font-size:13.5px">${esc(i.titulo)}</h4><p class="small mut" style="margin:0">${esc(i.texto)}</p></div>
+    </div>`).join('')}
+  <div class="chip" style="margin:18px 0 12px">Não incluído</div>
+  <div class="card">
+    <ul class="dots">${RESUMO.naoIncluido.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>
+  </div>
+  <div class="sugestao" style="margin-top:14px">💡 ${esc(RESUMO.fechamento)}<br><a class="sugestao-link" target="_blank" rel="noopener" href="${waUrl('Olá! Sou do grupo '+CONFIG.projeto+' e gostaria de incluir um extra na minha experiência.')}">Falar com o concierge →</a></div>`;
+}
+
 /* ============================ COMUNICADOS ============================ */
 function vComunicados(){
   const list = [...COMUNICADOS].sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora));
@@ -409,6 +427,7 @@ function vConcierge(){
   <p class="sec-sub">A equipe VTurismo acompanha o grupo durante toda a experiência.</p>
   <a class="btn btn-wa btn-block" target="_blank" rel="noopener" href="${waUrl('Olá! Sou do grupo ' + CONFIG.projeto + ' e preciso de apoio do concierge.')}">💬 WhatsApp Concierge VTurismo</a>
   <div style="height:10px"></div>
+  ${CONFIG.grupoWhatsapp ? `<a class="btn btn-gold btn-block" target="_blank" rel="noopener" href="${esc(CONFIG.grupoWhatsapp)}">👥 Entrar no Grupo da Viagem</a><div style="height:10px"></div>` : ''}
   <a class="btn btn-line btn-block" href="tel:${CONFIG.telefoneEmergenciaVT.replace(/[^+\d]/g,'')}">📞 Telefone de emergência VTurismo · ${CONFIG.telefoneEmergenciaVT}</a>
 
   <div class="card" style="margin-top:14px">
@@ -700,6 +719,7 @@ function vPaxArea(slug){
 const ROTAS = {
   home:      { f:vHome },
   agenda:    { f:vAgenda,       mod:'agenda' },
+  resumo:    { f:vResumo,       mod:'resumo' },
   comunicados:{ f:vComunicados, mod:'comunicados' },
   concierge: { f:vConcierge,    mod:'concierge' },
   hospedagem:{ f:vHospedagem,   mod:'hospedagem' },
@@ -720,19 +740,40 @@ function go(r){ if(location.hash === '#'+r) render(); else location.hash = r; to
 function voltarTela(){
   if(window.history.length>1) window.history.back(); else go('home');
 }
+let curioTimer = null, curioUltimo = -1;
+function pararCurioRotativo(){ if(curioTimer){ clearInterval(curioTimer); curioTimer=null; } }
+function iniciarCurioRotativo(){
+  pararCurioRotativo();
+  if(!CURIOSIDADES.length) return;
+  curioTimer = setInterval(()=>{
+    const box = $('#curioBox');
+    if(!box){ pararCurioRotativo(); return; }
+    let i = Math.floor(Math.random()*CURIOSIDADES.length);
+    if(CURIOSIDADES.length>1 && i===curioUltimo) i = (i+1)%CURIOSIDADES.length;
+    curioUltimo = i;
+    const c = CURIOSIDADES[i];
+    box.style.opacity = 0;
+    setTimeout(()=>{
+      box.querySelector('b').innerHTML = `🎰 Curiosidade de Las Vegas · ${esc(c.titulo)}`;
+      box.querySelector('p').textContent = c.texto;
+      box.style.opacity = 1;
+    }, 350);
+  }, 8000);
+}
 function render(){
   const r = rotaAtual();
   const html = r.indexOf('pax-')===0 ? vPaxArea(r.slice(4)) : ROTAS[r].f();
   $('#view').innerHTML = html + footerHtml();
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('on', b.dataset.r===r || (b.dataset.r==='mais' && !['home','agenda','raceday','concierge'].includes(r))));
   $('#backBtn').style.display = r==='home' ? 'none' : 'flex';
+  if(r==='home') iniciarCurioRotativo(); else pararCurioRotativo();
   window.scrollTo({top:0});
 }
 function footerHtml(){
   return `<footer>
     <img src="cb00_branco.png" alt="CB00 Marketing">
     <p><b>CB00 MARKETING</b> · ${CONFIG.assinatura}<br>
-    Operação e logística: VTurismo — agência parceira · 📞 WhatsApp (21) 4145-2310</p>
+    Operação e logística: VTurismo — agência parceira · 📞 WhatsApp (21) 98115-5451</p>
   </footer>`;
 }
 function toggleSheet(open){
@@ -752,7 +793,7 @@ function toggleSheet(open){
     ${M.concierge?`<button class="nav-btn" data-r="concierge" onclick="go('concierge')"><i>💬</i>Concierge</button>`:''}
     <button class="nav-btn" data-r="mais" onclick="toggleSheet(true)"><i>☰</i>Mais</button>`;
   const links = [
-    ['comunicados','📣','Comunicados'], ['hospedagem','🏨','Hospedagem'], ['transportes','🚐','Transportes'],
+    ['resumo','📋','Resumo da Viagem'], ['comunicados','📣','Comunicados'], ['hospedagem','🏨','Hospedagem'], ['transportes','🚐','Transportes'],
     ['guia','🗺','Guia de Las Vegas'], ['minhaarea','🗂','Minha Área'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
   ].filter(([r])=>M[r]!==false);
   $('#sheetLinks').innerHTML = links.map(([r,ic,tx])=>`<a href="#${r}" onclick="toggleSheet(false)"><i>${ic}</i>${tx}</a>`).join('');

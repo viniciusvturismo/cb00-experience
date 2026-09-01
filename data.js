@@ -16,12 +16,13 @@ const CONFIG = {
   cidade: 'Las Vegas',
   periodo: '01 a 06 de outubro de 2026',
   inicioViagem: '2026-10-01T21:00:00-03:00',   // usado no contador regressivo — embarque (noite de qui 01/10, horário de Brasília)
-  whatsappConcierge: '552141452310',            // WhatsApp VTurismo (só números, com DDI)
-  telefoneEmergenciaVT: '+55 21 4145-2310',
-  coordenador: { nome: 'Coordenação VTurismo', fone: '+55 21 4145-2310', obs: 'Coordenador do grupo — nome e celular local serão confirmados antes do embarque.' },
+  whatsappConcierge: '5521981155451',            // WhatsApp VTurismo (só números, com DDI)
+  grupoWhatsapp: '',                             // link de convite do grupo do WhatsApp da viagem (https://chat.whatsapp.com/...) — deixe vazio para esconder o botão
+  telefoneEmergenciaVT: '+55 21 98115-5451',
+  coordenador: { nome: 'Vinicius Lyrio — VTurismo', fone: '+55 21 98115-5451', obs: 'Coordenador do grupo, à disposição durante toda a experiência.' },
   responsavelSpeedMax: { nome: 'Responsável SpeedMax', fone: 'a confirmar', obs: 'Contato institucional SpeedMax durante a viagem.' },
   // mostrar/esconder módulos do app:
-  modulos: { agenda:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true, minhaarea:true },
+  modulos: { agenda:true, resumo:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true, minhaarea:true },
 };
 
 /* ==================== MINHA ÁREA — documentos por passageiro ============
@@ -162,6 +163,30 @@ const AGENDA = [
       dress:'—', obs:'Fim da SpeedMax Racing Experience. Até a próxima! 🏁', dur:0, cal:'' },
   ]},
 ];
+
+/* ============================ RESUMO DA VIAGEM ============================ */
+const RESUMO = {
+  intro:'Tudo o que você precisa saber já está garantido — é só embarcar. Veja abaixo o que faz parte da sua SpeedMax Racing Experience.',
+  incluido:[
+    { icone:'✈️', titulo:'Aéreo internacional', texto:'Passagens ida e volta GRU ⇄ Las Vegas (via Miami/Dallas), American Airlines.' },
+    { icone:'🚐', titulo:'Todos os transfers', texto:'Aeroporto ⇄ hotel e todos os deslocamentos da programação oficial, em veículos executivos.' },
+    { icone:'🏨', titulo:'4 noites de hospedagem', texto:'Fontainebleau Las Vegas, o resort mais novo da Strip.' },
+    { icone:'🍽', titulo:'Welcome Dinner', texto:'Jantar de boas-vindas e integração do grupo.' },
+    { icone:'🏜', titulo:'Desert Off-Road Experience', texto:'Aventura em UTVs pelo deserto de Nevada, com almoço American Barbecue incluído.' },
+    { icone:'🏁', titulo:'NASCAR Race Day — South Point 400', texto:'Pre-Race Track Pass + arquibancada Seção 2Q, em frente à linha de chegada.' },
+    { icone:'🎭', titulo:'Michael Jackson ONE · Cirque du Soleil', texto:'Ingresso para o espetáculo no Mandalay Bay.' },
+    { icone:'🛡', titulo:'Seguro viagem internacional', texto:'Cobertura para todo o período da experiência (01–06/10).' },
+    { icone:'💬', titulo:'Concierge VTurismo 24h', texto:'Equipe acompanhando o grupo do início ao fim — qualquer necessidade, é só chamar.' },
+  ],
+  naoIncluido:[
+    'Café da manhã do hotel (o Fontainebleau reúne mais de 30 opções de restaurantes e cafés)',
+    'Almoço do dia do Race Day (praça de alimentação disponível dentro do Speedway)',
+    'Passeio opcional ao Outlet (sob consulta com o concierge)',
+    'Bebidas, refeições extras e despesas pessoais fora da programação',
+    'Gorjetas (praxe nos EUA: 15–20%)',
+  ],
+  fechamento:'Qualquer extra que queira incluir na experiência — jantar especial, passeio, upgrade — o concierge VTurismo está à disposição para organizar.',
+};
 
 /* ============================ HOSPEDAGEM ================================= */
 const HOTEL = {
@@ -360,7 +385,7 @@ const DOCS = {
 /* ============================ EMERGÊNCIA ================================= */
 const EMERGENCIA = [
   { icone:'🚨', titulo:'Emergência local (EUA)', valor:'911', tel:'911', obs:'Polícia, ambulância e bombeiros — 24h.' },
-  { icone:'🟢', titulo:'VTurismo — Concierge 24h', valor:'+55 21 4145-2310', tel:'+552141452310', obs:'WhatsApp e telefone durante toda a experiência.', wa:true },
+  { icone:'🟢', titulo:'VTurismo — Concierge 24h', valor:'+55 21 98115-5451', tel:'+5521981155451', obs:'WhatsApp e telefone durante toda a experiência.', wa:true },
   { icone:'🏨', titulo:'Hotel — Fontainebleau Las Vegas', valor:'+1 (702) 678-5000', tel:'+17026785000', obs:'Recepção 24h · 2777 Las Vegas Blvd S.' },
   { icone:'🛡', titulo:'Seguro viagem', valor:'apólice a confirmar', tel:'', obs:'Número da apólice e central 24h serão enviados no checklist documental.' },
   { icone:'🏥', titulo:'Hospital de referência', valor:'Sunrise Hospital & Medical Center', tel:'+17027318000', obs:'3186 S Maryland Pkwy — emergência 24h (~10 min do hotel).', mapa:'Sunrise Hospital & Medical Center, 3186 S Maryland Pkwy, Las Vegas' },
