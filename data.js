@@ -127,7 +127,10 @@ const AGENDA = [
     { hora:'10:00', titulo:'Saída para o Speedway 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:00' },
     { hora:'11:00', titulo:'NASCAR Race Day — South Point 400 🏁', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Playoffs da NASCAR Cup Series · arquibancada Seção 2Q, em frente à linha de chegada, com Pre-Race Track Pass incluído · horário oficial da largada a confirmar pela NASCAR. Veja a área Race Day do app.', dur:420, cal:'11:00' },
+      dress:'Casual', obs:'Playoffs da NASCAR Cup Series · arquibancada Seção 2Q, em frente à linha de chegada, com Pre-Race Track Pass incluído · horário oficial da largada a confirmar pela NASCAR. Veja a área Race Day do app.', dur:420, cal:'11:00',
+      midia:[
+        { tipo:'foto', url:'https://www.lvms.com/images/dsc05613_1200x1000.jpg', legenda:'Pre-Race Track Pass — Las Vegas Motor Speedway' },
+      ] },
     { hora:'12:00', titulo:'Almoço Race Day 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
       dress:'Casual', obs:'Refeição no Speedway — formato a confirmar.', dur:90, cal:'12:00' },
     { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
