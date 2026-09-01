@@ -486,6 +486,11 @@ function vHospedagem(){
     <div class="kv"><b>Ponto de encontro</b><span>${esc(h.encontro)}</span></div>
   </div>
   <a class="btn btn-line btn-block" target="_blank" rel="noopener" href="${mapsUrl(h.nome+', '+h.endereco)}">🗺 Ver no mapa</a>
+  ${h.compras ? `<div class="card" style="margin-top:12px;border-color:var(--gold-d)">
+    <h3>${esc(h.compras.titulo)}</h3>
+    <p class="mut small" style="margin:0 0 8px">${esc(h.compras.texto)}</p>
+    <ul class="dots">${h.compras.passos.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>
+  </div>` : ''}
   <div class="card" style="margin-top:12px">
     <h3>Informações úteis</h3>
     <ul class="dots">${h.uteis.map(u=>`<li>${u}</li>`).join('')}</ul>

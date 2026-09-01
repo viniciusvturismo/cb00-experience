@@ -211,6 +211,15 @@ const HOTEL = {
          'Guarde o cartão do quarto para circular nas áreas de hóspedes.',
          'Cofre no quarto para passaporte e valores.',
          'Gorjeta usual: US$ 2–5 por mala / serviço de quarto.'],
+  compras:{
+    titulo:'📦 Recebendo compras online no hotel',
+    texto:'O Fontainebleau recebe encomendas e compras feitas pela internet através do Business Center (operado pela FedEx Office), dentro do próprio hotel.',
+    passos:[
+      'Endereço de entrega: seu nome completo (igual ao da reserva) + Fontainebleau Las Vegas — Business Center, 2777 S. Las Vegas Blvd., Las Vegas, NV 89109.',
+      'Retirada: os pacotes ficam disponíveis no horário de funcionamento do Business Center — vale ligar antes para confirmar (+1 702-789-3027).',
+      'Taxas: o hotel pode cobrar uma taxa de manuseio por volume recebido — confirme o valor direto com o Business Center antes de mandar a compra.',
+    ],
+  },
 };
 
 /* ============================ TRANSPORTES ================================
@@ -369,14 +378,28 @@ const RACE_LIVE = {
 };
 
 /* RACE INSIGHTS — áudios/vídeos/textos exclusivos.
-   tipo: 'audio' | 'video' | 'texto' · src: arquivo em midia/ (opcional).     */
+   tipo: 'audio' | 'video' | 'texto' · src: preenchido automaticamente quando
+   o Cacá ou o Vinicius sobem o áudio pela área restrita (#admin) — o campo
+   aqui embaixo é só o texto padrão exibido antes do upload. key: identifica
+   o momento da corrida na área restrita (não mude depois de já ter subido
+   áudio para ele).                                                        */
 const INSIGHTS = [
   { tipo:'texto', hora:'—', titulo:'Race Insights by Cacá Bueno', desc:'Durante o Race Day, o pentacampeão Cacá Bueno publica aqui áudios curtos explicando os momentos da corrida: largada, pit stops, bandeiras, estratégia de pneus e as últimas voltas. Fique de olho! 🎧', src:'' },
-  { tipo:'audio', hora:'em breve', titulo:'A largada', desc:'O que observar nos primeiros metros da South Point 400.', src:'' },
-  { tipo:'audio', hora:'em breve', titulo:'Pit stop & estratégia de pneus', desc:'Por que a troca de pneus decide corridas — o olhar de quem entende de borracha.', src:'' },
-  { tipo:'audio', hora:'em breve', titulo:'Bandeira amarela', desc:'Como o caution muda tudo: reagrupamento, wave around e a corrida no pit lane.', src:'' },
-  { tipo:'audio', hora:'em breve', titulo:'Últimas voltas', desc:'Overtime, pressão e o sprint final rumo à bandeira quadriculada.', src:'' },
+  { tipo:'audio', key:'largada', hora:'em breve', titulo:'A largada', desc:'O que observar nos primeiros metros da South Point 400.', src:'' },
+  { tipo:'audio', key:'pitstop', hora:'em breve', titulo:'Pit stop & estratégia de pneus', desc:'Por que a troca de pneus decide corridas — o olhar de quem entende de borracha.', src:'' },
+  { tipo:'audio', key:'bandeira', hora:'em breve', titulo:'Bandeira amarela', desc:'Como o caution muda tudo: reagrupamento, wave around e a corrida no pit lane.', src:'' },
+  { tipo:'audio', key:'ultimas', hora:'em breve', titulo:'Últimas voltas', desc:'Overtime, pressão e o sprint final rumo à bandeira quadriculada.', src:'' },
 ];
+
+/* ============================ ÁREA RESTRITA ================================
+   admin: login completo (documentos por passageiro + áudios do Race Day).
+   audioOnly: login simples do Cacá — só a tela de upload/gravação de áudio.
+   As senhas NÃO ficam aqui — são criadas direto no Firebase Authentication.  */
+const ACESSO_RESTRITO = {
+  adminEmail: 'vinicius@vturismo.com.br',
+  audioOnlyUsuario: 'Caca00',           // login simples do Cacá — vira e-mail interno automaticamente
+  audioOnlyDominio: 'speedmax.app',     // domínio interno fictício, só para o login funcionar no Firebase
+};
 
 /* ======================= DOCUMENTOS & CHECKLIST ========================== */
 const DOCS = {
