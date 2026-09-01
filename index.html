@@ -97,6 +97,11 @@
   .ag-body .dress{font-size:11.5px;color:var(--gold);margin-top:5px;}
   .ag-body .obs{font-size:12px;color:var(--mut);margin-top:5px;}
   .ag-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+  .ag-midia{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;}
+  .ag-midia .mi{flex-shrink:0;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--card2);}
+  .ag-midia img{display:block;width:150px;height:100px;object-fit:cover;}
+  .ag-midia iframe{display:block;width:220px;height:124px;border:0;}
+  .ag-spoiler{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);margin:10px 0 4px;font-weight:700;}
 
   /* ===== Comunicados ===== */
   .com{border-left:3px solid var(--line);}
@@ -248,8 +253,6 @@
 
 <audio id="player"></audio>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="data.js"></script>
 <script>
 /* ============================ util ============================ */
@@ -361,6 +364,13 @@ function vAgenda(){
         <div class="loc">📍 ${esc(it.local)}${it.endereco?`<br><span class="small" style="color:var(--mut2)">${esc(it.endereco)}</span>`:''}</div>
         ${it.dress && it.dress!=='—' ? `<div class="dress">👔 Dress code: ${esc(it.dress)}</div>`:''}
         ${it.obs ? `<div class="obs">${it.obs}</div>`:''}
+        ${it.midia && it.midia.length ? `
+        <div class="ag-spoiler">🎬 Spoiler</div>
+        <div class="ag-midia">${it.midia.map(m=>
+          m.tipo==='video'
+            ? `<div class="mi"><iframe src="https://www.youtube.com/embed/${esc(m.id)}" title="${esc(m.legenda||'')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+            : `<a class="mi" href="${esc(m.url)}" target="_blank" rel="noopener"><img src="${esc(m.url)}" alt="${esc(m.legenda||'')}" loading="lazy" onerror="this.parentElement.style.display='none'"></a>`
+        ).join('')}</div>`:''}
         <div class="ag-actions">
           ${it.endereco ? `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${mapsUrl(it.local+', '+it.endereco)}">🗺 Ver no mapa</a>`:''}
           ${gcalHref(d,it) ? `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${gcalHref(d,it)}">📅 Adicionar ao calendário</a>`:''}
@@ -678,101 +688,6 @@ function vPaxArea(slug){
   <a href="#minhaarea" class="btn btn-line btn-block" style="margin-top:6px">← Voltar</a>`;
 }
 
-/* ============================ DIÁRIO DA VIAGEM ============================
-   Feed ao vivo (Firestore) — todo mundo vê; só a equipe posta (senha).    */
-let DIARIO_DB = null, DIARIO_POSTS = [], DIARIO_INICIADO = false, DIARIO_FORM_ABERTO = false;
-function diarioIniciar(){
-  if(DIARIO_INICIADO) return;
-  DIARIO_INICIADO = true;
-  try{
-    const app = firebase.initializeApp(FIREBASE_CONFIG);
-    DIARIO_DB = firebase.firestore();
-    DIARIO_DB.collection('posts').orderBy('criadoEm','desc').limit(100)
-      .onSnapshot(snap=>{
-        DIARIO_POSTS = snap.docs.map(d=>({ id:d.id, ...d.data() }));
-        if(rotaAtual()==='diario') render();
-      }, err=>{ console.error('Diário — erro ao carregar posts', err); });
-  }catch(e){ console.error('Diário — falha ao iniciar Firebase', e); }
-}
-function diarioIconePorTipo(t){
-  return t==='foto' ? '📷' : t==='audio' ? '🎧' : t==='local' ? '📍' : '📝';
-}
-function diarioToggleForm(){
-  DIARIO_FORM_ABERTO = !DIARIO_FORM_ABERTO;
-  render();
-}
-function diarioUsarLocalizacao(btn){
-  if(!navigator.geolocation){ btn.textContent='Localização indisponível'; return; }
-  btn.textContent='📡 Obtendo…';
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const {latitude:la, longitude:lo} = pos.coords;
-    $('#diarioUrl').value = `https://maps.google.com/?q=${la.toFixed(6)},${lo.toFixed(6)}`;
-    $('#diarioTipo').value = 'local';
-    btn.textContent='📍 Usar minha localização atual';
-  }, ()=>{ btn.textContent='⚠️ Não foi possível obter'; });
-}
-function diarioPublicar(){
-  if(!DIARIO_DB){ alert('Diário ainda carregando, tente de novo em instantes.'); return; }
-  const autor = $('#diarioAutor').value.trim();
-  const tipo = $('#diarioTipo').value;
-  const texto = $('#diarioTexto').value.trim();
-  const url = $('#diarioUrl').value.trim();
-  const senha = $('#diarioSenha').value;
-  if(!autor || !texto){ alert('Preencha seu nome e o texto/legenda.'); return; }
-  const btn = $('#diarioBtnPublicar');
-  btn.disabled = true; btn.textContent = 'Publicando…';
-  DIARIO_DB.collection('posts').add({
-    tipo, autor, texto, url: url||null, senha,
-    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-  }).then(()=>{
-    $('#diarioAutor').value=''; $('#diarioTexto').value=''; $('#diarioUrl').value='';
-    DIARIO_FORM_ABERTO = false;
-    render();
-  }).catch(err=>{
-    alert(err.code==='permission-denied' ? 'Senha incorreta.' : 'Erro ao publicar: '+err.message);
-  }).finally(()=>{
-    if(btn){ btn.disabled=false; btn.textContent='Publicar'; }
-  });
-}
-function vDiario(){
-  diarioIniciar();
-  return `
-  <div class="sec-tit">Diário da Viagem</div>
-  <p class="sec-sub">Fotos, localizações e áudios em tempo real — inclusive os Race Insights do Cacá Bueno.</p>
-
-  <div class="card">
-    <button class="btn btn-line btn-block" onclick="diarioToggleForm()">${DIARIO_FORM_ABERTO?'✕ Fechar':'✏️ Postar (equipe)'}</button>
-    ${DIARIO_FORM_ABERTO?`
-      <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
-        <input id="diarioAutor" placeholder="Seu nome" style="padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--txt)">
-        <select id="diarioTipo" style="padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--txt)">
-          <option value="texto">📝 Texto</option>
-          <option value="foto">📷 Foto (link)</option>
-          <option value="audio">🎧 Áudio (link)</option>
-          <option value="local">📍 Localização</option>
-        </select>
-        <textarea id="diarioTexto" placeholder="Legenda ou mensagem" rows="3" style="padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--txt)"></textarea>
-        <input id="diarioUrl" placeholder="Link da foto/áudio (opcional)" style="padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--txt)">
-        <button class="btn btn-line btn-sm" onclick="diarioUsarLocalizacao(this)">📍 Usar minha localização atual</button>
-        <input id="diarioSenha" type="password" placeholder="Senha da equipe" style="padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--txt)">
-        <button id="diarioBtnPublicar" class="btn btn-gold btn-block" onclick="diarioPublicar()">Publicar</button>
-      </div>`:''}
-  </div>
-
-  ${DIARIO_POSTS.length===0?`<p class="mut small" style="text-align:center;margin-top:16px">Nenhum post ainda — fique de olho durante a viagem!</p>`:
-    DIARIO_POSTS.map(p=>`
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <b style="font-size:13px">${diarioIconePorTipo(p.tipo)} ${esc(p.autor||'—')}</b>
-        <span class="small mut">${p.criadoEm&&p.criadoEm.toDate?p.criadoEm.toDate().toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'agora'}</span>
-      </div>
-      <p class="small" style="margin:0 0 8px">${esc(p.texto||'')}</p>
-      ${p.url?(p.tipo==='foto'?`<img src="${esc(p.url)}" style="width:100%;border-radius:10px;display:block" onerror="this.style.display='none'">`:
-        p.tipo==='audio'?`<audio controls src="${esc(p.url)}" style="width:100%"></audio>`:
-        `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${esc(p.url)}">🗺 Abrir link</a>`):''}
-    </div>`).join('')}`;
-}
-
 /* ============================ router & nav ============================ */
 const ROTAS = {
   home:      { f:vHome },
@@ -786,7 +701,6 @@ const ROTAS = {
   docs:      { f:vDocs,         mod:'docs' },
   emergencia:{ f:vEmergencia,   mod:'emergencia' },
   minhaarea: { f:vMinhaArea,    mod:'minhaarea' },
-  diario:    { f:vDiario,       mod:'diario' },
 };
 function rotaAtual(){
   const h = (location.hash||'#home').slice(1);
@@ -827,7 +741,7 @@ function toggleSheet(open){
     <button class="nav-btn" data-r="mais" onclick="toggleSheet(true)"><i>☰</i>Mais</button>`;
   const links = [
     ['comunicados','📣','Comunicados'], ['hospedagem','🏨','Hospedagem'], ['transportes','🚐','Transportes'],
-    ['guia','🗺','Guia de Las Vegas'], ['diario','📔','Diário da Viagem'], ['minhaarea','🗂','Minha Área'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
+    ['guia','🗺','Guia de Las Vegas'], ['minhaarea','🗂','Minha Área'], ['docs','📄','Documentos & Checklist'], ['emergencia','🚨','Emergência'],
   ].filter(([r])=>M[r]!==false);
   $('#sheetLinks').innerHTML = links.map(([r,ic,tx])=>`<a href="#${r}" onclick="toggleSheet(false)"><i>${ic}</i>${tx}</a>`).join('');
   window.addEventListener('hashchange', render);

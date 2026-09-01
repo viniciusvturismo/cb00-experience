@@ -21,19 +21,7 @@ const CONFIG = {
   coordenador: { nome: 'Coordenação VTurismo', fone: '+55 21 4145-2310', obs: 'Coordenador do grupo — nome e celular local serão confirmados antes do embarque.' },
   responsavelSpeedMax: { nome: 'Responsável SpeedMax', fone: 'a confirmar', obs: 'Contato institucional SpeedMax durante a viagem.' },
   // mostrar/esconder módulos do app:
-  modulos: { agenda:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true, minhaarea:true, diario:true },
-};
-
-/* ==================== FIREBASE — Diário da Viagem (posts ao vivo) ========
-   Config pública (não é segredo) — a proteção real está nas regras do
-   Firestore no console. A senha da equipe fica só lá, nunca aqui.        */
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyAzNDtynNifnjltqvvBrbwmMuOi3Ws09Tc",
-  authDomain: "speedmax-nascar-app.firebaseapp.com",
-  projectId: "speedmax-nascar-app",
-  storageBucket: "speedmax-nascar-app.firebasestorage.app",
-  messagingSenderId: "824476697911",
-  appId: "1:824476697911:web:09006c1cb7a36d2e9ac6b2",
+  modulos: { agenda:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true, minhaarea:true },
 };
 
 /* ==================== MINHA ÁREA — documentos por passageiro ============
@@ -122,7 +110,14 @@ const AGENDA = [
   ]},
   { data:'2026-10-03', rotulo:'Sáb · 03 out', tema:'Experiências Signature', itens:[
     { hora:'horário a confirmar', titulo:'Desert Off-Road Experience 🏜', local:'Deserto de Nevada (UTVs)', endereco:'Las Vegas, NV',
-      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados. Horário de saída avisado pelo Vinicius no dia anterior.', dur:300, cal:'' },
+      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados. Horário de saída avisado pelo Vinicius no dia anterior.', dur:300, cal:'',
+      midia:[
+        { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczPQGlahd0BdoqDj6kw5vxsTE-oqo2TQ7GWck1oRHDR4fPMm--uuaioIe2rKZ7hOjn36htebWUuEL-QoSuq_QfRXlvNgj-a2wUtg4F3yA62RWtrz1hg=w1200', legenda:'Desert Off-Road Experience' },
+        { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczNADTXtgRpbOAr8xxGI9ahDlGagah7BMTkErsPh3KQIIQbdZ34Y15a4yluyrfG5mF9Y9QsQraIbCsM41Hw_odYO-mmIg2_4sC3IZKq-hcRuzxTIkBI=w1200', legenda:'Desert Off-Road Experience' },
+        { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczMyepXY_Bsv83u-ZyTq9OCbjXg-nVEWN421goyMKIrssGQTaUjw8aRluAeNuGYTjppUCfnD8zmI99pKHUcFWqtd3SrA19Hr3zq7QusxnmO8ic5qYbg=w1200', legenda:'Desert Off-Road Experience' },
+        { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczOtySZYkoRS3gu1puQQOf-s8gAV0Z3o3ojqAude5U-dgfE-Y1PICnE--l5frEhhfYC-iypsZLlYubrvyZyKvkHjhNNy9vL3VvHsGkBOuMjoyKd205E=w1200', legenda:'Desert Off-Road Experience' },
+        { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczNkCK6P8c1i1Hqctoy-mbnCg6ILuH2JmQhdcfQ5uWENteEQcH8z_A3yMa9fd2Y5JHm7eE_vfw00mDunIUyeagmXrSW67y683M5PJVJoujJ6SeYgeB8=w1200', legenda:'Desert Off-Road Experience' },
+      ] },
     { hora:'após a atividade', titulo:'Almoço — incluído 🍽', local:'Restaurante selecionado', endereco:'Las Vegas, NV',
       dress:'Casual', obs:'Almoço estilo American Barbecue, incluído após o Off-Road.', dur:90, cal:'' },
     { hora:'final de tarde/noite', titulo:'Tarde e noite livres 🌆', local:'Las Vegas, NV', endereco:'',
@@ -142,7 +137,10 @@ const AGENDA = [
     { hora:'10:00', titulo:'Passeio opcional — Outlet 🛍', local:'Premium Outlets Las Vegas', endereco:'Las Vegas, NV',
       dress:'Casual', obs:'Passeio opcional, sob consulta — confirme interesse com o concierge. Horário aproximado das 10h às 15h.', dur:300, cal:'10:00' },
     { hora:'21:30', titulo:'Michael Jackson ONE · Cirque du Soleil 🎭', local:'Michael Jackson ONE Theatre — Mandalay Bay', endereco:'3950 Las Vegas Blvd S, Las Vegas, NV 89119',
-      dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay. <a href="https://youtu.be/6kLqvDj8wx4" target="_blank" rel="noopener" style="color:var(--gold)">▶ Assistir ao trailer oficial</a>', dur:100, cal:'21:30' },
+      dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay.', dur:100, cal:'21:30',
+      midia:[
+        { tipo:'video', id:'6kLqvDj8wx4', legenda:'Michael Jackson ONE — trailer oficial' },
+      ] },
   ]},
   { data:'2026-10-06', rotulo:'Ter · 06 out', tema:'Partida', itens:[
     { hora:'09:00', titulo:'Check-out 🧳', local:'Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
