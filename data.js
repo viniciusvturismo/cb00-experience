@@ -183,6 +183,7 @@ const RESUMO = {
 /* ============================ HOSPEDAGEM ================================= */
 const HOTEL = {
   nome:'Fontainebleau Las Vegas', foto:'img/fontainebleau.jpg',
+  site:'https://www.fontainebleaulasvegas.com',
   endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109, EUA',
   fone:'+1 (702) 678-5000',
   checkin:'16h00 (02/10)', checkout:'09h00 (06/10)',
