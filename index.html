@@ -273,6 +273,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
 <script src="data.js"></script>
 <script>
 /* ============================ util ============================ */
@@ -349,6 +350,7 @@ function vHome(){
   </div>
 
   ${CONFIG.grupoWhatsapp ? `<a class="btn btn-wa btn-block" target="_blank" rel="noopener" href="${esc(CONFIG.grupoWhatsapp)}" style="margin-bottom:12px">${icoWA}Entrar no Grupo da Viagem</a>` : ''}
+  ${(NOTIF_STATUS==='default') ? `<button id="notifBtn" class="btn btn-line btn-block" style="margin-bottom:12px" onclick="ativarNotificacoes()">🔔 Ativar avisos importantes da viagem</button>` : ''}
 
   ${prox ? `<div class="card destaque">
     <h3>Próxima atividade</h3>
@@ -769,6 +771,53 @@ function toggleMinhaAreaPublica(){
   if(!FB_DB) return;
   FB_DB.collection('config').doc('app').set({ minhaAreaPublica: !MINHA_AREA_PUBLICA }, { merge:true });
 }
+
+/* ---- notificações push ---- */
+let NOTIF_STATUS = (typeof Notification!=='undefined') ? Notification.permission : 'unsupported'; // 'default' | 'granted' | 'denied' | 'unsupported'
+async function ativarNotificacoes(){
+  fbIniciar();
+  if(typeof Notification==='undefined' || !('serviceWorker' in navigator)){
+    NOTIF_STATUS = 'unsupported'; render(); return;
+  }
+  const btn = $('#notifBtn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Ativando…'; }
+  try{
+    const perm = await Notification.requestPermission();
+    NOTIF_STATUS = perm;
+    if(perm === 'granted'){
+      const reg = await navigator.serviceWorker.ready;
+      const messaging = firebase.messaging();
+      const token = await messaging.getToken({ vapidKey: FCM_VAPID_KEY, serviceWorkerRegistration: reg });
+      if(token) await FB_DB.collection('push_tokens').doc(token).set({ criadoEm: Date.now(), ua: navigator.userAgent.slice(0,140) }, { merge:true });
+    }
+  }catch(e){ console.error('Notificações — falha ao ativar', e); }
+  render();
+}
+
+async function adminEnviarPush(){
+  const titulo = $('#pushTitulo').value.trim();
+  const corpo = $('#pushCorpo').value.trim();
+  if(!titulo || !corpo){ alert('Preencha título e mensagem.'); return; }
+  if(!ADMIN_USER){ alert('Sessão expirou, faça login de novo.'); return; }
+  const btn = $('#pushEnviarBtn');
+  btn.disabled = true; btn.textContent = 'Enviando…';
+  try{
+    const idToken = await ADMIN_USER.getIdToken();
+    const resp = await fetch(CLOUD_FUNCTION_SEND_PUSH, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+idToken },
+      body: JSON.stringify({ title: titulo, body: corpo }),
+    });
+    const data = await resp.json().catch(()=>({}));
+    if(!resp.ok) throw new Error(data.error || ('Erro '+resp.status));
+    alert(`Enviado! ${data.sent||0} dispositivo(s) notificado(s).`);
+    $('#pushTitulo').value=''; $('#pushCorpo').value='';
+  }catch(e){
+    alert('Erro ao enviar: '+e.message);
+  }finally{
+    btn.disabled=false; btn.textContent='📣 Enviar notificação';
+  }
+}
 function adminLogin(){
   fbIniciar();
   const usuario = $('#adminUsuario').value.trim();
@@ -878,6 +927,18 @@ function vAdmin(){
   <div class="card">
     <p class="mut small" style="margin:0 0 10px">Quando ativada, qualquer pessoa com o link do app vê a lista de passageiros e acessa a própria área de documentos.</p>
     <button class="btn ${MINHA_AREA_PUBLICA?'btn-red':'btn-gold'} btn-block" onclick="toggleMinhaAreaPublica()">${MINHA_AREA_PUBLICA?'🔓 Desativar Minha Área pública':'🔒 Ativar Minha Área pública'}</button>
+  </div>` : ''}
+
+  ${isFull ? `
+  <div class="chip" style="margin:18px 0 12px">📣 Notificação push</div>
+  <div class="card">
+    <p class="mut small" style="margin:0 0 10px">Manda um aviso que aparece no celular de todo mundo que já ativou as notificações no app — mesmo com o app fechado.</p>
+    <label>Título</label>
+    <input id="pushTitulo" placeholder="ex.: Mudança de horário amanhã">
+    <label>Mensagem</label>
+    <textarea id="pushCorpo" placeholder="Descreva o aviso…" rows="3"></textarea>
+    <div style="height:10px"></div>
+    <button id="pushEnviarBtn" class="btn btn-gold btn-block" onclick="adminEnviarPush()">📣 Enviar notificação</button>
   </div>` : ''}
 
   <div class="chip" style="margin:18px 0 12px">🎧 Áudios do Race Day</div>

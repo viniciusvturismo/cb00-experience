@@ -395,6 +395,8 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "824476697911",
   appId: "1:824476697911:web:09006c1cb7a36d2e9ac6b2",
 };
+const FCM_VAPID_KEY = "BEj-KxFXttUv4bQWUq-0P3-xvKmnQOglCjvAJDx0tgKzpeoZmDsQ41q1n031jcVlS80ABnpTRdIBAjlYsvYE7Yw"; // chave pública Web Push (não é segredo)
+const CLOUD_FUNCTION_SEND_PUSH = "https://sendpush-824476697911.us-central1.run.app";
 
 /* ==================== DOCUMENTOS POR PASSAGEIRO (área restrita) =========
    Link individual e privado — não existe lista pública no app. Cada
