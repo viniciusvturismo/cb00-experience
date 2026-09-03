@@ -1108,7 +1108,7 @@ function recadoAbrir(){
   $('#recadoModal').innerHTML = `
     <button class="rclose" onclick="recadoFechar()">✕</button>
     <h3>${esc(r.titulo)}</h3>
-    <p class="sub">${esc(r.autor)} — ${esc(r.subtitulo)}</p>
+    <p class="sub">${r.autor ? esc(r.autor)+' — ' : ''}${esc(r.subtitulo)}</p>
     <video src="${esc(r.video)}" controls playsinline onended="recadoFechar()"></video>
   `;
   $('#recadoModalBg').classList.add('open');

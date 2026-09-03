@@ -33,8 +33,8 @@ const RECADO_ESPECIAL = {
   ativo: true,
   chave: 'galvao-2026-09-03',
   titulo: 'Recado especial pra vocês 🎙️',
-  autor: 'Galvão Bueno',
-  subtitulo: 'Lenda da TV brasileira e referência no automobilismo — mensagem exclusiva, apresentada pela SpeedMax.',
+  autor: '',
+  subtitulo: 'Mensagem exclusiva, apresentada pela SpeedMax.',
   video: 'video/recado-galvao.mp4',
 };
 
