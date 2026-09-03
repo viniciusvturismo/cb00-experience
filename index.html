@@ -364,6 +364,7 @@ function vHome(){
 
   ${CONFIG.grupoWhatsapp ? `<a class="btn btn-wa btn-block" target="_blank" rel="noopener" href="${esc(CONFIG.grupoWhatsapp)}" style="margin-bottom:12px">${icoWA}Entrar no Grupo da Viagem</a>` : ''}
   ${(NOTIF_STATUS==='default') ? `<button id="notifBtn" class="btn btn-line btn-block" style="margin-bottom:12px" onclick="ativarNotificacoes()">🔔 Ativar avisos importantes da viagem</button>` : ''}
+  ${RECADO_ESPECIAL?.ativo ? `<button class="btn btn-gold btn-block" style="margin-bottom:12px" onclick="recadoAbrir()">🎙️ Recado especial pra vocês!</button>` : ''}
 
   ${prox ? `<div class="card destaque">
     <h3>Próxima atividade</h3>
