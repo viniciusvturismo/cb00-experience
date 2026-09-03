@@ -37,6 +37,8 @@
   .top-tit b{display:block;font-size:12.5px;font-weight:800;letter-spacing:.3px;line-height:1.18;}
   .top-tit span{display:block;margin-top:2px;font-size:9.5px;color:var(--teal-l);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .sos{flex-shrink:0;background:var(--red);color:#fff;border:none;border-radius:22px;font-family:inherit;font-weight:800;font-size:11px;letter-spacing:1px;padding:8px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(217,80,68,.35);}
+  .refresh-btn{flex-shrink:0;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:50%;width:32px;height:32px;font-size:16px;line-height:1;cursor:pointer;margin-right:8px;}
+  .refresh-btn:active{transform:rotate(180deg);transition:transform .3s;}
   .back-btn{flex-shrink:0;background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:22px;font-family:inherit;font-weight:700;font-size:13px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:4px;}
   .back-btn:active{opacity:.75;}
 
@@ -256,6 +258,7 @@
       <b id="topProjeto"></b>
       <span>Experiência oficial</span>
     </div>
+    <button class="refresh-btn" onclick="recarregarApp()" aria-label="Atualizar app" title="Atualizar app">⟳</button>
     <button class="sos" onclick="go('emergencia')">SOS</button>
   </div>
 </div>
@@ -1118,6 +1121,11 @@ function recadoFechar(){
   if(RECADO_ESPECIAL?.chave) localStorage.setItem('recadoVisto_'+RECADO_ESPECIAL.chave, '1');
   $('#recadoModalBg').classList.remove('open');
   $('#recadoModal').innerHTML = '';
+}
+
+function recarregarApp(){
+  const url = location.pathname.replace(/index\.html$/,'') + '?r=' + Date.now() + location.hash;
+  location.href = url;
 }
 
 (function init(){
