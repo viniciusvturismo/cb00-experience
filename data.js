@@ -30,7 +30,7 @@ const CONFIG = {
    Para lançar um novo recado, troque "chave" (isso reseta quem já viu) e o
    caminho de "video". Para desativar sem apagar nada, ative:false. ========= */
 const RECADO_ESPECIAL = {
-  ativo: true,
+  ativo: false, // mude para true quando for a hora de lançar
   chave: 'galvao-2026-09-03',
   titulo: 'Recado especial pra vocês 🎙️',
   autor: '',
