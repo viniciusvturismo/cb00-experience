@@ -175,6 +175,15 @@
   .rd-prog div:last-child{border-bottom:none;}
   .rd-prog b{flex-shrink:0;width:86px;color:var(--green);font-size:11.5px;padding-top:1px;}
 
+  /* ===== Recado especial em vídeo (splash) ===== */
+  .rmodal-bg{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.86);display:none;align-items:center;justify-content:center;padding:16px;}
+  .rmodal-bg.open{display:flex;}
+  .rmodal{background:var(--card);border:1px solid var(--line);border-radius:18px;width:100%;max-width:420px;max-height:92vh;overflow:auto;padding:16px;position:relative;}
+  .rmodal .rclose{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.4);color:#fff;border:none;font-size:16px;line-height:30px;text-align:center;cursor:pointer;z-index:2;}
+  .rmodal h3{margin:2px 0 2px;font-size:16px;font-weight:800;}
+  .rmodal .sub{color:var(--mut);font-size:12px;margin-bottom:12px;}
+  .rmodal video{width:100%;border-radius:12px;background:#000;display:block;}
+
   /* ===== Meu carro (modal) ===== */
   .cmodal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.72);display:none;align-items:flex-end;justify-content:center;}
   .cmodal-bg.open{display:flex;}
@@ -265,6 +274,10 @@
 
 <div class="cmodal-bg" id="carModalBg" onclick="if(event.target===this)fecharCarro()">
   <div class="cmodal" id="carModal"></div>
+</div>
+
+<div class="rmodal-bg" id="recadoModalBg" onclick="if(event.target===this)recadoFechar()">
+  <div class="rmodal" id="recadoModal"></div>
 </div>
 
 <audio id="player"></audio>
@@ -1085,6 +1098,27 @@ function montarSheetLinks(){
   html += `<a href="#admin" onclick="toggleSheet(false)" style="opacity:.55;font-size:12px;font-weight:600"><i style="font-size:14px">🔒</i>Acesso restrito</a>`;
   $('#sheetLinks').innerHTML = html;
 }
+/* ---- recado especial em vídeo (splash) ---- */
+function recadoDeveMostrar(){
+  if(!RECADO_ESPECIAL?.ativo) return false;
+  return localStorage.getItem('recadoVisto_'+RECADO_ESPECIAL.chave) !== '1';
+}
+function recadoAbrir(){
+  const r = RECADO_ESPECIAL;
+  $('#recadoModal').innerHTML = `
+    <button class="rclose" onclick="recadoFechar()">✕</button>
+    <h3>${esc(r.titulo)}</h3>
+    <p class="sub">${esc(r.autor)} — ${esc(r.subtitulo)}</p>
+    <video src="${esc(r.video)}" controls playsinline onended="recadoFechar()"></video>
+  `;
+  $('#recadoModalBg').classList.add('open');
+}
+function recadoFechar(){
+  if(RECADO_ESPECIAL?.chave) localStorage.setItem('recadoVisto_'+RECADO_ESPECIAL.chave, '1');
+  $('#recadoModalBg').classList.remove('open');
+  $('#recadoModal').innerHTML = '';
+}
+
 (function init(){
   document.title = CONFIG.projeto + ' · CB00 Marketing';
   $('#topProjeto').textContent = CONFIG.projeto;
@@ -1101,6 +1135,7 @@ function montarSheetLinks(){
   render();
   setInterval(()=>{ if(rotaAtual()==='home') render(); }, 60000); // contador regressivo
   if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+  if(recadoDeveMostrar()) setTimeout(recadoAbrir, 400);
 })();
 </script>
 </body>

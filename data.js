@@ -25,6 +25,19 @@ const CONFIG = {
   modulos: { agenda:true, resumo:true, comunicados:true, concierge:true, hospedagem:true, transportes:true, guia:true, raceday:true, docs:true, emergencia:true },
 };
 
+/* ============ RECADO ESPECIAL EM VÍDEO (splash na abertura do app) ========
+   Toca automaticamente (uma vez por passageiro) assim que o app abre.
+   Para lançar um novo recado, troque "chave" (isso reseta quem já viu) e o
+   caminho de "video". Para desativar sem apagar nada, ative:false. ========= */
+const RECADO_ESPECIAL = {
+  ativo: true,
+  chave: 'galvao-2026-09-03',
+  titulo: 'Recado especial pra vocês 🎙️',
+  autor: 'Galvão Bueno',
+  subtitulo: 'Lenda da TV brasileira e referência no automobilismo — mensagem exclusiva, apresentada pela SpeedMax.',
+  video: 'video/recado-galvao.mp4',
+};
+
 /* ============ CURIOSIDADES (contagem regressiva antes da viagem) =========
    Exibidas em rodízio diário na Home, enquanto a viagem não começa —
    no lugar do card de comunicado urgente (que só faz sentido durante a
