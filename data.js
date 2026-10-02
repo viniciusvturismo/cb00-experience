@@ -66,7 +66,7 @@ const COMUNICADOS = [
     texto:'Lembre-se de viajar com <b>passaporte</b> (validade mínima de 6 meses) e <b>visto americano</b> válidos. Recomendamos foto dos documentos no celular e uma cópia na bagagem de mão.',
     urgente:false },
   { data:'2026-10-02', hora:'15:00', titulo:'Welcome Dinner — dress code',
-    texto:'Hoje, 20h00 — Mercato della Pescheria, no The Venetian (3355 Las Vegas Blvd S). Dress code: <b>esporte fino</b> (smart casual elegante). Ponto de encontro: lobby do Fontainebleau às 19h30.',
+    texto:'Hoje, reserva às 19h45 — Mercato della Pescheria, no The Venetian (3355 Las Vegas Blvd S). Dress code: <b>esporte fino</b> (smart casual elegante). Ponto de encontro: <b>lobby do Fontainebleau às 18h00</b>, para seguirmos juntos a pé até o Venetian.',
     urgente:true },
 ];
 
@@ -99,8 +99,10 @@ const AGENDA = [
       dress:'—', obs:'Vans executivas com motorista · briefing de boas-vindas no trajeto (~15 min).', dur:30, cal:'13:00' },
     { hora:'16:00', titulo:'Check-in — Fontainebleau Las Vegas 🏨', local:'Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'—', obs:'Check-in assistido pela equipe VTurismo · tempo livre para descanso.', dur:60, cal:'16:00' },
-    { hora:'20:00', titulo:'Welcome Dinner 🍽', local:'Mercato della Pescheria — The Venetian', endereco:'3355 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Esporte fino', obs:'Jantar de boas-vindas e integração do grupo no Mercato della Pescheria, dentro do The Venetian. Encontro no lobby do Fontainebleau às 19h30.', dur:150, cal:'20:00' },
+    { hora:'18:00', titulo:'Encontro no lobby — caminhada até o Venetian 🚶', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
+      dress:'Esporte fino', obs:'Saída pontual do grupo, a pé, em direção ao The Venetian, com a equipe VTurismo.', dur:105, cal:'18:00' },
+    { hora:'19:45', titulo:'Welcome Dinner 🍽', local:'Mercato della Pescheria — The Venetian', endereco:'3355 Las Vegas Blvd S, Las Vegas, NV 89109',
+      dress:'Esporte fino', obs:'Jantar de boas-vindas e integração do grupo no Mercato della Pescheria, dentro do The Venetian. Reserva às 19h45; encontro no lobby do Fontainebleau às 18h00 para seguir juntos a pé.', dur:135, cal:'19:45' },
   ]},
   { data:'2026-10-03', rotulo:'Sáb · 03 out', tema:'Experiências Signature', itens:[
     { hora:'horário a confirmar', titulo:'Desert Off-Road Experience 🏜', local:'Deserto de Nevada (UTVs)', endereco:'Las Vegas, NV',
@@ -232,12 +234,9 @@ const TRANSPORTES = [
       { apelido:'SUV', foto:'img/suv_suburban.jpg', modelo:'Chevrolet Suburban Executive', placa:'a confirmar',
         local:'Bolsão de vans executivas do desembarque LAS', motorista:'a confirmar' },
     ]},
-  { rotulo:'Welcome Dinner', data:'Sex · 02 out', encontro:'Lobby do Fontainebleau · 19h30', saida:'19h40',
-    veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Retorno ao hotel após o jantar.',
-    carros:[
-      { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
-        local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
-    ]},
+  { rotulo:'Welcome Dinner', data:'Sex · 02 out', encontro:'Lobby do Fontainebleau · 18h00', saida:'18h00 — caminhada até o Venetian',
+    veiculo:'A pé (ida)', resp:'Coordenador VTurismo', obs:'Ida a pé, em grupo, até o Mercato della Pescheria (The Venetian) — reserva às 19h45. Combinamos o retorno ao hotel no final do jantar.',
+    carros:[] },
   { rotulo:'Desert Off-Road', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau — horário avisado por Vinicius no dia anterior', saida:'a confirmar',
     veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Levar óculos de sol, tênis fechado e protetor solar.',
     carros:[
