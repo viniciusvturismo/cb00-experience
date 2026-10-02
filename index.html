@@ -440,7 +440,7 @@ function vAgenda(){
             : `<a class="mi" href="${esc(m.url)}" target="_blank" rel="noopener"><img src="${esc(m.url)}" alt="${esc(m.legenda||'')}" loading="lazy" onerror="this.parentElement.style.display='none'"></a>`
         ).join('')}</div>`:''}
         <div class="ag-actions">
-          ${it.endereco ? `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${mapsUrl(it.local+', '+it.endereco)}">🗺 Ver no mapa</a>`:''}
+          ${it.endereco ? `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${it.mapaUrl || mapsUrl(it.local+', '+it.endereco)}">🗺 Ver no mapa</a>`:''}
           ${gcalHref(d,it) ? `<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="${gcalHref(d,it)}">📅 Adicionar ao calendário</a>`:''}
         </div>
       </div>

@@ -101,7 +101,7 @@ const AGENDA = [
       dress:'—', obs:'Check-in assistido pela equipe VTurismo · tempo livre para descanso.', dur:60, cal:'16:00' },
     { hora:'18:00', titulo:'Encontro no lobby — caminhada até o Venetian 🚶', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'Esporte fino', obs:'Saída pontual do grupo, a pé, em direção ao The Venetian, com a equipe VTurismo.', dur:105, cal:'18:00' },
-    { hora:'19:45', titulo:'Welcome Dinner 🍽', local:'Mercato della Pescheria — The Venetian', endereco:'3355 Las Vegas Blvd S, Las Vegas, NV 89109',
+    { hora:'19:45', titulo:'Welcome Dinner 🍽', local:'Mercato della Pescheria — The Venetian', endereco:'3355 Las Vegas Blvd S, Las Vegas, NV 89109', mapaUrl:'https://www.google.com/maps/search/?api=1&query=Mercato+della+Pescheria+The+Venetian+Las+Vegas',
       dress:'Esporte fino', obs:'Jantar de boas-vindas e integração do grupo no Mercato della Pescheria, dentro do The Venetian. Reserva às 19h45; encontro no lobby do Fontainebleau às 18h00 para seguir juntos a pé.', dur:135, cal:'19:45' },
   ]},
   { data:'2026-10-03', rotulo:'Sáb · 03 out', tema:'Experiências Signature', itens:[
