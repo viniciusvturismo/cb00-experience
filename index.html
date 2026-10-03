@@ -764,6 +764,7 @@ function minhaLoc(btn){
 /* ============================ FIREBASE (área restrita) ============================ */
 let FB_AUTH=null, FB_DB=null, FB_STORAGE=null, FB_INICIADO=false, ADMIN_USER=null;
 let MINHA_AREA_PUBLICA = false;
+let PUSH_AGENDADOS = [], PUSH_AGEND_UNSUB = null;
 function fbIniciar(){
   if(FB_INICIADO) return;
   FB_INICIADO = true;
@@ -772,7 +773,18 @@ function fbIniciar(){
     FB_AUTH = firebase.auth();
     FB_DB = firebase.firestore();
     FB_STORAGE = firebase.storage();
-    FB_AUTH.onAuthStateChanged(u=>{ ADMIN_USER = u; if(rotaAtual()==='admin') render(); });
+    FB_AUTH.onAuthStateChanged(u=>{
+      ADMIN_USER = u;
+      if(PUSH_AGEND_UNSUB){ PUSH_AGEND_UNSUB(); PUSH_AGEND_UNSUB=null; PUSH_AGENDADOS=[]; }
+      if(u && u.email===ACESSO_RESTRITO.adminEmail){
+        PUSH_AGEND_UNSUB = FB_DB.collection('push_agendados').orderBy('sendAt').onSnapshot(snap=>{
+          PUSH_AGENDADOS = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+          renderAgendados();
+        }, e=>console.error('push_agendados', e));
+      }
+      if(rotaAtual()==='admin') render();
+    });
+    edAssinar();
     FB_DB.collection('config').doc('app').onSnapshot(doc=>{
       MINHA_AREA_PUBLICA = !!(doc.exists && doc.data().minhaAreaPublica);
       montarSheetLinks();
@@ -904,6 +916,165 @@ function adminUploadAudio(key, blobOuArquivo, ext){
     .finally(()=>render());
 }
 
+/* ---- push programado (disparado por Cloud Scheduler → função enviarAgendados) ---- */
+function renderAgendados(){
+  const el = $('#agLista'); if(!el) return;
+  if(!PUSH_AGENDADOS.length){ el.innerHTML = '<p class="mut small" style="margin:10px 0 0">Nenhum push programado ainda.</p>'; return; }
+  const fmt = ms => new Date(ms).toLocaleString('pt-BR',{ dateStyle:'short', timeStyle:'short' });
+  el.innerHTML = PUSH_AGENDADOS.map(p=>`
+    <div style="border-top:1px solid var(--line);padding:10px 0">
+      <div style="font-size:12px;color:var(--mut)">${fmt(p.sendAt)} · ${p.enviado ? `✅ enviado (${p.enviados||0} aparelho(s))` : '⏳ agendado'}</div>
+      <div style="font-weight:700;margin:2px 0">${esc(p.title)}</div>
+      <div class="small mut">${esc(p.body)}</div>
+      ${p.enviado ? '' : `<button class="btn btn-line btn-sm" style="margin-top:6px" onclick="adminExcluirAgendado('${p.id}')">🗑 Cancelar</button>`}
+    </div>`).join('');
+}
+async function adminAgendarPush(){
+  const t = $('#agTitulo').value.trim(), b = $('#agCorpo').value.trim(), q = $('#agQuando').value;
+  if(!t || !b || !q){ alert('Preencha título, mensagem e data/hora.'); return; }
+  const sendAt = new Date(q).getTime();
+  if(!(sendAt > Date.now())){ alert('Escolha uma data/hora futura.'); return; }
+  if(!ADMIN_USER){ alert('Sessão expirou, faça login de novo.'); return; }
+  try{
+    await FB_DB.collection('push_agendados').add({ title:t, body:b, sendAt, enviado:false, criadoEm:Date.now(), por:ADMIN_USER.email });
+    $('#agTitulo').value=''; $('#agCorpo').value=''; $('#agQuando').value='';
+  }catch(e){ alert('Erro ao programar: '+e.message); }
+}
+function adminExcluirAgendado(id){
+  if(confirm('Cancelar este push programado?')) FB_DB.collection('push_agendados').doc(id).delete();
+}
+
+/* ============================ EDITOR DE CONTEÚDO (área restrita) ============================
+   Edições ficam em Firestore config/conteudo (um campo JSON por seção) e são aplicadas por cima
+   do data.js em todos os aparelhos, em tempo real. "Restaurar original" volta ao data.js.        */
+const ED_SECOES = {
+  AGENDA:['📅 Agenda', ()=>AGENDA], COMUNICADOS:['📣 Comunicados', ()=>COMUNICADOS], TRANSPORTES:['🚐 Transportes', ()=>TRANSPORTES],
+  RESUMO:['📋 Resumo da viagem', ()=>RESUMO], HOTEL:['🏨 Hospedagem', ()=>HOTEL], GUIA:['🗺 Guia de Las Vegas', ()=>GUIA],
+  RACEDAY:['🏁 Race Day', ()=>RACEDAY], INSIGHTS:['🎧 Insights / áudios', ()=>INSIGHTS], EMERGENCIA:['🚨 Emergência', ()=>EMERGENCIA],
+  DOCS:['📄 Documentos & Checklist', ()=>DOCS], CURIOSIDADES:['💡 Curiosidades', ()=>CURIOSIDADES], RECADO_ESPECIAL:['🎙 Recado especial', ()=>RECADO_ESPECIAL],
+  PASSAGEIROS:['👥 Passageiros', ()=>PASSAGEIROS],
+};
+const ED_ORIGINAL = {};
+function edSubstituir(alvo, novo){
+  if(Array.isArray(alvo)){ alvo.length = 0; novo.forEach(x=>alvo.push(x)); }
+  else { Object.keys(alvo).forEach(k=>delete alvo[k]); Object.assign(alvo, novo); }
+}
+function aplicarConteudo(dados){
+  Object.keys(ED_SECOES).forEach(k=>{
+    const alvo = ED_SECOES[k][1]();
+    if(!(k in ED_ORIGINAL)) ED_ORIGINAL[k] = JSON.stringify(alvo);
+    const json = dados && typeof dados[k]==='string' ? dados[k] : ED_ORIGINAL[k];
+    try{ edSubstituir(alvo, JSON.parse(json)); }catch(e){ console.error('conteudo', k, e); }
+  });
+}
+try{ const c = localStorage.getItem('conteudoCache'); if(c) aplicarConteudo(JSON.parse(c)); }catch(e){}
+
+let ED_SEL = '', ED_WORK = null, ED_UNSUB = null, ED_REMOTO = {};
+function edGet(p){ return p.split('.').filter(x=>x!=='').reduce((o,k)=>o[k], ED_WORK); }
+function edSet(p, v){ const ks = p.split('.'); const ult = ks.pop(); const pai = ks.reduce((o,k)=>o[k], ED_WORK); pai[ult] = v; }
+function edEhUrl(k){ return /foto|img|imagem|image|url|link|video|src|logo|capa/i.test(k); }
+function edCampo(p, k, v){
+  const rot = `<label>${esc(String(k))}</label>`;
+  const ph = esc(p);
+  if(typeof v==='boolean') return `<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" ${v?'checked':''} onchange="edSet('${ph}',this.checked)" style="width:auto"> ${esc(String(k))}</label>`;
+  if(typeof v==='number') return `${rot}<input type="number" value="${v}" oninput="edSet('${ph}',this.value===''?0:Number(this.value))">`;
+  if(v===null || v===undefined) v = '';
+  if(typeof v==='string'){
+    const longo = v.length>70 || v.includes('\n') || /<[a-z]/i.test(v);
+    const up = edEhUrl(String(k)) ? `<label class="btn btn-line btn-sm" style="cursor:pointer;margin:4px 0 8px;display:inline-block">📷 Enviar arquivo<input type="file" accept="image/*,video/*,audio/*,.pdf" style="display:none" onchange="edUpload('${ph}',this)"></label>` : '';
+    const prev = edEhUrl(String(k)) && /\.(png|jpe?g|webp|gif)(\?|$)/i.test(v) ? `<img src="${esc(v)}" style="max-height:70px;border-radius:6px;display:block;margin:4px 0" onerror="this.remove()">` : '';
+    return rot + (longo ? `<textarea rows="${Math.min(8, Math.max(3, Math.ceil(v.length/55)))}" oninput="edSet('${ph}',this.value)">${esc(v)}</textarea>` : `<input value="${esc(v)}" oninput="edSet('${ph}',this.value)">`) + prev + up;
+  }
+  return '';
+}
+function edNo(p, k, v, nivel){
+  if(Array.isArray(v)){
+    const simples = v.every(x=>typeof x!=='object' || x===null);
+    return `<details ${nivel<1?'open':''} style="margin:8px 0;border-left:3px solid var(--line);padding-left:8px"><summary style="font-weight:700;cursor:pointer">${esc(String(k))} <span class="mut small">(${v.length})</span></summary>
+      ${v.map((x,i)=>{
+        const pi = p+'.'+i;
+        const tit = (x && typeof x==='object') ? (x.titulo||x.nome||x.data||x.hora||x.key||'') : x;
+        return `<div style="background:rgba(127,127,127,.08);border-radius:8px;padding:6px 8px;margin:6px 0">
+          <div style="display:flex;gap:6px;align-items:center;justify-content:space-between"><b class="small">#${i+1} ${esc(String(tit).slice(0,40))}</b>
+          <span style="white-space:nowrap"><button class="btn btn-line btn-sm" onclick="edMover('${esc(p)}',${i},-1)">↑</button> <button class="btn btn-line btn-sm" onclick="edMover('${esc(p)}',${i},1)">↓</button> <button class="btn btn-line btn-sm" onclick="edRemover('${esc(p)}',${i})">🗑</button></span></div>
+          ${x && typeof x==='object' ? edNo(pi, '', x, nivel+1) : edCampo(pi, 'valor', x)}
+        </div>`;
+      }).join('')}
+      <button class="btn btn-gold btn-sm" onclick="edAdicionar('${esc(p)}')">+ adicionar</button></details>`;
+  }
+  if(v && typeof v==='object'){
+    const chaves = Object.keys(v);
+    const corpo = chaves.map(c=>{
+      const x = v[c], pc = p+'.'+c;
+      return (x && typeof x==='object') ? edNo(pc, c, x, nivel+1) : edCampo(pc, c, x);
+    }).join('');
+    return k==='' ? corpo : `<details ${nivel<1?'open':''} style="margin:8px 0;border-left:3px solid var(--line);padding-left:8px"><summary style="font-weight:700;cursor:pointer">${esc(String(k))}</summary>${corpo}</details>`;
+  }
+  return edCampo(p, k, v);
+}
+function edVazio(m){
+  if(Array.isArray(m)) return [];
+  if(m && typeof m==='object'){ const o={}; Object.keys(m).forEach(k=>o[k]=edVazio(m[k])); return o; }
+  if(typeof m==='number') return 0;
+  if(typeof m==='boolean') return false;
+  return '';
+}
+function edAdicionar(p){
+  const arr = edGet(p);
+  const modelo = arr.length ? arr[arr.length-1] : '';
+  arr.push(edVazio(modelo));
+  renderEditor();
+}
+function edRemover(p, i){ if(confirm('Remover este item?')){ edGet(p).splice(i,1); renderEditor(); } }
+function edMover(p, i, d){ const a = edGet(p), j=i+d; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderEditor(); }
+function edEscolher(k){
+  ED_SEL = k;
+  ED_WORK = k ? JSON.parse(JSON.stringify(ED_SECOES[k][1]())) : null;
+  renderEditor();
+}
+function renderEditor(){
+  const box = $('#edBox'); if(!box) return;
+  const aberto = new Set([...box.querySelectorAll('details')].map((d,i)=>d.open?i:-1).filter(i=>i>=0));
+  const opts = Object.keys(ED_SECOES).map(k=>`<option value="${k}" ${k===ED_SEL?'selected':''}>${ED_SECOES[k][0]}${ED_REMOTO[k]?' ✏️':''}</option>`).join('');
+  box.innerHTML = `<label>Seção</label><select onchange="edEscolher(this.value)"><option value="">— escolha o que editar —</option>${opts}</select>` +
+    (ED_WORK ? `<div id="edForm" style="margin-top:8px">${edNo('', ED_SEL, ED_WORK, 0)}</div>
+      <div style="height:10px"></div>
+      <button id="edSalvarBtn" class="btn btn-gold btn-block" onclick="edSalvar()">💾 Salvar e publicar</button>
+      <div style="height:8px"></div>
+      <button class="btn btn-line btn-block" onclick="edRestaurar()">↩ Restaurar original desta seção</button>
+      <p class="small mut" style="margin-top:8px">A alteração aparece em todos os aparelhos em segundos. Textos aceitam &lt;b&gt; e &lt;br&gt;.</p>` : '');
+  if(ED_WORK) [...box.querySelectorAll('details')].forEach((d,i)=>{ if(aberto.has(i)) d.open = true; });
+}
+function edUpload(p, input){
+  const f = input.files[0]; if(!f) return;
+  const path = `conteudo/${Date.now()}_${f.name.replace(/[^\w.\-]/g,'_')}`;
+  const lab = input.parentElement; const ant = lab.firstChild.textContent; lab.firstChild.textContent = '⏳ Enviando…';
+  FB_STORAGE.ref(path).put(f).then(s=>s.ref.getDownloadURL()).then(url=>{ edSet(p, url); renderEditor(); })
+    .catch(e=>{ alert('Erro ao enviar: '+e.message); lab.firstChild.textContent = ant; });
+}
+function edSalvar(){
+  if(!ED_SEL || !ADMIN_USER) return;
+  const btn = $('#edSalvarBtn'); btn.disabled = true; btn.textContent = 'Salvando…';
+  FB_DB.collection('config').doc('conteudo').set({ [ED_SEL]: JSON.stringify(ED_WORK), atualizadoEm: Date.now() }, { merge:true })
+    .then(()=>{ btn.textContent = '✅ Publicado!'; setTimeout(()=>{ const b=$('#edSalvarBtn'); if(b){ b.disabled=false; b.textContent='💾 Salvar e publicar'; } }, 1800); })
+    .catch(e=>{ alert('Erro ao salvar: '+e.message); btn.disabled=false; btn.textContent='💾 Salvar e publicar'; });
+}
+function edRestaurar(){
+  if(!ED_SEL || !confirm('Voltar esta seção ao conteúdo original do app?')) return;
+  FB_DB.collection('config').doc('conteudo').update({ [ED_SEL]: firebase.firestore.FieldValue.delete() })
+    .then(()=>edEscolher(ED_SEL)).catch(e=>alert('Erro: '+e.message));
+}
+function edAssinar(){
+  FB_DB.collection('config').doc('conteudo').onSnapshot(doc=>{
+    const d = doc.exists ? doc.data() : {};
+    ED_REMOTO = d;
+    try{ localStorage.setItem('conteudoCache', JSON.stringify(d)); }catch(e){}
+    aplicarConteudo(d);
+    if(rotaAtual()==='admin'){ const k = ED_SEL; if(k && !document.activeElement?.closest?.('#edBox')){ ED_WORK = JSON.parse(JSON.stringify(ED_SECOES[k][1]())); renderEditor(); } }
+    else render();
+  }, ()=>{});
+}
+
 function vAdmin(){
   fbIniciar();
   if(!ADMIN_USER){
@@ -928,7 +1099,14 @@ function vAdmin(){
   <button class="btn btn-line btn-block" style="margin-bottom:14px" onclick="adminLogout()">Sair</button>
 
   ${isFull ? `
-  <div class="chip" style="margin-bottom:12px">📄 Documentos por passageiro</div>
+  <div class="chip" style="margin:0 0 12px">✏️ Editar conteúdo do app</div>
+  <div class="card">
+    <p class="mut small" style="margin:0 0 10px">Altere textos, horários, links e imagens de qualquer parte do app. Escolha a seção, edite e publique.</p>
+    <div id="edBox"></div>
+  </div>` : ''}
+
+  ${isFull ? `
+  <div class="chip" style="margin:18px 0 12px">📄 Documentos por passageiro</div>
   <div class="card">
     <label>Passageiro</label>
     <select id="docPaxSlug">${PASSAGEIROS.map(p=>`<option value="${esc(p.slug)}">${esc(p.nome)}</option>`).join('')}</select>
@@ -956,6 +1134,21 @@ function vAdmin(){
     <textarea id="pushCorpo" placeholder="Descreva o aviso…" rows="3"></textarea>
     <div style="height:10px"></div>
     <button id="pushEnviarBtn" class="btn btn-gold btn-block" onclick="adminEnviarPush()">📣 Enviar notificação</button>
+  </div>` : ''}
+
+  ${isFull ? `
+  <div class="chip" style="margin:18px 0 12px">⏰ Push programado</div>
+  <div class="card">
+    <p class="mut small" style="margin:0 0 10px">Escolha o dia e a hora — o aviso sai sozinho, mesmo com o app fechado. Horário do seu aparelho (${esc(Intl.DateTimeFormat().resolvedOptions().timeZone)}).</p>
+    <label>Título</label>
+    <input id="agTitulo" placeholder="ex.: Bom dia, Vegas!">
+    <label>Mensagem</label>
+    <textarea id="agCorpo" placeholder="Descreva o aviso…" rows="3"></textarea>
+    <label>Data e hora</label>
+    <input id="agQuando" type="datetime-local">
+    <div style="height:10px"></div>
+    <button class="btn btn-gold btn-block" onclick="adminAgendarPush()">⏰ Programar notificação</button>
+    <div id="agLista"></div>
   </div>` : ''}
 
   <div class="chip" style="margin:18px 0 12px">🎧 Áudios do Race Day</div>
@@ -1076,6 +1269,7 @@ function render(){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('on', b.dataset.r===r || (b.dataset.r==='mais' && !['home','agenda','raceday','concierge'].includes(r))));
   $('#backBtn').style.display = r==='home' ? 'none' : 'flex';
   if(r==='home') iniciarCurioRotativo(); else pararCurioRotativo();
+  if(r==='admin'){ renderAgendados(); renderEditor(); }
   window.scrollTo({top:0});
 }
 function footerHtml(){
