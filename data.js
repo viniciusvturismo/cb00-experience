@@ -105,8 +105,8 @@ const AGENDA = [
       dress:'Casual — evite bermuda e camiseta sem manga', obs:'Jantar de boas-vindas e integração do grupo no Mercato della Pescheria, dentro do The Venetian. Reserva às 19h45; encontro no lobby do Fontainebleau às 18h00 para seguir juntos a pé.', dur:135, cal:'19:45' },
   ]},
   { data:'2026-10-03', rotulo:'Sáb · 03 out', tema:'Experiências Signature', itens:[
-    { hora:'horário a confirmar', titulo:'Desert Off-Road Experience 🏜', local:'Deserto de Nevada (UTVs)', endereco:'Las Vegas, NV',
-      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do hotel em veículos executivos · aventura em UTVs com operadores especializados. Horário de saída avisado pelo Vinicius no dia anterior.', dur:300, cal:'', ordemHora:'09:00',
+    { hora:'09:30', titulo:'Desert Off-Road Experience 🏜', local:'Adrenaline Mountain (UTVs no deserto de Nevada)', endereco:'Las Vegas, NV', mapaUrl:'https://www.google.com/maps/search/?api=1&query=Adrenaline+Mountain+Las+Vegas',
+      dress:'Roupa confortável, tênis fechado, óculos de sol e protetor solar', obs:'Saída do lobby do Fontainebleau às 09h30, em veículos executivos · viagem de aproximadamente 60 minutos até a Adrenaline Mountain · aventura em UTVs com operadores especializados.', dur:300, cal:'09:30',
       midia:[
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczPQGlahd0BdoqDj6kw5vxsTE-oqo2TQ7GWck1oRHDR4fPMm--uuaioIe2rKZ7hOjn36htebWUuEL-QoSuq_QfRXlvNgj-a2wUtg4F3yA62RWtrz1hg=w1200', legenda:'Desert Off-Road Experience' },
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczNADTXtgRpbOAr8xxGI9ahDlGagah7BMTkErsPh3KQIIQbdZ34Y15a4yluyrfG5mF9Y9QsQraIbCsM41Hw_odYO-mmIg2_4sC3IZKq-hcRuzxTIkBI=w1200', legenda:'Desert Off-Road Experience' },
@@ -237,7 +237,7 @@ const TRANSPORTES = [
   { rotulo:'Welcome Dinner', data:'Sex · 02 out', encontro:'Lobby do Fontainebleau · 18h00', saida:'18h00 — caminhada até o Venetian',
     veiculo:'A pé (ida)', resp:'Coordenador VTurismo', obs:'Ida a pé, em grupo, até o Mercato della Pescheria (The Venetian) — reserva às 19h45. Combinamos o retorno ao hotel no final do jantar.',
     carros:[] },
-  { rotulo:'Desert Off-Road', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau — horário avisado por Vinicius no dia anterior', saida:'a confirmar',
+  { rotulo:'Desert Off-Road', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau — saída pontual às 09h30', saida:'09h30 (~60 min de viagem até a Adrenaline Mountain)',
     veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Levar óculos de sol, tênis fechado e protetor solar.',
     carros:[
       { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
