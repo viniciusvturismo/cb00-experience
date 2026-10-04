@@ -229,47 +229,40 @@ const HOTEL = {
    (ex.: 'Van 1') quando houver mais de um veículo.                          */
 const TRANSPORTES = [
   { rotulo:'Transfer In', data:'Sex · 02 out', encontro:'Desembarque LAS — equipe com placa VTurismo', saida:'imediata após o desembarque',
-    veiculo:'Vans executivas / SUV', resp:'Equipe VTurismo · Meet & Greet', obs:'Apoio com bagagens incluído. Trajeto ~15 min até o hotel.',
-    carros:[
+    veiculo:'Vans executivas / SUV', resp:'Equipe VTurismo · Meet & Greet',     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Bolsão de vans executivas do desembarque LAS — a equipe conduz o grupo até o veículo', motorista:'a confirmar' },
       { apelido:'SUV', foto:'img/suv_suburban.jpg', modelo:'Chevrolet Suburban Executive', placa:'a confirmar',
         local:'Bolsão de vans executivas do desembarque LAS', motorista:'a confirmar' },
     ]},
   { rotulo:'Welcome Dinner', data:'Sex · 02 out', encontro:'Lobby do Fontainebleau · 18h00', saida:'18h00 — caminhada até o Venetian',
-    veiculo:'A pé (ida)', resp:'Coordenador VTurismo', obs:'Ida a pé, em grupo, até o Mercato della Pescheria (The Venetian) — reserva às 19h45. Combinamos o retorno ao hotel no final do jantar.',
-    carros:[] },
+    veiculo:'A pé (ida)', resp:'Coordenador VTurismo',     carros:[] },
   { rotulo:'Desert Off-Road', data:'Sáb · 03 out', encontro:'Lobby do Fontainebleau — saída pontual às 09h30', saida:'09h30 (~60 min de viagem até a Adrenaline Mountain)',
-    veiculo:'Van executiva', resp:'Coordenador VTurismo', obs:'Levar óculos de sol, tênis fechado e protetor solar.',
-    carros:[
+    veiculo:'Van executiva', resp:'Coordenador VTurismo',     carros:[
       { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
     ]},
   { rotulo:'Race Day Transfer — ida', data:'Dom · 04 out', encontro:'Lobby do Fontainebleau · 09h30', saida:'10h00 (pontual)',
-    veiculo:'Vans executivas', resp:'Equipe VTurismo (acompanhamento integral)', obs:'~30 min até o Speedway. Saída pontual — trânsito intenso em dia de corrida.',
-    carros:[
+    veiculo:'Vans executivas', resp:'Equipe VTurismo (acompanhamento integral)',     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
       { apelido:'Van 2', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
     ]},
   { rotulo:'Race Day Transfer — volta', data:'Dom · 04 out', encontro:'Ponto de encontro pós-corrida (ver área Race Day)', saida:'após a liberação do estacionamento',
-    veiculo:'Vans executivas', resp:'Equipe VTurismo', obs:'',
-    carros:[
+    veiculo:'Vans executivas', resp:'Equipe VTurismo',     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Estacionamento reservado do Speedway — a equipe informa o setor/vaga no dia', motorista:'a confirmar' },
       { apelido:'Van 2', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Estacionamento reservado do Speedway — a equipe informa o setor/vaga no dia', motorista:'a confirmar' },
     ]},
   { rotulo:'Michael Jackson ONE — Mandalay Bay', data:'Seg · 05 out', encontro:'Lobby do Fontainebleau · 17h15', saida:'17h30 (pontual) — espetáculo às 18h30',
-    veiculo:'Vans executivas', resp:'Equipe VTurismo', obs:'Manhã e tarde livres — transfers pontuais a pedido, pelo concierge. À noite, Cirque du Soleil no Mandalay Bay.',
-    carros:[
+    veiculo:'Vans executivas', resp:'Equipe VTurismo',     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
     ]},
   { rotulo:'Transfer Out', data:'Ter · 06 out', encontro:'Lobby do Fontainebleau · 09h15', saida:'09h30 — voo AA 1482 (12:45)',
-    veiculo:'Vans executivas / SUV', resp:'Equipe VTurismo', obs:'Apoio até o check-in da companhia aérea.',
-    carros:[
+    veiculo:'Vans executivas / SUV', resp:'Equipe VTurismo',     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
       { apelido:'SUV', foto:'img/suv_suburban.jpg', modelo:'Chevrolet Suburban Executive', placa:'a confirmar',
