@@ -137,10 +137,10 @@ const AGENDA = [
   ]},
   { data:'2026-10-04', rotulo:'Dom · 04 out', tema:'🏁 NASCAR Race Day', itens:[
     { hora:'09:30', titulo:'Ponto de encontro — lobby do Fontainebleau 📍', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Casual (boné e protetor solar recomendados)', obs:'Todos no lobby às 09h30, prontos para embarcar. A saída é pontual às 10h00.', dur:30, cal:'09:30' },
+      dress:'Casual (boné e protetor solar recomendados)', obs:'Todos no lobby às 09h30, prontos para embarcar. A saída é pontual às 10h00.', dur:30, cal:'09:30', semProx:true },
     { hora:'10:00', titulo:'Saída para o Autódromo 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual às 10h00. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:00' },
-    { hora:'—', titulo:'NASCAR South Point 400 — VIP Pass + Pre-Race + Arquibancada 🏁', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
+      dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual às 10h00. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:00', semProx:true },
+    { hora:'—', badge:'🏁', titulo:'NASCAR South Point 400 — VIP Pass + Pre-Race + Arquibancada 🏁', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
       dress:'Casual (boné e protetor solar recomendados)', obs:'Credenciamento VIP, Pre-Race Track Pass e ingresso de arquibancada Seção 2Q, em frente à linha de chegada — tudo já confirmado.<br><br><b>🎟 O que é o Pre-Race Track Pass:</b> vocês acompanham de perto todas as atividades no palco antes da largada — dá pra ficar na própria pista e assistir ao show pré-corrida, à apresentação dos pilotos e às homenagens e VIPs do dia. O passe também dá acesso ao Tapete Vermelho dos Pilotos, com chance de pegar autógrafos enquanto eles caminham pelo miolo da pista até o palco.', dur:0, cal:'', ordemHora:'10:30',
       midia:[
         { tipo:'foto', url:'https://www.lvms.com/images/dsc05613_1200x1000.jpg', legenda:'Pre-Race Track Pass — Las Vegas Motor Speedway' },

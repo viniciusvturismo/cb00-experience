@@ -342,7 +342,7 @@ function vHome(){
   let prox = null, proxDia = null;
   outer: for(const d of AGENDA){ for(const it of d.itens){
     const h = it.cal || it.ordemHora;
-    if(!h) continue;
+    if(!h || it.semProx) continue;
     if(new Date(`${d.data}T${h}:00${it.tz||'-07:00'}`) > agora){ prox = it; proxDia = d; break outer; }
   }}
 
@@ -374,7 +374,7 @@ function vHome(){
   ${prox ? `<div class="card destaque">
     <h3>Próxima atividade</h3>
     <div class="next-act">
-      <div class="na-h">${esc(prox.hora)}</div>
+      <div class="na-h">${esc(prox.badge||prox.hora)}</div>
       <div>
         <b style="font-size:13.5px">${esc(prox.titulo)}</b>
         <div class="mut small">${esc(proxDia.rotulo)} · 📍 ${esc(prox.local)}</div>
