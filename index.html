@@ -618,22 +618,20 @@ function vGuia(){
 /* ---- ESTOU PERDIDO: pega a localização e abre o WhatsApp do Vinicius com a mensagem pronta ---- */
 const SOS_WHATSAPP = '5521981155451';
 function perdidoAbrir(){
-  const nome = localStorage.getItem('sosNome');
-  if(nome){ perdidoEnviar(nome); return; }
+  const nome = localStorage.getItem('sosNome') || '';
   let o = document.getElementById('sosModal');
   if(!o){ o = document.createElement('div'); o.id='sosModal'; document.body.appendChild(o); }
   o.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px';
   o.innerHTML = `<div class="card" style="max-width:380px;width:100%">
     <h3 style="margin:0 0 6px">🆘 Quem é você?</h3>
-    <p class="small mut" style="margin:0 0 10px">Só na primeira vez — assim sabemos quem precisa de ajuda. Depois, o celular vai pedir acesso à localização: toque em <b>“Permitir”</b>.</p>
-    <select id="sosNomeSel">${PASSAGEIROS.map(p=>`<option>${esc(p.nome)}</option>`).join('')}</select>
+    <p class="small mut" style="margin:0 0 10px">Confira se o nome está certo — assim sabemos quem precisa de ajuda. Em seguida, se o celular pedir acesso à localização, toque em <b>“Permitir”</b>.</p>
+    <select id="sosNomeSel">${PASSAGEIROS.map(p=>`<option ${p.nome===nome?'selected':''}>${esc(p.nome)}</option>`).join('')}</select>
     <div style="height:12px"></div>
     <button class="btn btn-block" style="background:#d62828;color:#fff;font-weight:800" onclick="perdidoEnviar(document.getElementById('sosNomeSel').value,true)">Enviar minha localização</button>
     <div style="height:8px"></div>
     <button class="btn btn-line btn-block" onclick="document.getElementById('sosModal').remove()">Cancelar</button>
   </div>`;
 }
-function perdidoTrocar(){ localStorage.removeItem('sosNome'); perdidoAbrir(); }
 function perdidoEnviar(nome, salvar){
   if(salvar) localStorage.setItem('sosNome', nome);
   const m = document.getElementById('sosModal'); if(m) m.remove();
