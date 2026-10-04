@@ -350,6 +350,11 @@ const RACEDAY = {
     ['10h00','Saída para o Autódromo — Race Day Transfer (pontual)'],
     ['—','VIP Pass + Pre-Race Track Pass + arquibancada Seção 2Q, em frente à linha de chegada'],
   ],
+  mapas:[
+    { titulo:'Mapa geral do Speedway 🗺', img:'img/mapa_speedway.webp', desc:'Portões, estacionamentos, entradas, Fan Zone, arquibancadas e Suites. Credenciamento (Entry 3), Premium/VIP e Rideshare ficam indicados no mapa.' },
+    { titulo:'Draft Bar — nível Club 🍺', img:'img/mapa_draft_bar.webp', desc:'Siga até o Elevador 1, suba até o nível “C” (Club-Level) e vá até a porta azul “Draft Bar”. Mostre o ingresso ao segurança.' },
+  ],
+  fanAssistance:'Central de apoio ao fã do Speedway: ligue 702-632-8006 ou envie “LVMS” + sua mensagem por SMS para 69050.',
   preRacePass:'Com o Pre-Race Track Pass vocês acompanham de perto todas as atividades que acontecem no palco antes da largada da South Point 400. Dá pra ficar na própria pista de corrida e assistir ao show pré-corrida, à apresentação dos pilotos e às homenagens e VIPs do dia. O passe também dá acesso ao Tapete Vermelho dos Pilotos, com chance de pegar autógrafos enquanto eles caminham pelo miolo da pista até o palco.',
   comunicadoSpeedMax:'Bem-vindos ao Race Day. A SpeedMax preparou este dia para que vocês vivam de perto a energia da NASCAR em Las Vegas. Boa corrida! 🏁',
 };

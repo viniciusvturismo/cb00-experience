@@ -613,6 +613,18 @@ function vGuia(){
 }
 
 /* ============================ RACE DAY ============================ */
+/* ---- visualizador de mapas (tela cheia, toque alterna ampliação) ---- */
+function mapaAbrir(i){
+  const m = RACEDAY.mapas[i]; if(!m) return;
+  let o = document.getElementById('mapaViewer');
+  if(!o){ o = document.createElement('div'); o.id='mapaViewer'; document.body.appendChild(o); }
+  o.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;flex-direction:column';
+  o.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px 10px;color:#fff;font-weight:700"><span>${esc(m.titulo)}</span><button class="btn btn-line btn-sm" onclick="mapaFechar()">✕ Fechar</button></div>
+    <div id="mapaScroll" style="flex:1;overflow:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y pinch-zoom"><img id="mapaImg" src="${esc(m.img)}" onclick="mapaZoom()" style="width:100%;display:block;background:#fff;cursor:zoom-in"></div>
+    <div style="color:#bbb;font-size:12px;text-align:center;padding:8px 0 calc(env(safe-area-inset-bottom,0px) + 8px)">Toque na imagem para ampliar ou reduzir</div>`;
+}
+function mapaZoom(){ const im = document.getElementById('mapaImg'); const g = im.style.width!=='100%'; im.style.width = g ? '100%' : '260%'; im.style.cursor = g ? 'zoom-in' : 'zoom-out'; }
+function mapaFechar(){ const o = document.getElementById('mapaViewer'); if(o) o.remove(); }
 function vRaceday(){
   const r = RACEDAY, L = RACE_LIVE;
   return `<div class="ps">
@@ -625,6 +637,7 @@ function vRaceday(){
     <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn btn-green btn-sm" target="_blank" rel="noopener" href="${mapsUrl(r.local+', '+r.endereco)}">🗺 Como chegar</a>
       <button class="btn btn-line btn-sm" onclick="go('transportes')">🚐 Race Day Transfers</button>
+      <button class="btn btn-line btn-sm" onclick="document.getElementById('mapasEvento')?.scrollIntoView({behavior:'smooth'})">🗺 Mapas do evento</button>
     </div>
   </div>
 
@@ -661,6 +674,15 @@ function vRaceday(){
   <div class="card rd-prog">
     ${r.programacao.map(([h,t])=>`<div><b>${esc(h)}</b><span>${esc(t)}</span></div>`).join('')}
   </div>
+
+  ${(r.mapas||[]).length ? `<div class="sec-tit" id="mapasEvento">🗺 Mapas do evento</div>
+  <p class="sec-sub">Toque no mapa para ampliar.</p>
+  ${r.mapas.map((m,i)=>`<div class="card" style="padding:12px">
+    <h3 style="margin:0 0 8px">${esc(m.titulo)}</h3>
+    <img src="${esc(m.img)}" alt="${esc(m.titulo)}" onclick="mapaAbrir(${i})" style="width:100%;border-radius:10px;display:block;cursor:zoom-in;background:#fff">
+    <p class="small mut" style="margin:8px 0 0">${esc(m.desc||'')}</p>
+  </div>`).join('')}
+  ${r.fanAssistance ? `<div class="card" style="border-color:var(--green-d)"><p class="small" style="margin:0">📞 ${esc(r.fanAssistance)}</p></div>`:''}` : ''}
 
   ${r.preRacePass ? `<div class="card" style="border-color:var(--green-d)">
     <h3 style="color:var(--green)">🎟 O que é o Pre-Race Track Pass</h3>
