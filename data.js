@@ -150,8 +150,8 @@ const AGENDA = [
   { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Manhã livre & Michael Jackson ONE', itens:[
     { hora:'—', titulo:'Manhã livre ☀️', local:'Las Vegas, NV', endereco:'',
       dress:'Casual', obs:'Sem programação fixa — aproveite a manhã para descansar, conhecer a Strip ou fazer compras. Passeio opcional ao Outlet sob consulta com o concierge.', dur:0, cal:'', ordemHora:'10:00' },
-    { hora:'17:30', titulo:'Saída para o Michael Jackson ONE 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Esporte fino', obs:'Encontro no lobby às 17h15, saída pontual às 17h30 rumo ao Mandalay Bay.', dur:30, cal:'17:30', semProx:true },
+    { hora:'17:00', titulo:'Saída para o Michael Jackson ONE 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
+      dress:'Esporte fino', obs:'Encontro no lobby às 16h45, saída pontual às 17h00 rumo ao Mandalay Bay.', dur:30, cal:'17:00', semProx:true },
     { hora:'18:30', titulo:'Michael Jackson ONE · Cirque du Soleil 🎭', local:'Michael Jackson ONE Theatre — Mandalay Bay', endereco:'3950 Las Vegas Blvd S, Las Vegas, NV 89119',
       dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay.', dur:100, cal:'18:30',
       midia:[
@@ -256,7 +256,7 @@ const TRANSPORTES = [
       { apelido:'Van 2', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Estacionamento reservado do Speedway — a equipe informa o setor/vaga no dia', motorista:'a confirmar' },
     ]},
-  { rotulo:'Michael Jackson ONE — Mandalay Bay', data:'Seg · 05 out', encontro:'Lobby do Fontainebleau · 17h15', saida:'17h30 (pontual) — espetáculo às 18h30',
+  { rotulo:'Michael Jackson ONE — Mandalay Bay', data:'Seg · 05 out', encontro:'Lobby do Fontainebleau · 16h45', saida:'17h00 (pontual) — espetáculo às 18h30',
     veiculo:'Vans executivas', resp:'Equipe VTurismo',     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
