@@ -65,8 +65,11 @@ const COMUNICADOS = [
   { data:'2026-10-01', hora:'10:00', titulo:'Documentos em mãos',
     texto:'Lembre-se de viajar com <b>passaporte</b> (validade mínima de 6 meses) e <b>visto americano</b> válidos. Recomendamos foto dos documentos no celular e uma cópia na bagagem de mão.',
     urgente:false },
-  { data:'2026-10-02', hora:'15:00', titulo:'Welcome Dinner — hoje à noite',
-    texto:'Hoje, reserva às 19h45 — Mercato della Pescheria, no The Venetian (3355 Las Vegas Blvd S). Dress code: <b>casual</b> — evite bermuda e camiseta sem manga; calçado confortável, pois vamos a pé. Ponto de encontro: <b>lobby do Fontainebleau às 18h00</b>, para seguirmos juntos a pé até o Venetian.',
+  { data:'2026-10-02', hora:'15:00', titulo:'Welcome Dinner — 02/10',
+    texto:'Dia 02/10, reserva às 19h45 — Mercato della Pescheria, no The Venetian (3355 Las Vegas Blvd S). Dress code: <b>casual</b> — evite bermuda e camiseta sem manga; calçado confortável, pois vamos a pé. Ponto de encontro: <b>lobby do Fontainebleau às 18h00</b>, para seguirmos juntos a pé até o Venetian.',
+    urgente:false },
+  { data:'2026-10-03', hora:'20:00', titulo:'Race Day — amanhã, domingo 04/10 🏁',
+    texto:'📍 Ponto de encontro: <b>09h30, no lobby do Fontainebleau</b>.<br>🚐 Saída para o Autódromo: <b>10h00, pontual</b>.<br><br>VIP Pass, Pre-Race Track Pass e arquibancada (Seção 2Q, linha de chegada) já estão confirmados. Máximo de 2 bolsas por pessoa (até 45 x 45 x 35 cm). O Speedway <b>não aceita dinheiro</b>: só cartão, Apple Pay ou Google Pay. Veja os mapas e as regras na aba Race Day.',
     urgente:true },
 ];
 
