@@ -137,17 +137,6 @@ const AGENDA = [
       dress:'Casual (boné e protetor solar recomendados)', obs:'Todos no lobby às 09h30, prontos para embarcar. A saída é pontual às 10h00.', dur:30, cal:'09:30' },
     { hora:'10:00', titulo:'Saída para o Autódromo 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual às 10h00. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:00' },
-    { hora:'11:00', titulo:'NASCAR Race Day — South Point 400 🏁', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Playoffs da NASCAR Cup Series · ingresso de arquibancada Seção 2Q, em frente à linha de chegada, com Pre-Race Track Pass incluído · horário oficial da largada a confirmar pela NASCAR. Veja a área Race Day do app.<br><br><b>🎟 O que é o Pre-Race Track Pass:</b> vocês acompanham de perto todas as atividades no palco antes da largada — dá pra ficar na própria pista e assistir ao show pré-corrida, à apresentação dos pilotos e às homenagens e VIPs do dia. O passe também dá acesso ao Tapete Vermelho dos Pilotos, com chance de pegar autógrafos enquanto eles caminham pelo miolo da pista até o palco.', dur:420, cal:'11:00',
-      midia:[
-        { tipo:'foto', url:'https://www.lvms.com/images/dsc05613_1200x1000.jpg', legenda:'Pre-Race Track Pass — Las Vegas Motor Speedway' },
-        { tipo:'video', id:'DQZ0IKKE2Y8', legenda:'South Point 400 — NASCAR em Las Vegas' },
-      ] },
-    { hora:'12:00', titulo:'Pausa para o almoço 🍽', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Aproveite a praça de alimentação dentro do Speedway — várias opções à sua escolha (almoço não incluído).', dur:90, cal:'12:00' },
-    { hora:'noite', titulo:'Noite livre 🌆', local:'Las Vegas, NV', endereco:'',
-      dress:'Casual', obs:'Sem programação fixa após a corrida — aproveite a Strip ou reserve algo com o concierge.', dur:0, cal:'', ordemHora:'19:00',
-      sugestao:'Depois de um dia de corrida, vale relaxar: Fremont Street Experience, com o telão de LED gigante da Vegas antiga, ou uma volta no High Roller, a roda-gigante de 167 m com vista da Strip. O concierge organiza o transfer e reserva o horário pra você.' },
   ]},
   { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Outlet (opcional) & Michael Jackson ONE', itens:[
     { hora:'10:00', titulo:'Passeio opcional — Outlet 🛍', local:'Premium Outlets Las Vegas', endereco:'Las Vegas, NV',
@@ -353,9 +342,6 @@ const RACEDAY = {
   programacao:[
     ['09h30','Ponto de encontro no lobby do Fontainebleau'],
     ['10h00','Saída para o Autódromo — Race Day Transfer (pontual)'],
-    ['11h00','Ingresso de arquibancada — Seção 2Q, em frente à linha de chegada'],
-    ['pós-corrida','Ponto de encontro: local a confirmar — a equipe VTurismo conduz o grupo às vans'],
-    ['noite','Noite livre — sem programação fixa após a corrida'],
   ],
   preRacePass:'Com o Pre-Race Track Pass vocês acompanham de perto todas as atividades que acontecem no palco antes da largada da South Point 400. Dá pra ficar na própria pista de corrida e assistir ao show pré-corrida, à apresentação dos pilotos e às homenagens e VIPs do dia. O passe também dá acesso ao Tapete Vermelho dos Pilotos, com chance de pegar autógrafos enquanto eles caminham pelo miolo da pista até o palco.',
   comunicadoSpeedMax:'Bem-vindos ao Race Day. A SpeedMax preparou este dia para que vocês vivam de perto a energia da NASCAR em Las Vegas. Boa corrida! 🏁',
