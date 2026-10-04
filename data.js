@@ -158,6 +158,8 @@ const AGENDA = [
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczN8ImwEaCYVqhILm-NIEZUs-zvYgkwaIoiYTYTqrPSNJhYKtxcy0Mu8uidKMtqysPlHXHFkLUTAfx-R_9smXmEYoJeo-oQ16R-reYPLeMZX7l-08wM=w1200', legenda:'Michael Jackson ONE — Cirque du Soleil' },
         { tipo:'video', id:'6kLqvDj8wx4', legenda:'Michael Jackson ONE — trailer oficial' },
       ] },
+    { hora:'noite', titulo:'Noite livre — última noite em Las Vegas 🌃', local:'Las Vegas, NV', endereco:'',
+      dress:'Casual', obs:'Sem programação fixa após o show — aproveitem a última noite na cidade! A Strip, os cassinos e as Fountains of Bellagio ficam a poucos minutos. Para jantar, transfer ou reserva, é só chamar o concierge.', dur:0, cal:'', ordemHora:'22:00' },
   ]},
   { data:'2026-10-06', rotulo:'Ter · 06 out', tema:'Partida', itens:[
     { hora:'09:00', titulo:'Check-out 🧳', local:'Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
