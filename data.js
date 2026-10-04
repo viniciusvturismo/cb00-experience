@@ -68,8 +68,8 @@ const COMUNICADOS = [
   { data:'2026-10-02', hora:'15:00', titulo:'Welcome Dinner — 02/10',
     texto:'Dia 02/10, reserva às 19h45 — Mercato della Pescheria, no The Venetian (3355 Las Vegas Blvd S). Dress code: <b>casual</b> — evite bermuda e camiseta sem manga; calçado confortável, pois vamos a pé. Ponto de encontro: <b>lobby do Fontainebleau às 18h00</b>, para seguirmos juntos a pé até o Venetian.',
     urgente:false },
-  { data:'2026-10-03', hora:'20:00', titulo:'Race Day — amanhã, domingo 04/10 🏁',
-    texto:'📍 Ponto de encontro: <b>09h30, no lobby do Fontainebleau</b>.<br>🚐 Saída para o Autódromo: <b>10h00, pontual</b>.<br><br>VIP Pass, Pre-Race Track Pass e arquibancada (Seção 2Q, linha de chegada) já estão confirmados. Máximo de 2 bolsas por pessoa (até 45 x 45 x 35 cm). O Speedway <b>não aceita dinheiro</b>: só cartão, Apple Pay ou Google Pay. Veja os mapas e as regras na aba Race Day.',
+  { data:'2026-10-03', hora:'20:00', titulo:'Race Day — hoje, domingo 04/10 🏁',
+    texto:'📍 Ponto de encontro: <b>10h00, no lobby do Fontainebleau</b>.<br>🚐 Saída para o Autódromo: <b>10h30, pontual</b>.<br><br>VIP Pass, Pre-Race Track Pass e arquibancada (Seção 2Q, linha de chegada) já estão confirmados. Máximo de 2 bolsas por pessoa (até 45 x 45 x 35 cm). O Speedway <b>não aceita dinheiro</b>: só cartão, Apple Pay ou Google Pay. Veja os mapas e as regras na aba Race Day.',
     urgente:true },
 ];
 
@@ -136,10 +136,10 @@ const AGENDA = [
       sugestao:'Aproveite para conhecer os cassinos icônicos da Strip e ver de perto o espetáculo das Fountains of Bellagio, a poucos minutos do hotel. Se quiser elevar a noite — um jantar especial, acesso vip a algum cassino ou balada — é só chamar o concierge.' },
   ]},
   { data:'2026-10-04', rotulo:'Dom · 04 out', tema:'🏁 NASCAR Race Day', itens:[
-    { hora:'09:30', titulo:'Ponto de encontro — lobby do Fontainebleau 📍', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Casual (boné e protetor solar recomendados)', obs:'Todos no lobby às 09h30, prontos para embarcar. A saída é pontual às 10h00.', dur:30, cal:'09:30', semProx:true },
-    { hora:'10:00', titulo:'Saída para o Autódromo 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual às 10h00. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:00', semProx:true },
+    { hora:'10:00', titulo:'Ponto de encontro — lobby do Fontainebleau 📍', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
+      dress:'Casual (boné e protetor solar recomendados)', obs:'Todos no lobby às 10h00, prontos para embarcar. A saída é pontual às 10h30.', dur:30, cal:'10:00', semProx:true },
+    { hora:'10:30', titulo:'Saída para o Autódromo 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
+      dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual às 10h30. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:30', semProx:true },
     { hora:'—', badge:'🏁', titulo:'NASCAR South Point 400 — VIP Pass + Pre-Race + Arquibancada 🏁', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
       dress:'Casual (boné e protetor solar recomendados)', obs:'Credenciamento VIP, Pre-Race Track Pass e ingresso de arquibancada Seção 2Q, em frente à linha de chegada — tudo já confirmado.<br><br><b>🎟 O que é o Pre-Race Track Pass:</b> vocês acompanham de perto todas as atividades no palco antes da largada — dá pra ficar na própria pista e assistir ao show pré-corrida, à apresentação dos pilotos e às homenagens e VIPs do dia. O passe também dá acesso ao Tapete Vermelho dos Pilotos, com chance de pegar autógrafos enquanto eles caminham pelo miolo da pista até o palco.', dur:0, cal:'', ordemHora:'10:30',
       midia:[
@@ -244,7 +244,7 @@ const TRANSPORTES = [
       { foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet) — em frente ao lobby', motorista:'a confirmar' },
     ]},
-  { rotulo:'Race Day Transfer — ida', data:'Dom · 04 out', encontro:'Lobby do Fontainebleau · 09h30', saida:'10h00 (pontual)',
+  { rotulo:'Race Day Transfer — ida', data:'Dom · 04 out', encontro:'Lobby do Fontainebleau · 10h00', saida:'10h30 (pontual)',
     veiculo:'Vans executivas', resp:'Equipe VTurismo (acompanhamento integral)',     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
@@ -346,8 +346,8 @@ const RACEDAY = {
     ['10','Chris Buescher','#17 Ford','653 pts'],
   ],
   programacao:[
-    ['09h30','Ponto de encontro no lobby do Fontainebleau'],
-    ['10h00','Saída para o Autódromo — Race Day Transfer (pontual)'],
+    ['10h00','Ponto de encontro no lobby do Fontainebleau'],
+    ['10h30','Saída para o Autódromo — Race Day Transfer (pontual)'],
     ['—','VIP Pass + Pre-Race Track Pass + arquibancada Seção 2Q, em frente à linha de chegada'],
   ],
   mapas:[
