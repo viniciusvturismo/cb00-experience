@@ -254,7 +254,7 @@ const TRANSPORTES = [
         local:'Pórtico VIP do Fontainebleau (valet)', motorista:'a confirmar' },
     ]},
   { rotulo:'Race Day Transfer — volta', data:'Dom · 04 out', encontro:'Ponto de encontro pós-corrida (ver área Race Day)', saida:'após a liberação do estacionamento',
-    veiculo:'Vans executivas', resp:'Equipe VTurismo', obs:'Sequência: Speedway → jantar → bar selecionado → hotel.',
+    veiculo:'Vans executivas', resp:'Equipe VTurismo', obs:'',
     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Estacionamento reservado do Speedway — a equipe informa o setor/vaga no dia', motorista:'a confirmar' },
