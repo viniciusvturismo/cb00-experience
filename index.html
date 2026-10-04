@@ -349,6 +349,7 @@ function vHome(){
   return `
   <div class="hero-banner"><img src="hero_speedmax.jpg" alt="SpeedMax Pneus — Evento Las Vegas · NASCAR Weekend 2026"></div>
   <div class="hero-meta">${CONFIG.subtitulo} · <b>${CONFIG.cidade}</b> · ${CONFIG.periodo}</div>
+  <button class="btn btn-block" style="margin:12px 0;background:#d62828;color:#fff;font-size:18px;font-weight:800;padding:16px;letter-spacing:.5px;box-shadow:0 0 0 3px rgba(214,40,40,.35)" onclick="perdidoAbrir()">🆘 ESTOU PERDIDO</button>
   ${RECADO_ESPECIAL?.ativo ? `<button class="btn btn-gold btn-block" style="margin:12px 0" onclick="recadoAbrir()">🎙️ Recado especial pra vocês!</button>` : ''}
   ${countHtml}
   ${curio ? `<div class="banner-curio" id="curioBox">
@@ -613,6 +614,40 @@ function vGuia(){
 }
 
 /* ============================ RACE DAY ============================ */
+/* ---- ESTOU PERDIDO: pega a localização e abre o WhatsApp do Vinicius com a mensagem pronta ---- */
+const SOS_WHATSAPP = '5521981155451';
+function perdidoAbrir(){
+  const nome = localStorage.getItem('sosNome');
+  if(nome){ perdidoEnviar(nome); return; }
+  let o = document.getElementById('sosModal');
+  if(!o){ o = document.createElement('div'); o.id='sosModal'; document.body.appendChild(o); }
+  o.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px';
+  o.innerHTML = `<div class="card" style="max-width:380px;width:100%">
+    <h3 style="margin:0 0 6px">🆘 Quem é você?</h3>
+    <p class="small mut" style="margin:0 0 10px">Só na primeira vez — assim sabemos quem precisa de ajuda.</p>
+    <select id="sosNomeSel">${PASSAGEIROS.map(p=>`<option>${esc(p.nome)}</option>`).join('')}</select>
+    <div style="height:12px"></div>
+    <button class="btn btn-block" style="background:#d62828;color:#fff;font-weight:800" onclick="perdidoEnviar(document.getElementById('sosNomeSel').value,true)">Enviar minha localização</button>
+    <div style="height:8px"></div>
+    <button class="btn btn-line btn-block" onclick="document.getElementById('sosModal').remove()">Cancelar</button>
+  </div>`;
+}
+function perdidoTrocar(){ localStorage.removeItem('sosNome'); perdidoAbrir(); }
+function perdidoEnviar(nome, salvar){
+  if(salvar) localStorage.setItem('sosNome', nome);
+  const m = document.getElementById('sosModal'); if(m) m.remove();
+  const abrir = (loc)=>{
+    const hora = new Date().toLocaleTimeString('pt-BR',{ hour:'2-digit', minute:'2-digit', timeZone:'America/Los_Angeles' });
+    const msg = `🆘 ESTOU PERDIDO!\n👤 ${nome}\n🕐 ${hora} (Las Vegas)\n` +
+      (loc ? `📍 Minha localização agora:\nhttps://www.google.com/maps?q=${loc.latitude.toFixed(6)},${loc.longitude.toFixed(6)}\n(precisão ~${Math.round(loc.accuracy)} m)` : `📍 Não consegui obter minha localização — me liguem, por favor.`);
+    location.href = `https://wa.me/${SOS_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  };
+  if(!navigator.geolocation){ abrir(null); return; }
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;left:16px;right:16px;bottom:90px;z-index:9999;background:#222;color:#fff;padding:12px;border-radius:10px;text-align:center';
+  t.textContent = '📡 Obtendo sua localização…'; document.body.appendChild(t);
+  navigator.geolocation.getCurrentPosition(p=>{ t.remove(); abrir(p.coords); }, ()=>{ t.remove(); abrir(null); }, { enableHighAccuracy:true, timeout:12000, maximumAge:0 });
+}
 /* ---- visualizador de mapas (tela cheia, toque alterna ampliação) ---- */
 function mapaAbrir(i){
   const m = RACEDAY.mapas[i]; if(!m) return;
@@ -640,6 +675,8 @@ function vRaceday(){
       <button class="btn btn-line btn-sm" onclick="document.getElementById('mapasEvento')?.scrollIntoView({behavior:'smooth'})">🗺 Mapas do evento</button>
     </div>
   </div>
+
+  <button class="btn btn-block" style="margin:12px 0;background:#d62828;color:#fff;font-size:18px;font-weight:800;padding:16px;letter-spacing:.5px;box-shadow:0 0 0 3px rgba(214,40,40,.35)" onclick="perdidoAbrir()">🆘 ESTOU PERDIDO</button>
 
   <div class="card" style="border-color:var(--green-d)">
     <h3 style="color:var(--green)">📣 Mensagem SpeedMax</h3>
