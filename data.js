@@ -137,8 +137,6 @@ const AGENDA = [
       dress:'Casual (boné e protetor solar recomendados)', obs:'Todos no lobby às 09h30, prontos para embarcar. A saída é pontual às 10h00.', dur:30, cal:'09:30' },
     { hora:'10:00', titulo:'Saída para o Autódromo 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
       dress:'Casual (boné e protetor solar recomendados)', obs:'Race Day Transfer — saída pontual às 10h00. Trajeto ~30 min até o Las Vegas Motor Speedway.', dur:60, cal:'10:00' },
-    { hora:'10:30', titulo:'Credenciamento VIP 🎟', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
-      dress:'Casual', obs:'Chegada ao Speedway e credenciamento VIP. Pre-Race Pass e ingressos de arquibancada já estão confirmados.', dur:30, cal:'10:30' },
     { hora:'11:00', titulo:'NASCAR Race Day — South Point 400 🏁', local:'Las Vegas Motor Speedway', endereco:'7000 Las Vegas Blvd N, Las Vegas, NV 89115',
       dress:'Casual', obs:'Playoffs da NASCAR Cup Series · ingresso de arquibancada Seção 2Q, em frente à linha de chegada, com Pre-Race Track Pass incluído · horário oficial da largada a confirmar pela NASCAR. Veja a área Race Day do app.<br><br><b>🎟 O que é o Pre-Race Track Pass:</b> vocês acompanham de perto todas as atividades no palco antes da largada — dá pra ficar na própria pista e assistir ao show pré-corrida, à apresentação dos pilotos e às homenagens e VIPs do dia. O passe também dá acesso ao Tapete Vermelho dos Pilotos, com chance de pegar autógrafos enquanto eles caminham pelo miolo da pista até o palco.', dur:420, cal:'11:00',
       midia:[
@@ -355,7 +353,6 @@ const RACEDAY = {
   programacao:[
     ['09h30','Ponto de encontro no lobby do Fontainebleau'],
     ['10h00','Saída para o Autódromo — Race Day Transfer (pontual)'],
-    ['10h30','Credenciamento VIP'],
     ['11h00','Ingresso de arquibancada — Seção 2Q, em frente à linha de chegada'],
     ['pós-corrida','Ponto de encontro: local a confirmar — a equipe VTurismo conduz o grupo às vans'],
     ['noite','Noite livre — sem programação fixa após a corrida'],
