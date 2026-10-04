@@ -150,10 +150,10 @@ const AGENDA = [
   { data:'2026-10-05', rotulo:'Seg · 05 out', tema:'Manhã livre & Michael Jackson ONE', itens:[
     { hora:'—', titulo:'Manhã livre ☀️', local:'Las Vegas, NV', endereco:'',
       dress:'Casual', obs:'Sem programação fixa — aproveite a manhã para descansar, conhecer a Strip ou fazer compras. Passeio opcional ao Outlet sob consulta com o concierge.', dur:0, cal:'', ordemHora:'10:00' },
-    { hora:'20:30', titulo:'Saída para o Michael Jackson ONE 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
-      dress:'Esporte fino', obs:'Encontro no lobby às 20h15, saída pontual às 20h30 rumo ao Mandalay Bay.', dur:30, cal:'20:30', semProx:true },
-    { hora:'21:30', titulo:'Michael Jackson ONE · Cirque du Soleil 🎭', local:'Michael Jackson ONE Theatre — Mandalay Bay', endereco:'3950 Las Vegas Blvd S, Las Vegas, NV 89119',
-      dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay.', dur:100, cal:'21:30',
+    { hora:'17:30', titulo:'Saída para o Michael Jackson ONE 🚐', local:'Lobby — Fontainebleau Las Vegas', endereco:'2777 Las Vegas Blvd S, Las Vegas, NV 89109',
+      dress:'Esporte fino', obs:'Encontro no lobby às 17h15, saída pontual às 17h30 rumo ao Mandalay Bay.', dur:30, cal:'17:30', semProx:true },
+    { hora:'18:30', titulo:'Michael Jackson ONE · Cirque du Soleil 🎭', local:'Michael Jackson ONE Theatre — Mandalay Bay', endereco:'3950 Las Vegas Blvd S, Las Vegas, NV 89119',
+      dress:'Esporte fino', obs:'Espetáculo do Cirque du Soleil em homenagem a Michael Jackson, no Mandalay Bay.', dur:100, cal:'18:30',
       midia:[
         { tipo:'foto', url:'https://lh3.googleusercontent.com/pw/AP1GczN8ImwEaCYVqhILm-NIEZUs-zvYgkwaIoiYTYTqrPSNJhYKtxcy0Mu8uidKMtqysPlHXHFkLUTAfx-R_9smXmEYoJeo-oQ16R-reYPLeMZX7l-08wM=w1200', legenda:'Michael Jackson ONE — Cirque du Soleil' },
         { tipo:'video', id:'6kLqvDj8wx4', legenda:'Michael Jackson ONE — trailer oficial' },
@@ -261,7 +261,7 @@ const TRANSPORTES = [
       { apelido:'Van 2', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
         local:'Estacionamento reservado do Speedway — a equipe informa o setor/vaga no dia', motorista:'a confirmar' },
     ]},
-  { rotulo:'Michael Jackson ONE — Mandalay Bay', data:'Seg · 05 out', encontro:'Lobby do Fontainebleau · 20h15', saida:'20h30 (pontual) — espetáculo às 21h30',
+  { rotulo:'Michael Jackson ONE — Mandalay Bay', data:'Seg · 05 out', encontro:'Lobby do Fontainebleau · 17h15', saida:'17h30 (pontual) — espetáculo às 18h30',
     veiculo:'Vans executivas', resp:'Equipe VTurismo', obs:'Manhã e tarde livres — transfers pontuais a pedido, pelo concierge. À noite, Cirque du Soleil no Mandalay Bay.',
     carros:[
       { apelido:'Van 1', foto:'img/van_sprinter.jpg', modelo:'Mercedes-Benz Sprinter Executive', placa:'a confirmar',
